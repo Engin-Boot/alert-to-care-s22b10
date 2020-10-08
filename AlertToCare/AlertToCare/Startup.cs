@@ -23,6 +23,7 @@ namespace AlertToCare
             services.AddControllers();
             //Once instance of type PatientMemoryDBRepository created - Any number of Resolve request
             services.AddSingleton<Repository.IPatientDataRepository, Repository.PatientDataRepository>();
+            services.AddSingleton<Repository.IIcuLayoutManagement, Repository.LayoutAndWardInfoIcu>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
