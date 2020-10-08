@@ -1,6 +1,6 @@
 ﻿namespace AlertToCare.Utility
 {
-    public static class DBConfig
+    public static class DbConfig
     {
         public static string HostName = "localhost";
         public static string UserName = "postgres";

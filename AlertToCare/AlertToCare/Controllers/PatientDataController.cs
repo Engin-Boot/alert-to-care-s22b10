@@ -6,7 +6,7 @@ using ControllerBase = Microsoft.AspNetCore.Mvc.ControllerBase;
 
 namespace AlertToCare.Controllers
 {
-    [Microsoft.AspNetCore.Mvc.Route("[controller]")]
+    [Route("[controller]")]
     [ApiController]
 
     public class PatientDataController : ControllerBase
@@ -18,10 +18,10 @@ namespace AlertToCare.Controllers
         }
 
 
-        [Microsoft.AspNetCore.Mvc.HttpPost("PatientInfo")]
-        public IActionResult  InsertPatient([System.Web.Http.FromBody] PatientDataModel patient)
+        [HttpPost("PatientInfo")]
+        public IActionResult  InsertPatient([FromBody] PatientDataModel patient)
         {
-            string[] patientResponse = null;
+            string[] patientResponse;
             if (!PatientValidator.ValidatePatient(patient))
                 return BadRequest();
             try
