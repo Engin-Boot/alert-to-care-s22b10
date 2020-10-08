@@ -17,10 +17,12 @@ namespace AlertToCare.Repository
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = con;
-                    cmd.CommandText = "insert into patient_info(patient_name, email, address, mobile) values(@patientName, @email, @address, @mobile)";
+                    cmd.CommandText =
+                        "insert into patient_info(patient_name, email, address, mobile) values(@patientName, @email, @address, @mobile)";
                     var command = FormQuery(cmd, patient);
                     command.ExecuteNonQuery();
                 }
+
                 // Fetching Patient Info from database
                 using (var cmd = new NpgsqlCommand())
                 {
@@ -31,20 +33,12 @@ namespace AlertToCare.Repository
                     NpgsqlDataReader dr = command.ExecuteReader();
 
                     // Output rows
-                    while (dr.Read())
-                    {
-                        var patientRecord = new string[dr.FieldCount];
-                        for (int i = 0; i < dr.FieldCount; i++)
-                        {
-                            patientRecord[i] = dr[i].ToString();
-                        }
+                    var patientRecord = NpgsqlDataReaderToStringArrayConvertor(dr);
+                    return patientRecord;
 
-                        return patientRecord;
-
-                    }
                 }
             }
-        
+
             catch (Exception)
             {
                 throw new Exception("DB connectivity error");
@@ -54,7 +48,6 @@ namespace AlertToCare.Repository
                 DbConnection.CloseConnection(con);
             }
 
-            return null;
         }
 
         private NpgsqlCommand FormQuery(NpgsqlCommand cmd, PatientDataModel patient)
@@ -65,6 +58,22 @@ namespace AlertToCare.Repository
             cmd.Parameters.AddWithValue("address", patient.Address);
             cmd.Parameters.AddWithValue("mobile", patient.Mobile);
             return cmd;
+        }
+
+        public static string[] NpgsqlDataReaderToStringArrayConvertor(NpgsqlDataReader dr)
+        {
+            while (dr.Read())
+            {
+                var patientRecord = new string[dr.FieldCount];
+                for (int i = 0; i < dr.FieldCount; i++)
+                {
+                    patientRecord[i] = dr[i].ToString();
+                }
+
+                return patientRecord;
+            }
+
+            return null;
         }
     }
 }
