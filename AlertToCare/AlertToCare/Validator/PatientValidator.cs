@@ -2,11 +2,12 @@
 
 namespace AlertToCare.Validator
 {
-    public class PatientValidator
+    public static class PatientValidator
     {
         internal static bool ValidatePatient(PatientDataModel patient)
         {
-            if (patient.patientName != null && patient.email != null && patient.mobile != 0)
+            if (patient.PatientName != null && patient.Email != null && patient.Mobile != null &&
+                patient.Mobile.Length == 10)
                 return true;
             return false;
         }

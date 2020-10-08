@@ -7,9 +7,9 @@ namespace AlertToCare.Repository
     {
         public static NpgsqlConnection GetConnection()
         {
-            var hostName = DBConfig.hostName;
-            var userName = DBConfig.userName;
-            var dbName = DBConfig.dbName;
+            var hostName = DBConfig.HostName;
+            var userName = DBConfig.UserName;
+            var dbName = DBConfig.DbName;
             var cs = "Host=" + hostName + ";Username=" +userName + 
                 ";Database="+ dbName + ";";
             var con = new NpgsqlConnection(cs);

@@ -3,10 +3,10 @@ namespace AlertToCare.Models
 {
     public class PatientDataModel
     {
-        public string patientId { get; set; }
-        public string patientName { get; set; }
-        public string email { get; set; }
-        public int mobile { get; set; }
-        public string address { get; set; }
+        public string PatientId { get; set; }
+        public string PatientName { get; set; }
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public string Address { get; set; }
     }
 }

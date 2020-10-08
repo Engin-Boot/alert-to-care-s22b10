@@ -11,7 +11,7 @@ namespace AlertToCare.Controllers
 
     public class PatientDataController : ControllerBase
     {
-        Repository.IPatientDataRepository _patientDataRepository;
+        readonly Repository.IPatientDataRepository _patientDataRepository;
         public PatientDataController(Repository.IPatientDataRepository repo)
         {
             this._patientDataRepository = repo;
