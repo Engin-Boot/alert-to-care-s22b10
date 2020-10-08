@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace AlertToCare.Utility
+﻿namespace AlertToCare.Utility
 {
-    public static class DBConfig
+    public static class DbConfig
     {
-        public static string hostName = "localhost";
-        public static string userName = "postgres";
-        public static string dbName = "alerttocare";
+        public static string HostName = "localhost";
+        public static string UserName = "postgres";
+        public static string DbName = "alerttocare";
     }
 }

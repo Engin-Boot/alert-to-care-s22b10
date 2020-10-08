@@ -1,5 +1,5 @@
-﻿using AlertToCare.Utility;
-using Npgsql;
+﻿using Npgsql;
+using static AlertToCare.Utility.DbConfig;
 
 namespace AlertToCare.Repository
 {
@@ -7,9 +7,9 @@ namespace AlertToCare.Repository
     {
         public static NpgsqlConnection GetConnection()
         {
-            var hostName = DBConfig.hostName;
-            var userName = DBConfig.userName;
-            var dbName = DBConfig.dbName;
+            var hostName = HostName;
+            var userName = UserName;
+            var dbName = DbName;
             var cs = "Host=" + hostName + ";Username=" +userName + 
                 ";Database="+ dbName + ";";
             var con = new NpgsqlConnection(cs);
