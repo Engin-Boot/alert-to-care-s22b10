@@ -60,7 +60,7 @@ namespace AlertToCare.Repository
             return cmd;
         }
 
-        public static string[] NpgsqlDataReaderToStringArrayConvertor(NpgsqlDataReader dr)
+        private static string[] NpgsqlDataReaderToStringArrayConvertor(NpgsqlDataReader dr)
         {
             while (dr.Read())
             {

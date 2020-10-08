@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AlertToCare.Models;
+﻿using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlertToCare.Controllers
@@ -15,19 +11,16 @@ namespace AlertToCare.Controllers
 
         public IcuLayoutController(Repository.IIcuLayoutManagement icuLayout)
         {
-            this._icuLayoutManagement = icuLayout;
+            _icuLayoutManagement = icuLayout;
         }
 
         [HttpPost("IcuWardInfo")]
         public IActionResult InsertIcuWardInfo([FromBody] IcuWardLayoutModel objLayoutModel)
         {
             bool isWardInfoStored = _icuLayoutManagement.GetLayoutInformation(objLayoutModel);
-            if (isWardInfoStored == true)
+            if (isWardInfoStored)
                 return Ok(200);
-            else
-            {
-                return StatusCode(500);
-            }
+            return StatusCode(500);
         }
     }
 }

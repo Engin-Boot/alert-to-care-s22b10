@@ -23,20 +23,16 @@ namespace AlertToCare.Controllers
         {
             string[] patientResponse;
             if (!PatientValidator.ValidatePatient(patient))
-                return BadRequest();
+                return BadRequest("Please enter valid input");
             try
             {
                 patientResponse = _patientDataRepository.InsertPatient(patient);
             }
             catch (Exception)
             {
-                return StatusCode(500);
+                return StatusCode(500, "unable to insert patient information");
             }
 
-            if (patientResponse == null)
-            {
-                return StatusCode(500);
-            }
             var jsonData = @"{'patientId': '" + patientResponse[0] +
                            "', 'patientName': '" + patientResponse[1] +
                            "','email': '" + patientResponse[2] +
