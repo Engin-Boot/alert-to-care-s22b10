@@ -36,24 +36,24 @@ namespace AlertToCare.Repository
             {
                 for (int numberOfColumn = 1; numberOfColumn <= objLayout.NumberOfColumn; numberOfColumn++)
                 {
-                    using var cmd = new NpgsqlCommand();
-                    string bedId = string.Concat(objLayout.WardNumber, bedCounter.ToString());
-                    int row = numberOfRow;
-                    int column = numberOfColumn;
-                    cmd.Connection = con;
-                    cmd.CommandText =
-                        "insert into bed_information(bed_id,ward_number,bed_in_row, bed_in_column) values(@bedId, @wardNumber, @bedInRow, @bedInColumn)";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("bedId", bedId);
-                    cmd.Parameters.AddWithValue("wardNumber", objLayout.WardNumber);
-                    cmd.Parameters.AddWithValue("bedInRow", row);
-                    cmd.Parameters.AddWithValue("bedInColumn", column);
-                    cmd.ExecuteNonQuery();
-                    cmd.Dispose();
-                    bedCounter++;
-                    bool isAllBedAreEnteredInDb = IsAllBedAreEnteredInDb(objLayout.NumberOfBed, bedCounter);
-                    if (isAllBedAreEnteredInDb)
-                        return true;
+                    using (var cmd = new NpgsqlCommand())
+                    {
+                        string bedId = string.Concat(objLayout.WardNumber, bedCounter.ToString());
+                        int row = numberOfRow;
+                        int column = numberOfColumn;
+                        cmd.Connection = con;
+                        cmd.CommandText =
+                            "insert into bed_information(bed_id,ward_number,bed_in_row, bed_in_column) values(@bedId, @wardNumber, @bedInRow, @bedInColumn)";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Parameters.AddWithValue("bedId", bedId);
+                        cmd.Parameters.AddWithValue("wardNumber", objLayout.WardNumber);
+                        cmd.Parameters.AddWithValue("bedInRow", row);
+                        cmd.Parameters.AddWithValue("bedInColumn", column);
+                        cmd.ExecuteNonQuery();
+                        bedCounter++;
+                        bool isAllBedAreEnteredInDb = IsAllBedAreEnteredInDb(objLayout.NumberOfBed, bedCounter);
+                        return isAllBedAreEnteredInDb;
+                    }
                 }
             }
             return true;
