@@ -7,7 +7,7 @@ namespace AlertToCare.Controllers
     [ApiController]
     public class IcuLayoutController : Controller
     {
-        private Repository.IIcuLayoutManagement _icuLayoutManagement;
+        private readonly Repository.IIcuLayoutManagement _icuLayoutManagement;
 
         public IcuLayoutController(Repository.IIcuLayoutManagement icuLayout)
         {
