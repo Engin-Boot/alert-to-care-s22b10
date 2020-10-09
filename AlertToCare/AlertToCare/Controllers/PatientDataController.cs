@@ -41,5 +41,24 @@ namespace AlertToCare.Controllers
                            + "'}";
            return Ok(jsonData);
            }
+
+        [HttpPost("AllotBedToPatient")]
+        public IActionResult AllotBedToPatient([FromBody] BedAllotmentModel bedAllotment)
+        {
+            bool isBedAlloted = _patientDataRepository.AllotBedToPatient(bedAllotment);
+            if (isBedAlloted == false)
+                return StatusCode(500);
+            else
+                return Ok();
+        }
+        [HttpPost("DischargePatient/{patientId}")]
+        public IActionResult DischargePatient(int patientId)
+        {
+            bool isBedAlloted = _patientDataRepository.FreeTheBed(patientId);
+            if (isBedAlloted == false)
+                return StatusCode(500);
+            else
+                return Ok();
+        }
     }
 }

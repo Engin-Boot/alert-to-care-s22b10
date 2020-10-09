@@ -7,6 +7,59 @@ namespace AlertToCare.Repository
 {
     public class PatientDataRepository : IPatientDataRepository
     {
+        public bool FreeTheBed(int patientId)
+        {
+            NpgsqlConnection con = null;
+            try
+            {
+                con = DbConnection.GetConnection();
+                // allot bed to patient
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText = "update bed_information SET patient_id = null where patient_id = @Patient_Id";
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("Patient_Id", patientId);
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("unable to free the bed");
+                return false;
+            }
+            return true;
+        }
+        public bool AllotBedToPatient(BedAllotmentModel allotBed)
+        {
+            NpgsqlConnection con = null;
+            try
+            {
+                con = DbConnection.GetConnection();
+                // allot bed to patient
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandText =
+                        " UPDATE bed_information SET patient_id = @PId WHERE bed_id IN " +
+                        "(SELECT bed_id FROM bed_information WHERE patient_id IS NULL AND ward_number IN " +
+                        "(SELECT ward_number FROM  icuwardinformation WHERE department=@Department) LIMIT 1)";
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("Department", allotBed.Department);
+                    cmd.Parameters.AddWithValue("PId", allotBed.PatientId);
+                    cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("unable to allot bed2");
+                return false;
+            }
+            return true;
+        }
+
         public string[] InsertPatient(PatientDataModel patient)
         {
             NpgsqlConnection con = null;

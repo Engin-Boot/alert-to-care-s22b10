@@ -52,7 +52,8 @@ namespace AlertToCare.Repository
                         cmd.ExecuteNonQuery();
                         bedCounter++;
                         bool isAllBedAreEnteredInDb = IsAllBedAreEnteredInDb(objLayout.NumberOfBed, bedCounter);
-                        return isAllBedAreEnteredInDb;
+                        if( isAllBedAreEnteredInDb )
+                            return isAllBedAreEnteredInDb;
                     }
                 }
             }
