@@ -1,8 +1,10 @@
-
+using AlertToCare.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 
 namespace AlertToCare
@@ -18,12 +20,19 @@ namespace AlertToCare
 
         // This method gets called by the runtime.
         //Use this method to add services to the container.
+        [System.Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddDbContext<PatientContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+        
+        services.AddControllers();
             //Once instance of type PatientMemoryDBRepository created - Any number of Resolve request
-            services.AddSingleton<Repository.IPatientDataRepository, Repository.PatientDataRepository>();
+            services.AddTransient<Repository.IPatientDataRepository, Repository.PatientDataRepository>();
             services.AddSingleton<Repository.IIcuLayoutManagement, Repository.LayoutAndWardInfoIcu>();
+            services.AddSingleton<Repository.IMedicalDeviceDataRepository, Repository.MedicalDeviceDataRepository>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,7 +45,7 @@ namespace AlertToCare
 
             app.UseRouting();
 
-
+            
 
             app.UseEndpoints(endpoints =>
             {

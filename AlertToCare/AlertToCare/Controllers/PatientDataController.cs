@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AlertToCare.Models;
 using AlertToCare.Validator;
 using Microsoft.AspNetCore.Mvc;
@@ -19,27 +20,29 @@ namespace AlertToCare.Controllers
 
 
         [HttpPost("PatientInfo")]
-        public IActionResult  InsertPatient([FromBody] PatientDataModel patient)
+        public ActionResult<IEnumerable<dynamic>> InsertPatient([FromBody] PatientDataModel patient)
         {
-            string[] patientResponse;
+            PatientDataModel patientInfo;
             if (!PatientValidator.ValidatePatient(patient))
                 return BadRequest("Please enter valid input");
             try
             {
-                patientResponse = _patientDataRepository.InsertPatient(patient);
+                patientInfo = _patientDataRepository.InsertPatient(patient);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return StatusCode(500, "unable to insert patient information");
             }
 
-            var jsonData = @"{'patientId': '" + patientResponse[0] +
-                           "', 'patientName': '" + patientResponse[1] +
-                           "','email': '" + patientResponse[2] +
-                           "','address': '" + patientResponse[3] +
-                           "','mobile': '" + patientResponse[4]
-                           + "'}";
-           return Ok(jsonData);
+            var responseData = new Dictionary<string, dynamic>
+            {
+                {"patientId", patientInfo.PatientId},
+                {"patientName", patientInfo.PatientName},
+                {"email", patientInfo.Email},
+                {"address", patientInfo.Address},
+                {"mobile", patientInfo.Mobile},
+            };
+            return Ok(responseData);
            }
 
         [HttpPost("AllotBedToPatient")]
@@ -48,8 +51,7 @@ namespace AlertToCare.Controllers
             bool isBedAlloted = _patientDataRepository.AllotBedToPatient(bedAllotment);
             if (isBedAlloted == false)
                 return StatusCode(500);
-            else
-                return Ok();
+            return Ok();
         }
         [HttpPost("DischargePatient/{patientId}")]
         public IActionResult DischargePatient(int patientId)
@@ -57,8 +59,7 @@ namespace AlertToCare.Controllers
             bool isBedAlloted = _patientDataRepository.FreeTheBed(patientId);
             if (isBedAlloted == false)
                 return StatusCode(500);
-            else
-                return Ok();
+            return Ok();
         }
     }
 }

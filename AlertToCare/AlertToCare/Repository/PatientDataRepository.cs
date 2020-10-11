@@ -1,12 +1,21 @@
 ﻿using System;
 using System.Data;
+using AlertToCare.Context;
 using AlertToCare.Models;
+using AlertToCare.Utility;
 using Npgsql;
 
 namespace AlertToCare.Repository
 {
     public class PatientDataRepository : IPatientDataRepository
     {
+        private readonly PatientContext _context;
+
+        public PatientDataRepository(PatientContext context)
+        {
+            _context = context;
+        }
+
         public bool FreeTheBed(int patientId)
         {
             NpgsqlConnection con = null;
@@ -31,6 +40,53 @@ namespace AlertToCare.Repository
             }
             return true;
         }
+
+        public PatientDataModel FetchPatientInfoFromBedId(string bedId)
+        {
+            NpgsqlConnection con = null;
+            try
+            {
+                con = DbConnection.GetConnection();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = con;
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText =
+                        "select * from patient_info where patient_id in(select patient_id from bed_information where bed_id=@bedId)";
+                    cmd.Parameters.AddWithValue("bedId", bedId);
+                    NpgsqlDataReader dr = cmd.ExecuteReader();
+                    var count = dr.FieldCount;
+                    return PopulatePatientObjectFromDataReader(dr);
+                }
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception("DB connectivity error");
+            }
+            finally
+            {
+                DbConnection.CloseConnection(con);
+            }
+
+            return null;
+        }
+
+        private PatientDataModel PopulatePatientObjectFromDataReader(NpgsqlDataReader dr)
+        {
+            PatientDataModel patientInfo= new PatientDataModel();
+            while (dr.Read())
+            {
+                patientInfo.PatientName = dr[1].ToString();
+                patientInfo.PatientId = int.Parse(dr[0].ToString());
+                patientInfo.Email = dr[2].ToString();
+                patientInfo.Address = dr[3].ToString();
+                patientInfo.Mobile = dr[4].ToString();
+            }
+
+            return patientInfo;
+        }
+
         public bool AllotBedToPatient(BedAllotmentModel allotBed)
         {
             NpgsqlConnection con = null;
@@ -60,7 +116,7 @@ namespace AlertToCare.Repository
             return true;
         }
 
-        public string[] InsertPatient(PatientDataModel patient)
+        /*public PatientDataModel InsertPatient(PatientDataModel patient)
         {
             NpgsqlConnection con = null;
             try
@@ -86,7 +142,7 @@ namespace AlertToCare.Repository
                     NpgsqlDataReader dr = command.ExecuteReader();
 
                     // Output rows
-                    var patientRecord = NpgsqlDataReaderToStringArrayConvertor(dr);
+                    var patientRecord = PopulatePatientObjectFromDataReader(dr);
                     return patientRecord;
 
                 }
@@ -101,8 +157,15 @@ namespace AlertToCare.Repository
                 DbConnection.CloseConnection(con);
             }
 
-        }
+        }*/
 
+        public PatientDataModel InsertPatient(PatientDataModel patient)
+        {
+            _context.patient_info.Add(patient);
+            _context.SaveChanges();
+            return patient;
+            
+        }
         private NpgsqlCommand FormQuery(NpgsqlCommand cmd, PatientDataModel patient)
         {
             cmd.CommandType = CommandType.Text;
@@ -113,20 +176,6 @@ namespace AlertToCare.Repository
             return cmd;
         }
 
-        private static string[] NpgsqlDataReaderToStringArrayConvertor(NpgsqlDataReader dr)
-        {
-            while (dr.Read())
-            {
-                var patientRecord = new string[dr.FieldCount];
-                for (int i = 0; i < dr.FieldCount; i++)
-                {
-                    patientRecord[i] = dr[i].ToString();
-                }
-
-                return patientRecord;
-            }
-
-            return null;
-        }
+        
     }
 }
