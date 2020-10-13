@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using AlertToCare.Validator;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +13,10 @@ namespace AlertToCare.Controllers
 
     public class PatientDataController : ControllerBase
     {
-        readonly Repository.IPatientDataRepository _patientDataRepository;
-        public PatientDataController(Repository.IPatientDataRepository repo)
+        readonly IPatientBusinessLogic _patientBusinessLogic;
+        public PatientDataController(IPatientBusinessLogic operation)
         {
-            this._patientDataRepository = repo;
+            this._patientBusinessLogic = operation;
         }
 
 
@@ -27,7 +28,7 @@ namespace AlertToCare.Controllers
                 return BadRequest("Please enter valid input");
             try
             {
-                patientInfo = _patientDataRepository.InsertPatient(patient);
+                patientInfo = _patientBusinessLogic.InsertPatient(patient);
             }
             catch (Exception e)
             {
@@ -48,18 +49,28 @@ namespace AlertToCare.Controllers
         [HttpPost("AllotBedToPatient")]
         public IActionResult AllotBedToPatient([FromBody] BedAllotmentModel bedAllotment)
         {
-            bool isBedAlloted = _patientDataRepository.AllotBedToPatient(bedAllotment);
-            if (isBedAlloted == false)
+            try
+            {
+                _patientBusinessLogic.AllotBedToPatient(bedAllotment);
+            }
+            catch
+            {
                 return StatusCode(500);
+            }
             return Ok();
         }
         [HttpPost("DischargePatient/{patientId}")]
         public IActionResult DischargePatient(int patientId)
         {
-            bool isBedAlloted = _patientDataRepository.FreeTheBed(patientId);
-            if (isBedAlloted == false)
+            try
+            {
+                _patientBusinessLogic.FreeTheBed(patientId);
+                return Ok();
+            }
+            catch
+            {
                 return StatusCode(500);
-            return Ok();
+            }
         }
     }
 }

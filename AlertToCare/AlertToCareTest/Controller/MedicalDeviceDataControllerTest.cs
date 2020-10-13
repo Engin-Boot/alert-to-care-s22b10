@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using AlertToCare.Controllers;
 using AlertToCare.Models;
+using AlertToCare.UnitTest.MockBusinessLogic;
 using AlertToCare.UnitTest.MockRepository;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
-namespace AlertToCare.UnitTest
+namespace AlertToCare.UnitTest.Controller
 {
     public class MedicalDeviceDataControllerTest
     {
-        MockPatientDataRepository patientRepo = new MockPatientDataRepository();
-        MockDeviceDataRepository deviceRepo = new MockDeviceDataRepository();
+        MockPatientBusinessLogic patientRepo = new MockPatientBusinessLogic();
+        MockDeviceBusinessLogic deviceRepo = new MockDeviceBusinessLogic();
 
         [Fact]
         public void TestInsertDeviceSuccessfully()
         {
             var controller = new MedicalDeviceController(deviceRepo, patientRepo);
-            DeviceDataModel device = new DeviceDataModel();
+            MedicalDevice device = new MedicalDevice();
             device.DeviceName = "device";
             device.MaxValue = 100;
             device.MinValue = 50;
@@ -31,7 +30,7 @@ namespace AlertToCare.UnitTest
         public void TestInsertDeviceValidationFailure()
         {
             var controller = new MedicalDeviceController(deviceRepo, patientRepo);
-            DeviceDataModel device = new DeviceDataModel();
+            MedicalDevice device = new MedicalDevice();
             device.DeviceName = "device";
             device.MaxValue = 20;
             device.MinValue = 50;
@@ -44,7 +43,7 @@ namespace AlertToCare.UnitTest
         public void TestInsertDeviceUnsuccessful()
         {
             var controller = new MedicalDeviceController(deviceRepo, patientRepo);
-            DeviceDataModel device = new DeviceDataModel();
+            MedicalDevice device = new MedicalDevice();
             device.DeviceName = "Oxymeter";
             device.MaxValue = 100;
             device.MinValue = 50;

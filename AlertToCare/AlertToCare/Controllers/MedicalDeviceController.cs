@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using AlertToCare.Validator;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +13,10 @@ namespace AlertToCare.Controllers
 
     public class MedicalDeviceController : ControllerBase
     {
-        readonly Repository.IMedicalDeviceDataRepository _deviceDataRepository;
-        readonly Repository.IPatientDataRepository _patientDataRepository;
-        public MedicalDeviceController(Repository.IMedicalDeviceDataRepository deviceRepo,
-            Repository.IPatientDataRepository patientRepo)
+        readonly IMedicalDeviceBusinessLogic _deviceDataRepository;
+        readonly IPatientBusinessLogic _patientDataRepository;
+        public MedicalDeviceController(IMedicalDeviceBusinessLogic deviceRepo,
+            IPatientBusinessLogic patientRepo)
         {
             this._deviceDataRepository = deviceRepo;
             this._patientDataRepository = patientRepo;
@@ -23,7 +24,7 @@ namespace AlertToCare.Controllers
 
 
         [HttpPost("MedicalDevice")]
-        public IActionResult InsertDevice([FromBody] DeviceDataModel device)
+        public IActionResult InsertDevice([FromBody] MedicalDevice device)
         {
             if (!DeviceValidator.ValidateDevice(device))
                 return BadRequest("Please enter valid input");
@@ -38,6 +39,7 @@ namespace AlertToCare.Controllers
 
             return Ok("Insertion successful");
         }
+
         [HttpPost("Alert")]
         public ActionResult<IEnumerable<dynamic>> IsAlert([FromBody] MedicalStatusDataModel status)
         {
@@ -54,7 +56,7 @@ namespace AlertToCare.Controllers
             {
                 return BadRequest("Invalid Medical Device");
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return StatusCode(500, "unable to check alert");
             }

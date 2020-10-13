@@ -9,7 +9,7 @@ namespace AlertToCare.Validator
 {
     public static class DeviceValidator
     {
-        public static bool ValidateDevice(DeviceDataModel device)
+        public static bool ValidateDevice(MedicalDevice device)
         {
             if (Utils.IsValueNull(device.DeviceName) == false && device.MaxValue > device.MinValue)
             {

@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AlertToCare.Models;
+﻿using AlertToCare.Models;
 using AlertToCare.Repository;
 
 namespace AlertToCare.UnitTest.MockRepository
 {
-    class MockIcuLayoutDataRepository: IIcuLayoutManagement
+    class MockIcuLayoutDataRepository: IIcuLayoutDataRepository
     {
-        public bool GetLayoutInformation(IcuWardLayoutModel objLayout)
+        public void InsertBed(BedInformation bed)
         {
-            if (objLayout.Department == "cancer")
-                return true;
-            return false;
+            
+        }
+
+        public void InsertLayout(IcuWardInformation layout)
+        {
+            
         }
     }
 }

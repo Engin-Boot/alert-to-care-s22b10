@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AlertToCare.Controllers;
+﻿using AlertToCare.Controllers;
 using AlertToCare.Models;
 using AlertToCare.UnitTest.MockRepository;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
-namespace AlertToCare.UnitTest
+namespace AlertToCare.UnitTest.Controller
 {
     public class IcuLayoutControllerTest
     {
-        MockIcuLayoutDataRepository repo = new MockIcuLayoutDataRepository();
+        MockIcuLayoutBusinessLogic repo = new MockIcuLayoutBusinessLogic();
         [Fact]
         public void TestInsertIcuWardInfoSuccessfully()
         {
             var controller = new IcuLayoutController(repo);
             IcuWardLayoutModel model = new IcuWardLayoutModel();
-            model.Department = "cancer";
+            model.Department = "MR";
             model.NumberOfBed = 2;
             model.NumberOfColumn = 2;
             model.NumberOfRow = 1;
@@ -32,7 +29,7 @@ namespace AlertToCare.UnitTest
         {
             var controller = new IcuLayoutController(repo);
             IcuWardLayoutModel model = new IcuWardLayoutModel();
-            model.Department = "MRI";
+            model.Department = "radonc";
             model.NumberOfBed = 2;
             model.NumberOfColumn = 2;
             model.NumberOfRow = 1;

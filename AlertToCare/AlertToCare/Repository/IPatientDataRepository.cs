@@ -1,10 +1,16 @@
-﻿namespace AlertToCare.Repository
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AlertToCare.Models;
+
+namespace AlertToCare.Repository
 {
     public interface IPatientDataRepository
     {
-        public Models.PatientDataModel InsertPatient(Models.PatientDataModel patient);
-        public bool AllotBedToPatient(Models.BedAllotmentModel allotBed);
-        public bool FreeTheBed(int patientId);
-        public Models.PatientDataModel FetchPatientInfoFromBedId(string statusBedId);
+        public void AddPatient(PatientDataModel patient);
+        public PatientDataModel FetchPatientInfoFromBedId(string bedId);
+        public void RemovePatientFromBed(int patientId);
+        public void AllotBedToPatient(BedAllotmentModel allotBed);
     }
 }

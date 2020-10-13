@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AlertToCare.Migrations
 {
-    [DbContext(typeof(PatientContext))]
+    [DbContext(typeof(Context.DbContext))]
     [Migration("20201011092448_initial")]
     partial class initial
     {

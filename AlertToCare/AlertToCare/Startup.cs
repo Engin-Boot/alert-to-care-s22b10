@@ -1,4 +1,5 @@
-using AlertToCare.Context;
+using AlertToCare.BusinessLogic;
+using AlertToCare.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -23,16 +24,19 @@ namespace AlertToCare
         [System.Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PatientContext>(options =>
+            services.AddDbContext<Context.DbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         
         services.AddControllers();
             //Once instance of type PatientMemoryDBRepository created - Any number of Resolve request
-            services.AddTransient<Repository.IPatientDataRepository, Repository.PatientDataRepository>();
-            services.AddSingleton<Repository.IIcuLayoutManagement, Repository.LayoutAndWardInfoIcu>();
-            services.AddSingleton<Repository.IMedicalDeviceDataRepository, Repository.MedicalDeviceDataRepository>();
-            
+            services.AddTransient<IPatientBusinessLogic, PatientBusinessLogic>();
+            services.AddTransient<IIcuLayoutBusinessLogic, IcuLayoutBusinessLogic>();
+            services.AddTransient<IMedicalDeviceBusinessLogic, MedicalDeviceBusinessLogic>();
+            services.AddTransient<IPatientDataRepository, PatientDataRepository>();
+            services.AddTransient<IMedicalDeviceDataRepository, MedicalDeviceDataRepository>();
+            services.AddTransient<IIcuLayoutDataRepository, IcuLayoutDataRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

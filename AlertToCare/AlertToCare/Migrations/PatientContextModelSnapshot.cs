@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AlertToCare.Migrations
 {
-    [DbContext(typeof(PatientContext))]
+    [DbContext(typeof(Context.DbContext))]
     partial class PatientContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
