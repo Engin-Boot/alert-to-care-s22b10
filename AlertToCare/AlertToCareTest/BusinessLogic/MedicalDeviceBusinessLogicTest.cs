@@ -25,19 +25,21 @@ namespace AlertToCare.UnitTest.BussinessLogic
         public void TestAlertInvalidMedicalDeviceThrowException()
         {
             var medicalDeviceBusinessLogic = new MedicalDeviceBusinessLogic(_repo);
-            var status= new MedicalStatusDataModel();
-            status.BedId = "1";
-            
-            status.MedicalDevice = new Dictionary<string, int> { { "BP", 29 } };
+            var status = new MedicalStatusDataModel
+            {
+                BedId = "1", MedicalDevice = new Dictionary<string, int> {{"BP", 29}}
+            };
+
             Assert.Throws<ArgumentException>(() => medicalDeviceBusinessLogic.Alert(status));
         }
         [Fact]
         public void TestAlertIfValueInRange()
         {
             var medicalDeviceBusinessLogic = new MedicalDeviceBusinessLogic(_repo);
-            var status = new MedicalStatusDataModel();
-            status.BedId = "1";
-            status.MedicalDevice = new Dictionary<string, int> { { "Oxymeter", 40 } };
+            var status = new MedicalStatusDataModel
+            {
+                BedId = "1", MedicalDevice = new Dictionary<string, int> {{"Oxymeter", 40}}
+            };
             var alertingDevice = medicalDeviceBusinessLogic.Alert(status);
             Assert.Empty(alertingDevice);
         }
@@ -45,9 +47,10 @@ namespace AlertToCare.UnitTest.BussinessLogic
         public void TestAlertIfValueExceedRange()
         {
             var medicalDeviceBusinessLogic = new MedicalDeviceBusinessLogic(_repo);
-            var status = new MedicalStatusDataModel();
-            status.BedId = "1";
-            status.MedicalDevice = new Dictionary<string, int> { { "Oxymeter", 100 } };
+            var status = new MedicalStatusDataModel
+            {
+                BedId = "1", MedicalDevice = new Dictionary<string, int> {{"Oxymeter", 100}}
+            };
             var alertingDevice = medicalDeviceBusinessLogic.Alert(status);
             Assert.NotNull(alertingDevice);
         }

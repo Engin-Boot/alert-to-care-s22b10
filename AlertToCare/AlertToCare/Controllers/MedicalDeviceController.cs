@@ -48,17 +48,13 @@ namespace AlertToCare.Controllers
             try
             {
                 patientInfo = _patientDataRepository.FetchPatientInfoFromBedId(status.BedId);
-                if (patientInfo == null)
-                    return BadRequest("Invalid Bed Id");
+                checkPatientValid(patientInfo);
+
                 alertingDevice = _deviceDataRepository.Alert(status);
             }
             catch (ArgumentException)
             {
-                return BadRequest("Invalid Medical Device");
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, "unable to check alert");
+                return BadRequest("Invalid Request Body");
             }
 
             var responseData = new Dictionary<string, dynamic>
@@ -71,6 +67,12 @@ namespace AlertToCare.Controllers
                 {"Alert Device", alertingDevice}
             };
             return !alertingDevice.Any() ? Ok("Patient Condition OK") : Ok(responseData);
+        }
+
+        private void checkPatientValid(PatientDataModel patientInfo)
+        {
+            if(patientInfo == null)
+                throw  new ArgumentException("Invalid bed id");
         }
     }
 }

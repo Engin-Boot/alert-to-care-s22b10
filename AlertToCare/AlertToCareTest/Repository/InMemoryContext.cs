@@ -48,6 +48,23 @@ namespace AlertToCare.UnitTest.Repository
                 };
             context.Add(medicalDevice);
 
+            var wardInfo = new IcuWardInformation()
+            {
+                WardNumber = "1B",
+                Department = "Dept",
+                TotalBed = 2
+            };
+            context.Add(wardInfo);
+
+            var bed2 = new BedInformation
+            {
+                PatientId = null,
+                BedId = "1B1",
+                BedInColumn = 1,
+                BedInRow = 2,
+                WardNumber = "1B"
+            };
+            context.Add(bed2);
             context.SaveChanges();
         }
 

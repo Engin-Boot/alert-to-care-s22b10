@@ -12,12 +12,14 @@ namespace AlertToCare.UnitTest.Repository
         public void TestInsertBedInformation()
         {
             var layoutData = new IcuLayoutDataRepository(_context);
-            var bed =new BedInformation();
-            bed.PatientId = 10;
-            bed.BedId = "1d3";
-            bed.WardNumber = "1d";
-            bed.BedInColumn = 2;
-            bed.BedInRow = 2;
+            var bed = new BedInformation
+            {
+                PatientId = 10,
+                BedId = "1d3",
+                WardNumber = "1d",
+                BedInColumn = 2,
+                BedInRow = 2
+            };
             layoutData.InsertBed(bed);
             var wardInDb = _context.BedInformation.First
                 (p => p.WardNumber == "1d");

@@ -47,6 +47,18 @@ namespace AlertToCare.UnitTest.Repository
             patientData.RemovePatientFromBed(1);
             Assert.Null(bed.PatientId);
         }
-        
+        [Fact]
+
+        public void TestAllotBedToPatientSuccessful()
+        {
+            var patientData = new PatientDataRepository(_context);
+            var allotBed = new BedAllotmentModel {Department = "Dept", PatientId = 10};
+            patientData.AllotBedToPatient(allotBed);
+            var patientDataInDb = _context.BedInformation.First(bed => bed.WardNumber == "1B");
+            Assert.Equal(10, patientDataInDb.PatientId);
+
+        }
+
+
     }
 }

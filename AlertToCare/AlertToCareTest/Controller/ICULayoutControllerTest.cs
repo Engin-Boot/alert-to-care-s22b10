@@ -8,17 +8,19 @@ namespace AlertToCare.UnitTest.Controller
 {
     public class IcuLayoutControllerTest
     {
-        MockIcuLayoutBusinessLogic repo = new MockIcuLayoutBusinessLogic();
+        readonly MockIcuLayoutBusinessLogic repo = new MockIcuLayoutBusinessLogic();
         [Fact]
         public void TestInsertIcuWardInfoSuccessfully()
         {
             var controller = new IcuLayoutController(repo);
-            IcuWardLayoutModel model = new IcuWardLayoutModel();
-            model.Department = "MR";
-            model.NumberOfBed = 2;
-            model.NumberOfColumn = 2;
-            model.NumberOfRow = 1;
-            model.WardNumber = "1A1";
+            IcuWardLayoutModel model = new IcuWardLayoutModel
+            {
+                Department = "MR",
+                NumberOfBed = 2,
+                NumberOfColumn = 2,
+                NumberOfRow = 1,
+                WardNumber = "1A1"
+            };
             var actualResponse = controller.InsertIcuWardInfo(model);
             var actualResponseObject = actualResponse as OkObjectResult;
             Assert.NotNull(actualResponseObject);
@@ -28,12 +30,14 @@ namespace AlertToCare.UnitTest.Controller
         public void TestInsertIcuWardInfoUnSuccessful()
         {
             var controller = new IcuLayoutController(repo);
-            IcuWardLayoutModel model = new IcuWardLayoutModel();
-            model.Department = "radonc";
-            model.NumberOfBed = 2;
-            model.NumberOfColumn = 2;
-            model.NumberOfRow = 1;
-            model.WardNumber = "1A1";
+            IcuWardLayoutModel model = new IcuWardLayoutModel
+            {
+                Department = "radonc",
+                NumberOfBed = 2,
+                NumberOfColumn = 2,
+                NumberOfRow = 1,
+                WardNumber = "1A1"
+            };
             var actualResponse = controller.InsertIcuWardInfo(model);
             var actualResponseObject = actualResponse as StatusCodeResult;
             Assert.NotNull(actualResponseObject);

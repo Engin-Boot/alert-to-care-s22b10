@@ -31,12 +31,14 @@ namespace AlertToCare.UnitTest.MockRepository
 
         public PatientDataModel FetchPatientInfoFromBedId(string statusBedId)
         {
-            PatientDataModel patient = new PatientDataModel();
-            patient.PatientId = 1;
-            patient.Mobile = "98989898989";
-            patient.PatientName = "Hariram";
-            patient.Address = "Indore";
-            patient.Email = "hari@gmail.com";
+            PatientDataModel patient = new PatientDataModel
+            {
+                PatientId = 1,
+                Mobile = "98989898989",
+                PatientName = "Hariram",
+                Address = "Indore",
+                Email = "hari@gmail.com"
+            };
             return patient;
         }
     }

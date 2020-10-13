@@ -22,7 +22,6 @@ namespace AlertToCare.UnitTest.Repository
         public void TestFetchDeviceSuccessful()
         {
             var deviceData = new MedicalDeviceDataRepository(_context);
-            MedicalDevice device = new MedicalDevice {DeviceName = "Oxymeter", MinValue = 90, MaxValue = 120};
             deviceData.FetchMedicalDevice("TestDevice");
             Assert.NotNull(deviceData);
         }
@@ -30,10 +29,7 @@ namespace AlertToCare.UnitTest.Repository
         public void TestTurnOnAlertSuccessful()
         {
             var deviceData = new MedicalDeviceDataRepository(_context);
-            var bed =new BedOnAlert();
-            bed.BedId = "1A1";
-            bed.DeviceName = "Oxymeter";
-            bed.Value = 90;
+            var bed = new BedOnAlert {BedId = "1A1", DeviceName = "Oxymeter", Value = 90};
             deviceData.TurnOnAlert(bed);
             var deviceInDb = _context.BedOnAlert.First
                 (p => p.DeviceName == "Oxymeter");

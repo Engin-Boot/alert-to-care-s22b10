@@ -9,17 +9,16 @@ namespace AlertToCare.UnitTest.Controller
 {
     public class PatientDataControllerTest
     {
-        MockPatientBusinessLogic operations = new MockPatientBusinessLogic();
+        readonly MockPatientBusinessLogic operations = new MockPatientBusinessLogic();
 
         [Fact]
         public void TestInsertPatientSuccessfully()
         {
             PatientDataController controller = new PatientDataController(operations);
-            var patient = new PatientDataModel();
-            patient.PatientName = "p1";
-            patient.Address = "address";
-            patient.Mobile = "9898989898";
-            patient.Email = "p1@email.com";
+            var patient = new PatientDataModel
+            {
+                PatientName = "p1", Address = "address", Mobile = "9898989898", Email = "p1@email.com"
+            };
             var actualResponse = controller.InsertPatient(patient);
             var actualResponseObject = actualResponse.Result as OkObjectResult;
             Assert.NotNull(actualResponseObject);
@@ -29,11 +28,10 @@ namespace AlertToCare.UnitTest.Controller
         public void TestInsertPatientValidationFalure()
         {
             PatientDataController controller = new PatientDataController(operations);
-            var patient = new PatientDataModel();
-            patient.PatientName = "p1";
-            patient.Address = "address";
-            patient.Mobile = "98989898";
-            patient.Email = "p1@email.com";
+            var patient = new PatientDataModel
+            {
+                PatientName = "p1", Address = "address", Mobile = "98989898", Email = "p1@email.com"
+            };
             var actualResponse = controller.InsertPatient(patient);
             var actualResponseObject = actualResponse.Result as BadRequestObjectResult;
             Assert.NotNull(actualResponseObject);
@@ -44,11 +42,10 @@ namespace AlertToCare.UnitTest.Controller
         public void TestInsertPatientThrowsException()
         {
             PatientDataController controller = new PatientDataController(operations);
-            var patient = new PatientDataModel();
-            patient.PatientName = "Hari";
-            patient.Address = "address";
-            patient.Mobile = "9898933898";
-            patient.Email = "p1@email.com";
+            var patient = new PatientDataModel
+            {
+                PatientName = "Hari", Address = "address", Mobile = "9898933898", Email = "p1@email.com"
+            };
             var actualResponse = controller.InsertPatient(patient);
             var actualResponseObject = actualResponse.Result as ObjectResult;
             Assert.NotNull(actualResponse);
@@ -59,9 +56,7 @@ namespace AlertToCare.UnitTest.Controller
         public void TestAllotPatientSuccessfully()
         {
             PatientDataController controller = new PatientDataController(operations);
-            BedAllotmentModel bedAllotment =new BedAllotmentModel();
-            bedAllotment.PatientId = 1;
-            bedAllotment.Department = "Cancer";
+            BedAllotmentModel bedAllotment = new BedAllotmentModel {PatientId = 1, Department = "Cancer"};
             var actualResponse = controller.AllotBedToPatient(bedAllotment);
             var actualResponseObject = actualResponse as OkResult;
             Assert.NotNull(actualResponseObject);
@@ -71,9 +66,7 @@ namespace AlertToCare.UnitTest.Controller
         public void TestAllotPatientUnSuccessful()
         {
             PatientDataController controller = new PatientDataController(operations);
-            BedAllotmentModel bedAllotment = new BedAllotmentModel();
-            bedAllotment.PatientId = 2;
-            bedAllotment.Department = "Cancer";
+            BedAllotmentModel bedAllotment = new BedAllotmentModel {PatientId = 2, Department = "Cancer"};
             var actualResponse = controller.AllotBedToPatient(bedAllotment);
             var actualResponseObject = actualResponse as StatusCodeResult;
             Assert.NotNull(actualResponseObject);

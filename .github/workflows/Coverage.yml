@@ -23,5 +23,5 @@ jobs:
         run: dotnet test AlertToCare --collect:"XPlat Code Coverage"
       
       - name: Check AlertToCare Coverage
-        run: powershell ./Coverage.ps1 -linerate 0.9 -project AlertToCare.Test
+        run: powershell ./Coverage.ps1 -linerate 0.9 -project AlertToCare.UnitTest
       

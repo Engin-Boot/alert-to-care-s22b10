@@ -19,8 +19,7 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
                 throw new ArgumentException("");
             if(medicalStatus.BedId == "1C1")
                 throw new Exception("");
-            var alertingDevice = new List<string>();
-            alertingDevice.Add("Oxymeter");
+            var alertingDevice = new List<string> {"Oxymeter"};
             return alertingDevice;
         }
     }

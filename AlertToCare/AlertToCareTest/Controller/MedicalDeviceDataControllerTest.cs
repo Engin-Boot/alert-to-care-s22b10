@@ -10,17 +10,14 @@ namespace AlertToCare.UnitTest.Controller
 {
     public class MedicalDeviceDataControllerTest
     {
-        MockPatientBusinessLogic patientRepo = new MockPatientBusinessLogic();
-        MockDeviceBusinessLogic deviceRepo = new MockDeviceBusinessLogic();
+        readonly MockPatientBusinessLogic patientRepo = new MockPatientBusinessLogic();
+        readonly MockDeviceBusinessLogic deviceRepo = new MockDeviceBusinessLogic();
 
         [Fact]
         public void TestInsertDeviceSuccessfully()
         {
             var controller = new MedicalDeviceController(deviceRepo, patientRepo);
-            MedicalDevice device = new MedicalDevice();
-            device.DeviceName = "device";
-            device.MaxValue = 100;
-            device.MinValue = 50;
+            MedicalDevice device = new MedicalDevice {DeviceName = "device", MaxValue = 100, MinValue = 50};
             var actualResponse = controller.InsertDevice(device);
             var actualResponseObject = actualResponse as OkObjectResult;
             Assert.NotNull(actualResponseObject);
@@ -30,10 +27,7 @@ namespace AlertToCare.UnitTest.Controller
         public void TestInsertDeviceValidationFailure()
         {
             var controller = new MedicalDeviceController(deviceRepo, patientRepo);
-            MedicalDevice device = new MedicalDevice();
-            device.DeviceName = "device";
-            device.MaxValue = 20;
-            device.MinValue = 50;
+            MedicalDevice device = new MedicalDevice {DeviceName = "device", MaxValue = 20, MinValue = 50};
             var actualResponse = controller.InsertDevice(device);
             var actualResponseObject = actualResponse as BadRequestObjectResult;
             Assert.NotNull(actualResponseObject);
@@ -43,10 +37,7 @@ namespace AlertToCare.UnitTest.Controller
         public void TestInsertDeviceUnsuccessful()
         {
             var controller = new MedicalDeviceController(deviceRepo, patientRepo);
-            MedicalDevice device = new MedicalDevice();
-            device.DeviceName = "Oxymeter";
-            device.MaxValue = 100;
-            device.MinValue = 50;
+            MedicalDevice device = new MedicalDevice {DeviceName = "Oxymeter", MaxValue = 100, MinValue = 50};
             var actualResponse = controller.InsertDevice(device);
             var actualResponseObject = actualResponse as ObjectResult;
             Assert.NotNull(actualResponseObject);
@@ -58,8 +49,7 @@ namespace AlertToCare.UnitTest.Controller
         public void TestAlertDeviceSuccessfully(string deviceName)
         {
             var controller = new MedicalDeviceController(deviceRepo, patientRepo);
-            var model = new MedicalStatusDataModel();
-            model.BedId = "1A1";
+            var model = new MedicalStatusDataModel {BedId = "1A1"};
             var medicalDevice = new Dictionary<string, int>();
             if(deviceName!="")
                 medicalDevice.Add(deviceName, 50);
@@ -70,14 +60,14 @@ namespace AlertToCare.UnitTest.Controller
             Assert.Equal(200, actualResponseObject.StatusCode);
         }
 
-        [Fact]
-        public void TestAlertDeviceInvalidDevice()
+        [Theory]
+        [InlineData("1Z1")]
+        [InlineData("1B1")]
+        public void TestAlertDeviceInvalidDevice(string bedId)
         {
             var controller = new MedicalDeviceController(deviceRepo, patientRepo);
-            var model = new MedicalStatusDataModel();
-            model.BedId = "1B1";
-            var medicalDevice = new Dictionary<string, int>();
-            medicalDevice.Add("deviceName", 50);
+            var model = new MedicalStatusDataModel {BedId = bedId };
+            var medicalDevice = new Dictionary<string, int> {{"deviceName", 50}};
             model.MedicalDevice = medicalDevice;
             var actualResponse = controller.IsAlert(model);
             var actualResponseObject = actualResponse.Result as BadRequestObjectResult;
@@ -88,10 +78,8 @@ namespace AlertToCare.UnitTest.Controller
         public void TestAlertDeviceUnsuccessful()
         {
             var controller = new MedicalDeviceController(deviceRepo, patientRepo);
-            var model = new MedicalStatusDataModel();
-            model.BedId = "1C1";
-            var medicalDevice = new Dictionary<string, int>();
-            medicalDevice.Add("deviceName", 50);
+            var model = new MedicalStatusDataModel {BedId = "1C1"};
+            var medicalDevice = new Dictionary<string, int> {{"deviceName", 50}};
             model.MedicalDevice = medicalDevice;
             var actualResponse = controller.IsAlert(model);
             var actualResponseObject = actualResponse.Result as ObjectResult;

@@ -13,12 +13,14 @@ namespace AlertToCare.UnitTest.BusinessLogic
         public void TestAddLayoutInformationSuccess()
         {
             var patientLogic = new IcuLayoutBusinessLogic(_repo);
-            var objLayout = new IcuWardLayoutModel();
-            objLayout.WardNumber = "1A1";
-            objLayout.NumberOfBed = 10;
-            objLayout.Department = "cancer";
-            objLayout.NumberOfColumn = 2;
-            objLayout.NumberOfRow = 5;
+            var objLayout = new IcuWardLayoutModel
+            {
+                WardNumber = "1A1",
+                NumberOfBed = 10,
+                Department = "cancer",
+                NumberOfColumn = 2,
+                NumberOfRow = 5
+            };
             patientLogic.AddLayoutInformation(objLayout);
         }
         [Fact]
