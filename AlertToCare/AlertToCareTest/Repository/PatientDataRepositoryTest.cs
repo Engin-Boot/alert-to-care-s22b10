@@ -17,23 +17,23 @@ namespace AlertToCare.UnitTest.Repository
                 Mobile = "98989898989",
                 Email = "P1@mail.com"
             };
-            var patientData  = new PatientDataRepository(_context);
+            var patientData  = new PatientDataRepository(Context);
             patientData.AddPatient(dummyPatient);
-            var patientDataInDb = _context.PatientInfo.First
+            var patientDataInDb = Context.PatientInfo.First
                 (p => p.PatientName == "Patient1");
             Assert.NotNull(patientDataInDb);
         }
         [Fact]
         public void TestFetchPatientInfoFromBedIdReturnsNullForBedIdNotExists()
         {
-            var patientData = new PatientDataRepository(_context);
+            var patientData = new PatientDataRepository(Context);
             var response = patientData.FetchPatientInfoFromBedId("1B1");
             Assert.Null(response);
         }
         [Fact]
         public void TestFetchPatientInfoFromBedIdReturnsBedObjectForBedIdExists()
         {
-            var patientData = new PatientDataRepository(_context);
+            var patientData = new PatientDataRepository(Context);
             var response = patientData.FetchPatientInfoFromBedId("1A1");
             Assert.NotNull(response);
         }
@@ -41,8 +41,8 @@ namespace AlertToCare.UnitTest.Repository
         [Fact]
         public void TestFreeTheBedRemovePatientEntry()
         {
-            var patientData = new PatientDataRepository(_context);
-            var bed = _context.BedInformation.First
+            var patientData = new PatientDataRepository(Context);
+            var bed = Context.BedInformation.First
                 (p => p.PatientId == 1);
             patientData.RemovePatientFromBed(1);
             Assert.Null(bed.PatientId);
@@ -51,10 +51,10 @@ namespace AlertToCare.UnitTest.Repository
 
         public void TestAllotBedToPatientSuccessful()
         {
-            var patientData = new PatientDataRepository(_context);
+            var patientData = new PatientDataRepository(Context);
             var allotBed = new BedAllotmentModel {Department = "Dept", PatientId = 10};
             patientData.AllotBedToPatient(allotBed);
-            var patientDataInDb = _context.BedInformation.First(bed => bed.WardNumber == "1B");
+            var patientDataInDb = Context.BedInformation.First(bed => bed.WardNumber == "1B");
             Assert.Equal(10, patientDataInDb.PatientId);
 
         }

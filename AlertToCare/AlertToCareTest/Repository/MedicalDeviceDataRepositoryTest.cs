@@ -10,10 +10,10 @@ namespace AlertToCare.UnitTest.Repository
         [Fact]
         public void TestInsertDeviceSuccessful()
         {
-            var deviceData = new MedicalDeviceDataRepository(_context);
+            var deviceData = new MedicalDeviceDataRepository(Context);
             MedicalDevice device = new MedicalDevice {DeviceName = "Oxymeter", MinValue = 90, MaxValue = 120};
             deviceData.InsertMedicalDevice(device);
-            var deviceInDb = _context.MedicalDevice.First
+            var deviceInDb = Context.MedicalDevice.First
                 (p => p.DeviceName == "Oxymeter");
             Assert.NotNull(deviceInDb);
         }
@@ -21,17 +21,17 @@ namespace AlertToCare.UnitTest.Repository
         [Fact]
         public void TestFetchDeviceSuccessful()
         {
-            var deviceData = new MedicalDeviceDataRepository(_context);
+            var deviceData = new MedicalDeviceDataRepository(Context);
             deviceData.FetchMedicalDevice("TestDevice");
             Assert.NotNull(deviceData);
         }
         [Fact]
         public void TestTurnOnAlertSuccessful()
         {
-            var deviceData = new MedicalDeviceDataRepository(_context);
+            var deviceData = new MedicalDeviceDataRepository(Context);
             var bed = new BedOnAlert {BedId = "1A1", DeviceName = "Oxymeter", Value = 90};
             deviceData.TurnOnAlert(bed);
-            var deviceInDb = _context.BedOnAlert.First
+            var deviceInDb = Context.BedOnAlert.First
                 (p => p.DeviceName == "Oxymeter");
             Assert.NotNull(deviceInDb);
         }

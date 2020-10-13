@@ -1,7 +1,7 @@
 ﻿using AlertToCare.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace AlertToCare.Context
+namespace AlertToCare.Repository
 {
     public class DbContext: Microsoft.EntityFrameworkCore.DbContext
     {

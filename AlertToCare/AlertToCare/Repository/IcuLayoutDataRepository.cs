@@ -4,9 +4,9 @@ namespace AlertToCare.Repository
 {
     public class IcuLayoutDataRepository: IIcuLayoutDataRepository
     {
-        private readonly Context.DbContext _context;
+        private readonly DbContext _context;
 
-        public IcuLayoutDataRepository(Context.DbContext context)
+        public IcuLayoutDataRepository(DbContext context)
         {
             _context = context;
         }

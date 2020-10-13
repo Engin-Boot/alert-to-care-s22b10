@@ -10,7 +10,7 @@ namespace AlertToCare.UnitTest.Repository
         [Fact]
         public void TestInsertBedInformation()
         {
-            var layoutData = new IcuLayoutDataRepository(_context);
+            var layoutData = new IcuLayoutDataRepository(Context);
             var bed = new BedInformation
             {
                 PatientId = 10,
@@ -20,14 +20,14 @@ namespace AlertToCare.UnitTest.Repository
                 BedInRow = 2
             };
             layoutData.InsertBed(bed);
-            var wardInDb = _context.BedInformation.First
+            var wardInDb = Context.BedInformation.First
                 (p => p.WardNumber == "1d");
             Assert.NotNull(wardInDb);
         }
         [Fact]
         public void TestInsertWardLayoutInformation()
         {
-            var layoutData = new IcuLayoutDataRepository(_context);
+            var layoutData = new IcuLayoutDataRepository(Context);
             var layout = new IcuWardInformation
             {
                 WardNumber = "1Z1",
@@ -35,7 +35,7 @@ namespace AlertToCare.UnitTest.Repository
                 TotalBed = 3
             };
             layoutData.InsertLayout(layout);
-            var wardInDb = _context.IcuWardInformation.First
+            var wardInDb = Context.IcuWardInformation.First
                 (p => p.WardNumber == "1Z1");
             Assert.NotNull(wardInDb);
         }
