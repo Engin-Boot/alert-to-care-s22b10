@@ -1,5 +1,6 @@
 using AlertToCare.Controllers;
 using AlertToCare.Models;
+using AlertToCare.Repository;
 using AlertToCare.UnitTest.MockRepository;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
@@ -100,5 +101,14 @@ namespace AlertToCare.UnitTest.Controller
             Assert.NotNull(respone);
             Assert.Equal(500, respone.StatusCode);
         }
+        /*[Fact]
+        public void TestAllotBedToPatientSuccessful()
+        {
+            var patientData = new PatientDataRepository(_context);
+            BedAllotmentModel bedAllotment = new BedAllotmentModel();
+            bedAllotment.PatientId = 12;
+            bedAllotment.Department = "MR";
+            patientData.AllotBedToPatient(bedAllotment);
+        }*/
     }
 }

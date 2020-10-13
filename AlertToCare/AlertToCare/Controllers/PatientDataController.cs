@@ -30,7 +30,7 @@ namespace AlertToCare.Controllers
             {
                 patientInfo = _patientBusinessLogic.InsertPatient(patient);
             }
-            catch (Exception e)
+            catch
             {
                 return StatusCode(500, "unable to insert patient information");
             }
