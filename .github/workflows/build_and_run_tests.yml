@@ -17,4 +17,4 @@ jobs:
       run: dotnet build AlertToCare
 
     - name: Run unit tests
-      run: dotnet test --logger "console;verbosity=detailed";
+      run: dotnet test AlertToCare --logger "console;verbosity=detailed";

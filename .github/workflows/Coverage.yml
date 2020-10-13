@@ -1,8 +1,11 @@
 name: Coverage
  
-on: 
-    push:
-        branches: [master]
+on:
+  push:
+    branches: 
+      - '*'
+  pull_request:
+    branches: [ master ]
  
 jobs:
   build:
@@ -17,7 +20,7 @@ jobs:
            dotnet-version: 3.1.101
         
       - name: Generate coverage report
-        run: dotnet test --collect:"XPlat Code Coverage"
+        run: dotnet test AlertToCare --collect:"XPlat Code Coverage"
       
       - name: Check AlertToCare Coverage
         run: powershell ./Coverage.ps1 -linerate 0.9 -project AlertToCare.Test
