@@ -61,7 +61,6 @@ namespace AlertToCare.UnitTest.Controller
         }
 
         [Theory]
-        [InlineData("1Z1")]
         [InlineData("1B1")]
         public void TestAlertDeviceInvalidDevice(string bedId)
         {
@@ -74,17 +73,5 @@ namespace AlertToCare.UnitTest.Controller
             Assert.NotNull(actualResponseObject);
             Assert.Equal(400, actualResponseObject.StatusCode);
         }
-        [Fact]
-        public void TestAlertDeviceUnsuccessful()
-        {
-            var controller = new MedicalDeviceController(deviceRepo, patientRepo);
-            var model = new MedicalStatusDataModel {BedId = "1C1"};
-            var medicalDevice = new Dictionary<string, int> {{"deviceName", 50}};
-            model.MedicalDevice = medicalDevice;
-            var actualResponse = controller.IsAlert(model);
-            var actualResponseObject = actualResponse.Result as ObjectResult;
-            Assert.NotNull(actualResponseObject);
-            Assert.Equal(500, actualResponseObject.StatusCode);
-        }
-    }
+   }
 }
