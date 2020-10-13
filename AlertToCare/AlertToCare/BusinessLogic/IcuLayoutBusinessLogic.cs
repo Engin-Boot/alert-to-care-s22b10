@@ -26,7 +26,7 @@ namespace AlertToCare.BusinessLogic
                 bool flag = AddBedInIcu(objLayout);
                 return flag;
             }
-            catch(Exception e)
+            catch
             {
                 Console.WriteLine("can not connect to db");
                 return false;

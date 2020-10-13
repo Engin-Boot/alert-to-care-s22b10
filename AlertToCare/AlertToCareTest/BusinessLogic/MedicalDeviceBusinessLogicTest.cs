@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using AlertToCare.UnitTest.MockRepository;

@@ -1,14 +1,13 @@
 ﻿using System.Linq;
-using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 
 namespace AlertToCare.Repository
 {
     public class PatientDataRepository: IPatientDataRepository
     {
-        private readonly Context.DbContext _context;
+        private readonly DbContext _context;
 
-        public PatientDataRepository(Context.DbContext context)
+        public PatientDataRepository(DbContext context)
         {
             _context = context;
         }

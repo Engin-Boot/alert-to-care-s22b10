@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using AlertToCare.Repository;
 using Xunit;

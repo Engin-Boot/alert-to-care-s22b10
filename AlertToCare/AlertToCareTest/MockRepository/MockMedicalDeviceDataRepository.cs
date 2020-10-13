@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AlertToCare.Models;
+﻿using AlertToCare.Models;
 using AlertToCare.Repository;
 
 namespace AlertToCare.UnitTest.MockRepository

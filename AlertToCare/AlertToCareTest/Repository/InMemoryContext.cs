@@ -1,21 +1,21 @@
 ﻿using System;
 using AlertToCare.Models;
 using Microsoft.EntityFrameworkCore;
-using DbContext = AlertToCare.Context.DbContext;
+using DbContext = AlertToCare.Repository.DbContext;
 
 namespace AlertToCare.UnitTest.Repository
 {
     public class InMemoryContext: IDisposable
     {
-        protected readonly Context.DbContext _context;
+        protected readonly DbContext Context;
 
         public InMemoryContext()
         {
-            var option = new DbContextOptionsBuilder<Context.DbContext>().UseInMemoryDatabase(
+            var option = new DbContextOptionsBuilder<DbContext>().UseInMemoryDatabase(
                 databaseName: Guid.NewGuid().ToString()).Options;
-            _context = new Context.DbContext(option);
-            _context.Database.EnsureCreated();
-            InitializeDatabase(_context);
+            Context = new DbContext(option);
+            Context.Database.EnsureCreated();
+            InitializeDatabase(Context);
 
         }
 
@@ -70,8 +70,8 @@ namespace AlertToCare.UnitTest.Repository
 
         public void Dispose()
         {
-            _context.Database.EnsureDeleted();
-            _context.Dispose();
+            Context.Database.EnsureDeleted();
+            Context.Dispose();
         }
     }
 }

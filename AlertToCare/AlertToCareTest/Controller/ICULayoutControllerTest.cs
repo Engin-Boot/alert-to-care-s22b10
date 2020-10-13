@@ -8,11 +8,11 @@ namespace AlertToCare.UnitTest.Controller
 {
     public class IcuLayoutControllerTest
     {
-        readonly MockIcuLayoutBusinessLogic repo = new MockIcuLayoutBusinessLogic();
+        private readonly MockIcuLayoutBusinessLogic _repo = new MockIcuLayoutBusinessLogic();
         [Fact]
         public void TestInsertIcuWardInfoSuccessfully()
         {
-            var controller = new IcuLayoutController(repo);
+            var controller = new IcuLayoutController(_repo);
             IcuWardLayoutModel model = new IcuWardLayoutModel
             {
                 Department = "MR",
@@ -29,7 +29,7 @@ namespace AlertToCare.UnitTest.Controller
         [Fact]
         public void TestInsertIcuWardInfoUnSuccessful()
         {
-            var controller = new IcuLayoutController(repo);
+            var controller = new IcuLayoutController(_repo);
             IcuWardLayoutModel model = new IcuWardLayoutModel
             {
                 Department = "radonc",

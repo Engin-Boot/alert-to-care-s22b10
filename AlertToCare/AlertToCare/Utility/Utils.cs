@@ -1,6 +1,6 @@
 ﻿namespace AlertToCare.Utility
 {
-    public class Utils
+    public static class Utils
     {
         public static bool IsValueNull(object value)
         {

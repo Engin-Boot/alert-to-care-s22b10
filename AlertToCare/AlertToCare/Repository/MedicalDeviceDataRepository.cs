@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AlertToCare.Models;
 
 namespace AlertToCare.Repository
 {
     public class MedicalDeviceDataRepository: IMedicalDeviceDataRepository
     {
-        private readonly Context.DbContext _context;
+        private readonly DbContext _context;
 
-        public MedicalDeviceDataRepository(Context.DbContext context)
+        public MedicalDeviceDataRepository(DbContext context)
         {
             _context = context;
         }
