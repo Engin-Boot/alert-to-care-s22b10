@@ -56,7 +56,7 @@ namespace AlertToCare.AutomationTesting
         public void TestDischargePatient()
         {
             string patientInfoUrl = url + "/DischargePatient/";
-            int patientId = 8;
+            int patientId = 4;
             IRestClient restClient = new RestClient();
             IRestRequest restRequest = new RestRequest()
             {
@@ -76,7 +76,7 @@ namespace AlertToCare.AutomationTesting
             };
             var bedAllotmentInfo = new BedAllotmentModel()
             {
-                PatientId = 2,
+                PatientId = 3,
                 Department = "cancer"
             };
             restRequest.AddHeader("Content-Type", "application/json");

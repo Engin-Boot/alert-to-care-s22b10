@@ -22,7 +22,7 @@ namespace AlertToCare.AutomationTesting
             };
             var deviceInfo = new DeviceDataModel()
             {
-                DeviceName = "HeartMachine",
+                DeviceName = "BloodPressure",
                 MinValue = 20,
                 MaxValue = 50
             };
@@ -107,7 +107,7 @@ namespace AlertToCare.AutomationTesting
             };
             var isAlertGenerated = new MedicalStatusDataModel()
             {
-                BedId = "1A1",
+                BedId = "1B1",
                 MedicalDevice = deviceInfo
             };
             restRequest.AddHeader("Content-Type", "application/json");
@@ -134,7 +134,7 @@ namespace AlertToCare.AutomationTesting
             restRequest.AddHeader("Content-Type", "application/json");
             restRequest.AddJsonBody(isAlertGenerated.ToJsonString());
             IRestResponse restResponse = restClient.Post(restRequest);
-            Assert.AreEqual((int)restResponse.StatusCode, 500);
+            Assert.AreEqual((int)restResponse.StatusCode, 400);
         }
     }
 }
