@@ -35,7 +35,8 @@ namespace AlertToCare.UnitTest.BussinessLogic
         {
             var patientLogic = new PatientBusinessLogic(_repo);
             var bed = new BedAllotmentModel();
-            patientLogic.AllotBedToPatient(bed);
+            var response = patientLogic.AllotBedToPatient(bed);
+            Assert.NotNull(response);
         }
     }
 }

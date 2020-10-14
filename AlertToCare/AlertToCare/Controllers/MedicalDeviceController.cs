@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Http;
 using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using AlertToCare.Validator;
@@ -74,8 +73,8 @@ namespace AlertToCare.Controllers
             return !alertingDevice.Any() ? Ok("Patient Condition OK") : Ok(responseData);
         }
 
-        [Microsoft.AspNetCore.Mvc.HttpDelete("Alert")]
-        public IActionResult AlertOff([FromUri] string bedId)
+        [Microsoft.AspNetCore.Mvc.HttpDelete("Alert/{bedId}")]
+        public IActionResult AlertOff(string bedId)
         {
             if (bedId == null)
                 return BadRequest("Invalid bed id");
