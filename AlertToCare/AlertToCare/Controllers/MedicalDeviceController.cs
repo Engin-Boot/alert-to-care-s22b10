@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Http;
 using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using AlertToCare.Validator;
@@ -8,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AlertToCare.Controllers
 {
-    [Route("[controller]")]
+    [Microsoft.AspNetCore.Mvc.Route("[controller]")]
     [ApiController]
 
     public class MedicalDeviceController : ControllerBase
@@ -23,8 +24,8 @@ namespace AlertToCare.Controllers
         }
 
 
-        [HttpPost("MedicalDevice")]
-        public IActionResult InsertDevice([FromBody] MedicalDevice device)
+        [Microsoft.AspNetCore.Mvc.HttpPost("MedicalDevice")]
+        public IActionResult InsertDevice([Microsoft.AspNetCore.Mvc.FromBody] MedicalDevice device)
         {
             if (!DeviceValidator.ValidateDevice(device))
                 return BadRequest("Please enter valid input");
@@ -40,8 +41,8 @@ namespace AlertToCare.Controllers
             return Ok("Insertion successful");
         }
 
-        [HttpPost("Alert")]
-        public ActionResult<IEnumerable<dynamic>> IsAlert([FromBody] MedicalStatusDataModel status)
+        [Microsoft.AspNetCore.Mvc.HttpPost("Alert")]
+        public ActionResult<IEnumerable<dynamic>> IsAlert([Microsoft.AspNetCore.Mvc.FromBody] MedicalStatusDataModel status)
         {
             PatientDataModel patientInfo;
             IEnumerable<string> alertingDevice;
@@ -73,6 +74,24 @@ namespace AlertToCare.Controllers
             return !alertingDevice.Any() ? Ok("Patient Condition OK") : Ok(responseData);
         }
 
+        [Microsoft.AspNetCore.Mvc.HttpDelete("Alert")]
+        public IActionResult AlertOff([FromUri] string bedId)
+        {
+            if (bedId == null)
+                return BadRequest("Invalid bed id");
+            try
+            {
+                _deviceDataRepository.AlertOff(bedId);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+
+            return Ok();
+
+
+        }
         private static void CheckPatientValid(PatientDataModel patientInfo)
         {
             if(patientInfo == null)

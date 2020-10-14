@@ -25,6 +25,7 @@ namespace AlertToCare.UnitTest.Repository
             deviceData.FetchMedicalDevice("TestDevice");
             Assert.NotNull(deviceData);
         }
+
         [Fact]
         public void TestTurnOnAlertSuccessful()
         {
@@ -34,6 +35,30 @@ namespace AlertToCare.UnitTest.Repository
             var deviceInDb = Context.BedOnAlert.First
                 (p => p.DeviceName == "Oxymeter");
             Assert.NotNull(deviceInDb);
+        }
+
+        [Fact]
+        public void TestFetchBedLayoutInfoSuccessful()
+        {
+            var deviceData = new MedicalDeviceDataRepository(Context);
+            var result = deviceData.FetchBedLayoutInfo("1A1");
+            Assert.NotNull(result);
+        }
+        [Fact]
+        public void TestFetchBedLayoutInfoBedIdNotExists()
+        {
+            var deviceData = new MedicalDeviceDataRepository(Context);
+            var result = deviceData.FetchBedLayoutInfo("1Z1");
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void TestTurnOffAlertSuccessful()
+        {
+            var deviceData = new MedicalDeviceDataRepository(Context);
+            deviceData.TurnOffAlert("1Z1");
+            var deviceInDb = Context.BedOnAlert.FirstOrDefault(bed => bed.BedId == "1Z1");
+            Assert.Null(deviceInDb);
         }
     }
 }

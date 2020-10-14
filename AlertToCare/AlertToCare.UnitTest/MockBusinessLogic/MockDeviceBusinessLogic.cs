@@ -22,5 +22,17 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
             var alertingDevice = new List<string> {"Oxymeter"};
             return alertingDevice;
         }
+
+        public int[] FetchBedLayoutInfo(string statusBedId)
+        {
+            int[] result = {2, 2};
+            return result;
+        }
+
+        public void AlertOff(string bedId)
+        {
+            if(bedId == "1F1")
+                throw new Exception("");
+        }
     }
 }

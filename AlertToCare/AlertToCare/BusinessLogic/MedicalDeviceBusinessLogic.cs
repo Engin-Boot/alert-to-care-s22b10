@@ -47,6 +47,11 @@ namespace AlertToCare.BusinessLogic
             return bedLayout;
         }
 
+        public void AlertOff(string bedId)
+        {
+            _medicalDeviceDataRepository.TurnOffAlert(bedId);
+        }
+
         public void InsertDevice(MedicalDevice device)
         {
             _medicalDeviceDataRepository.InsertMedicalDevice(device);

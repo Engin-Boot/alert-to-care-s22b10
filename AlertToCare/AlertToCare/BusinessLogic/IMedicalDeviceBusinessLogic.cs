@@ -9,5 +9,6 @@ namespace AlertToCare.BusinessLogic
         public IEnumerable<string> Alert(MedicalStatusDataModel medicalStatus);
 
         public int[] FetchBedLayoutInfo(string statusBedId);
+        public void AlertOff(string bedId);
     }
 }

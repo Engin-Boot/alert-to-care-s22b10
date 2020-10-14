@@ -53,5 +53,21 @@ namespace AlertToCare.UnitTest.BussinessLogic
             var alertingDevice = medicalDeviceBusinessLogic.Alert(status);
             Assert.NotNull(alertingDevice);
         }
+
+        [Fact]
+        public void TestFetchBedLayoutInfo()
+        {
+            var medicalDeviceBusinessLogic = new MedicalDeviceBusinessLogic(_repo);
+            var layout = medicalDeviceBusinessLogic.FetchBedLayoutInfo("1A1");
+            int[] expectedResult = {2, 2};
+            Assert.Equal(expectedResult, layout);
+        }
+
+        [Fact]
+        public void TestTurnOffAlert()
+        {
+            var medicalDeviceBusinessLogic = new MedicalDeviceBusinessLogic(_repo);
+            medicalDeviceBusinessLogic.AlertOff("1Z1");
+        }
     }
 }

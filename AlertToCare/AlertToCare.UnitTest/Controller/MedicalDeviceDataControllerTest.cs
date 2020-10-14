@@ -73,5 +73,33 @@ namespace AlertToCare.UnitTest.Controller
             Assert.NotNull(actualResponseObject);
             Assert.Equal(400, actualResponseObject.StatusCode);
         }
-   }
+
+        [Fact]
+        public void TestTurnOffAlertSuccessful()
+        {
+            var controller = new MedicalDeviceController(_deviceRepo, _patientRepo);
+            var response = controller.AlertOff("1A1");
+            var actualResponse = response as OkResult;
+            Assert.NotNull(actualResponse);
+            Assert.Equal(200, actualResponse.StatusCode);
+        }
+        [Fact]
+        public void TestTurnOffAlertNullBedId()
+        {
+            var controller = new MedicalDeviceController(_deviceRepo, _patientRepo);
+            var response = controller.AlertOff(null);
+            var actualResponse = response as BadRequestObjectResult;
+            Assert.NotNull(actualResponse);
+            Assert.Equal(400, actualResponse.StatusCode);
+        }
+        [Fact]
+        public void TestTurnOffAlertUnSuccessful()
+        {
+            var controller = new MedicalDeviceController(_deviceRepo, _patientRepo);
+            var response = controller.AlertOff("1F1");
+            var actualResponse = response as StatusCodeResult;
+            Assert.NotNull(actualResponse);
+            Assert.Equal(500, actualResponse.StatusCode);
+        }
+    }
 }

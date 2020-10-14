@@ -22,5 +22,23 @@ namespace AlertToCare.UnitTest.MockRepository
         {
             
         }
+
+        public BedInformation FetchBedLayoutInfo(string bedId)
+        {
+            var bedInfo = new BedInformation
+            {
+                BedId = "1A1",
+                WardNumber = "1A",
+                PatientId = 10,
+                BedInRow = 2,
+                BedInColumn = 2
+            };
+            return bedInfo;
+        }
+
+        public void TurnOffAlert(string bedId)
+        {
+            
+        }
     }
 }

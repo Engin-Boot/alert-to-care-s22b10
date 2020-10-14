@@ -8,5 +8,6 @@ namespace AlertToCare.Repository
         public void InsertMedicalDevice(MedicalDevice medicalDevice);
         public void TurnOnAlert(BedOnAlert bed);
         BedInformation FetchBedLayoutInfo(string bedId);
+        void TurnOffAlert(string bedId);
     }
 }

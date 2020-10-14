@@ -35,5 +35,11 @@ namespace AlertToCare.Repository
             var layoutInfo = _context.BedInformation.FirstOrDefault(layout => layout.BedId == bedId);
             return layoutInfo;
         }
+
+        public void TurnOffAlert(string bedId)
+        {
+            _context.BedOnAlert.RemoveRange(_context.BedOnAlert.Where(bed => bed.BedId == bedId));
+            _context.SaveChanges();
+        }
     }
 }
