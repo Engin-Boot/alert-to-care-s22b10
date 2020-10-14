@@ -28,24 +28,30 @@ namespace AlertToCare.BusinessLogic
             }
         }
 
+        private int AddBedInColumn(IcuWardLayoutModel objLayout, int bedCounter, int numberOfRow)
+        {
+            for (int numberOfColumn = 1; numberOfColumn <= objLayout.NumberOfColumn && objLayout.NumberOfBed >= bedCounter; numberOfColumn++)
+            {
+                var bedId = string.Concat(objLayout.WardNumber, bedCounter.ToString());
+                var bedInfo = new BedInformation
+                {
+                    BedId = bedId,
+                    BedInColumn = numberOfColumn,
+                    BedInRow = numberOfRow,
+                    WardNumber = objLayout.WardNumber
+                };
+                _icuLayoutDataRepository.InsertBed(bedInfo);
+                bedCounter++;
+            }
+            return bedCounter;
+        }
         private bool AddBedInIcu(IcuWardLayoutModel objLayout)
         {
             int bedCounter = 1;
             for (int numberOfRow = 1; numberOfRow <= objLayout.NumberOfRow && objLayout.NumberOfBed >= bedCounter; numberOfRow++)
             {
-                for (int numberOfColumn = 1; numberOfColumn <= objLayout.NumberOfColumn && objLayout.NumberOfBed >= bedCounter; numberOfColumn++)
-                {
-                    var bedId = string.Concat(objLayout.WardNumber, bedCounter.ToString());
-                    var bedInfo = new BedInformation
-                    {
-                        BedId = bedId,
-                        BedInColumn = numberOfColumn,
-                        BedInRow = numberOfRow,
-                        WardNumber = objLayout.WardNumber
-                    };
-                    _icuLayoutDataRepository.InsertBed(bedInfo);
-                    bedCounter++;
-                }
+                bedCounter = AddBedInColumn(objLayout, bedCounter, numberOfRow) - 1 ;
+                bedCounter++;
             }
             return true;
         }
