@@ -58,7 +58,21 @@ namespace AlertToCare.UnitTest.Repository
             Assert.Equal(10, patientDataInDb.PatientId);
 
         }
-
-
+        [Fact]
+        public void TestFetchPatientFromPatientIdSuccessful()
+        {
+            var patientData = new PatientDataRepository(Context);
+            patientData.FetchPatientFromPatientId(1);
+            Assert.NotNull(patientData);
+        }
+        
+        [Fact]
+        public void TestFetchBedInfoFromPatientIdSuccessful()
+        {
+            var patientData = new PatientDataRepository(Context);
+            patientData.FetchBedInfoFromPatientId(1);
+            Assert.NotNull(patientData);
+        }
+        
     }
 }

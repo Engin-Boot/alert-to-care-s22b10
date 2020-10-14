@@ -46,7 +46,7 @@ namespace AlertToCare.Controllers
             return Ok(responseData);
            }
 
-        [HttpPost("AllotBedToPatient")]
+        [HttpPost("BedAllocation")]
         public IActionResult AllotBedToPatient([FromBody] BedAllotmentModel bedAllotment)
         {
             Tuple<PatientDataModel, BedInformation> response;
@@ -58,7 +58,7 @@ namespace AlertToCare.Controllers
             {
                 response = _patientBusinessLogic.AllotBedToPatient(bedAllotment);
             }
-            catch(Exception e)
+            catch
             {
                 return StatusCode(500);
             }
@@ -76,7 +76,7 @@ namespace AlertToCare.Controllers
             };
             return Ok(responseData);
         }
-        [HttpPost("DischargePatient/{patientId}")]
+        [HttpDelete("BedAllocation/{patientId}")]
         public IActionResult DischargePatient(int patientId)
         {
             try

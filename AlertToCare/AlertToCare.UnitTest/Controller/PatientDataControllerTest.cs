@@ -58,7 +58,7 @@ namespace AlertToCare.UnitTest.Controller
             PatientDataController controller = new PatientDataController(operations);
             BedAllotmentModel bedAllotment = new BedAllotmentModel {PatientId = 1, Department = "Cancer"};
             var actualResponse = controller.AllotBedToPatient(bedAllotment);
-            var actualResponseObject = actualResponse as OkResult;
+            var actualResponseObject = actualResponse as OkObjectResult;
             Assert.NotNull(actualResponseObject);
             Assert.Equal(200, actualResponseObject.StatusCode);
         }

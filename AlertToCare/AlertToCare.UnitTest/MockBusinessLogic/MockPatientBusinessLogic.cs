@@ -41,5 +41,14 @@ namespace AlertToCare.UnitTest.MockRepository
             };
             return patient;
         }
+
+        Tuple<PatientDataModel, BedInformation> IPatientBusinessLogic.AllotBedToPatient(BedAllotmentModel allotBed)
+        {
+            if(allotBed.PatientId ==2)
+                throw new Exception();
+            var objPatientInfo = new PatientDataModel();
+            var objBedInfo = new BedInformation();
+            return new Tuple<PatientDataModel, BedInformation>(objPatientInfo, objBedInfo);
+        }
     }
 }

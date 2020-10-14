@@ -25,5 +25,15 @@ namespace AlertToCare.UnitTest.MockRepository
         {
 
         }
+
+        public PatientDataModel FetchPatientFromPatientId(int patientId)
+        {
+            return new PatientDataModel();
+        }
+
+        public BedInformation FetchBedInfoFromPatientId(int patientId)
+        {
+            return new BedInformation();
+        }
     }
 }
