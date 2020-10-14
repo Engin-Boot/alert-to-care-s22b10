@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using AlertToCare.Validator;
@@ -48,11 +49,15 @@ namespace AlertToCare.Controllers
         [HttpPost("AllotBedToPatient")]
         public IActionResult AllotBedToPatient([FromBody] BedAllotmentModel bedAllotment)
         {
+            AllotedBedValidator bedValidator = new AllotedBedValidator();
+            bool isDataValid = bedValidator.ValidateBedAlloted(bedAllotment);
+            if (!isDataValid)
+                return BadRequest("Please Enter Valid Input");
             try
             {
                 _patientBusinessLogic.AllotBedToPatient(bedAllotment);
             }
-            catch
+            catch(Exception e)
             {
                 return StatusCode(500);
             }

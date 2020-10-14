@@ -40,6 +40,9 @@ namespace AlertToCare.BusinessLogic
             {
                 for (int numberOfColumn = 1; numberOfColumn <= objLayout.NumberOfColumn; numberOfColumn++)
                 {
+                    bool isAllBedAreEnteredInDb = IsAllBedAreEnteredInDb(objLayout.NumberOfBed, bedCounter);
+                    if (isAllBedAreEnteredInDb)
+                        return true;
                     var bedId = string.Concat(objLayout.WardNumber, bedCounter.ToString());
                     var bedInfo = new BedInformation
                     {
@@ -50,9 +53,6 @@ namespace AlertToCare.BusinessLogic
                     };
                     _icuLayoutDataRepository.InsertBed(bedInfo);
                     bedCounter++;
-                    bool isAllBedAreEnteredInDb = IsAllBedAreEnteredInDb(objLayout.NumberOfBed, bedCounter);
-                    if( isAllBedAreEnteredInDb )
-                        return true;
                 }
             }
             return true;
