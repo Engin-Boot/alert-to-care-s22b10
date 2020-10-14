@@ -13,11 +13,6 @@ namespace AlertToCare.BusinessLogic
             
             this._icuLayoutDataRepository = repo;
         }
-        
-        private bool IsAllBedAreEnteredInDb(int totalBed, int bedEnteredInDb)
-        {
-            return totalBed < bedEnteredInDb;
-        }
 
         private bool BedLayoutAllocation(IcuWardLayoutModel objLayout)
         {
@@ -36,13 +31,10 @@ namespace AlertToCare.BusinessLogic
         private bool AddBedInIcu(IcuWardLayoutModel objLayout)
         {
             int bedCounter = 1;
-            for (int numberOfRow = 1; numberOfRow <= objLayout.NumberOfRow; numberOfRow++)
+            for (int numberOfRow = 1; numberOfRow <= objLayout.NumberOfRow && objLayout.NumberOfBed >= bedCounter; numberOfRow++)
             {
-                for (int numberOfColumn = 1; numberOfColumn <= objLayout.NumberOfColumn; numberOfColumn++)
+                for (int numberOfColumn = 1; numberOfColumn <= objLayout.NumberOfColumn && objLayout.NumberOfBed >= bedCounter; numberOfColumn++)
                 {
-                    bool isAllBedAreEnteredInDb = IsAllBedAreEnteredInDb(objLayout.NumberOfBed, bedCounter);
-                    if (isAllBedAreEnteredInDb)
-                        return true;
                     var bedId = string.Concat(objLayout.WardNumber, bedCounter.ToString());
                     var bedInfo = new BedInformation
                     {
