@@ -1,132 +1,65 @@
-﻿using System;
-using System.Data;
+﻿using System.Linq;
 using AlertToCare.Models;
-using Npgsql;
 
 namespace AlertToCare.Repository
 {
-    public class PatientDataRepository : IPatientDataRepository
+    public class PatientDataRepository: IPatientDataRepository
     {
-        public bool FreeTheBed(int patientId)
-        {
-            NpgsqlConnection con = null;
-            try
-            {
-                con = DbConnection.GetConnection();
-                // allot bed to patient
-                using (var cmd = new NpgsqlCommand())
-                {
-                    cmd.Connection = con;
-                    cmd.CommandText = "update bed_information SET patient_id = null where patient_id = @Patient_Id";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("Patient_Id", patientId);
-                    cmd.ExecuteNonQuery();
-                }
+        private readonly DbContext _context;
 
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("unable to free the bed");
-                return false;
-            }
-            return true;
-        }
-        public bool AllotBedToPatient(BedAllotmentModel allotBed)
+        public PatientDataRepository(DbContext context)
         {
-            NpgsqlConnection con = null;
-            try
-            {
-                con = DbConnection.GetConnection();
-                // allot bed to patient
-                using (var cmd = new NpgsqlCommand())
-                {
-                    cmd.Connection = con;
-                    cmd.CommandText =
-                        " UPDATE bed_information SET patient_id = @PId WHERE bed_id IN " +
-                        "(SELECT bed_id FROM bed_information WHERE patient_id IS NULL AND ward_number IN " +
-                        "(SELECT ward_number FROM  icuwardinformation WHERE department=@Department) LIMIT 1)";
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Parameters.AddWithValue("Department", allotBed.Department);
-                    cmd.Parameters.AddWithValue("PId", allotBed.PatientId);
-                    cmd.ExecuteNonQuery();
-                }
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("unable to allot bed2");
-                return false;
-            }
-            return true;
+            _context = context;
         }
 
-        public string[] InsertPatient(PatientDataModel patient)
+        public void AddPatient(PatientDataModel patient)
         {
-            NpgsqlConnection con = null;
-            try
-            {
-                con = DbConnection.GetConnection();
-                // Inserting Patient Info in database.
-                using (var cmd = new NpgsqlCommand())
-                {
-                    cmd.Connection = con;
-                    cmd.CommandText =
-                        "insert into patient_info(patient_name, email, address, mobile) values(@patientName, @email, @address, @mobile)";
-                    var command = FormQuery(cmd, patient);
-                    command.ExecuteNonQuery();
-                }
+            _context.PatientInfo.Add(patient);
+            _context.SaveChanges();
+        }
 
-                // Fetching Patient Info from database
-                using (var cmd = new NpgsqlCommand())
-                {
-                    cmd.Connection = con;
-                    cmd.CommandText = "select * from patient_info where patient_name = @patientName and" +
-                                      " email=@email and address=@address and mobile=@mobile";
-                    var command = FormQuery(cmd, patient);
-                    NpgsqlDataReader dr = command.ExecuteReader();
+        public PatientDataModel FetchPatientInfoFromBedId(string bedId)
+        {
+            var query = (from patient in _context.PatientInfo
+                join
+                    bed in _context.BedInformation on
+                    patient.PatientId equals bed.PatientId
+                where bed.BedId == bedId
+                select patient);
+            var patientResult = query.FirstOrDefault();
+            return patientResult;
+        }
 
-                    // Output rows
-                    var patientRecord = NpgsqlDataReaderToStringArrayConvertor(dr);
-                    return patientRecord;
+        public void RemovePatientFromBed(int patientId)
+        {
+            var patient = _context.BedInformation.First
+                (p => p.PatientId == patientId);
+            patient.PatientId = null;
+            _context.SaveChanges();
+        }
 
-                }
-            }
-
-            catch (Exception)
-            {
-                throw new Exception("DB connectivity error");
-            }
-            finally
-            {
-                DbConnection.CloseConnection(con);
-            }
+        public void AllotBedToPatient(BedAllotmentModel allotBed)
+        {
+            var bedInformation = (from wardInfo in _context.IcuWardInformation
+                join
+                    bedInfo in _context.BedInformation on
+                    wardInfo.WardNumber equals bedInfo.WardNumber
+                where bedInfo.PatientId == null &&  wardInfo.Department == allotBed.Department
+                                  select bedInfo).FirstOrDefault();
+            if (bedInformation != null) bedInformation.PatientId = allotBed.PatientId;
+            _context.SaveChanges();
 
         }
 
-        private NpgsqlCommand FormQuery(NpgsqlCommand cmd, PatientDataModel patient)
+        public PatientDataModel FetchPatientFromPatientId(int patientId)
         {
-            cmd.CommandType = CommandType.Text;
-            cmd.Parameters.AddWithValue("patientName", patient.PatientName);
-            cmd.Parameters.AddWithValue("email", patient.Email);
-            cmd.Parameters.AddWithValue("address", patient.Address);
-            cmd.Parameters.AddWithValue("mobile", patient.Mobile);
-            return cmd;
+            var device = _context.PatientInfo.FirstOrDefault(m => m.PatientId == patientId);
+            return device;
         }
-
-        private static string[] NpgsqlDataReaderToStringArrayConvertor(NpgsqlDataReader dr)
+        public BedInformation FetchBedInfoFromPatientId(int patientId)
         {
-            while (dr.Read())
-            {
-                var patientRecord = new string[dr.FieldCount];
-                for (int i = 0; i < dr.FieldCount; i++)
-                {
-                    patientRecord[i] = dr[i].ToString();
-                }
-
-                return patientRecord;
-            }
-
-            return null;
+            var device = _context.BedInformation.FirstOrDefault(m => m.PatientId == patientId);
+            return device;
         }
     }
 }

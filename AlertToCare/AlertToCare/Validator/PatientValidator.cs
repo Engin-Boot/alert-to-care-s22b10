@@ -1,30 +1,18 @@
 ﻿using AlertToCare.Models;
+using AlertToCare.Utility;
 
 namespace AlertToCare.Validator
 {
     public static class PatientValidator
-    {
-        private static bool IsStringIsNull(string word)
-        {
-            return (word == null);
-        }
-
-        private static bool IsLengthValid(string word)
-        {
-            return word.Length == 10;
-        }
+    {   
         internal static bool ValidatePatient(PatientDataModel patient)
         {
-            if (IsStringIsNull(patient.PatientName) == IsStringIsNull(patient.Email) ==
-                IsStringIsNull(patient.Mobile) == IsLengthValid(patient.Mobile) == false )
+            if (Utils.IsValueNull(patient.PatientName) == Utils.IsValueNull(patient.Email) ==
+                Utils.IsValueNull(patient.Mobile) == Utils.IsLengthValid(patient.Mobile, 10) == false )
             {
                 return true;
             }
             return false;
-            /*if (patient.PatientName != null && patient.Email != null && patient.Mobile != null &&
-                patient.Mobile.Length == 10)
-                return true;*/
-            
         }
     }
 }
