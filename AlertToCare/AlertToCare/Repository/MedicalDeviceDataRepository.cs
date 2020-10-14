@@ -29,5 +29,11 @@ namespace AlertToCare.Repository
             _context.BedOnAlert.Add(bed);
             _context.SaveChanges();
         }
+
+        public BedInformation FetchBedLayoutInfo(string bedId)
+        {
+            var layoutInfo = _context.BedInformation.FirstOrDefault(layout => layout.BedId == bedId);
+            return layoutInfo;
+        }
     }
 }

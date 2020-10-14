@@ -7,6 +7,7 @@ namespace AlertToCare.BusinessLogic
     {
         public void InsertDevice(MedicalDevice device);
         public IEnumerable<string> Alert(MedicalStatusDataModel medicalStatus);
-        
+
+        public int[] FetchBedLayoutInfo(string statusBedId);
     }
 }

@@ -40,6 +40,13 @@ namespace AlertToCare.BusinessLogic
             return alertingDevice;
         }
 
+        public int[] FetchBedLayoutInfo(string statusBedId)
+        {
+            var layout = _medicalDeviceDataRepository.FetchBedLayoutInfo(statusBedId);
+            int[] bedLayout = {layout.BedInRow, layout.BedInColumn};
+            return bedLayout;
+        }
+
         public void InsertDevice(MedicalDevice device)
         {
             _medicalDeviceDataRepository.InsertMedicalDevice(device);

@@ -45,12 +45,14 @@ namespace AlertToCare.Controllers
         {
             PatientDataModel patientInfo;
             IEnumerable<string> alertingDevice;
+            int[] layout;
             try
             {
                 patientInfo = _patientDataRepository.FetchPatientInfoFromBedId(status.BedId);
-                checkPatientValid(patientInfo);
+                CheckPatientValid(patientInfo);
 
                 alertingDevice = _deviceDataRepository.Alert(status);
+                layout = _deviceDataRepository.FetchBedLayoutInfo(status.BedId);
             }
             catch (ArgumentException)
             {
@@ -64,12 +66,14 @@ namespace AlertToCare.Controllers
                 {"address", patientInfo.Address},
                 {"mobile", patientInfo.Mobile},
                 {"Bed Id", status.BedId},
-                {"Alert Device", alertingDevice}
+                {"Alert Device", alertingDevice},
+                {"Row", layout[0]},
+                {"Column", layout[1]}
             };
             return !alertingDevice.Any() ? Ok("Patient Condition OK") : Ok(responseData);
         }
 
-        private void checkPatientValid(PatientDataModel patientInfo)
+        private static void CheckPatientValid(PatientDataModel patientInfo)
         {
             if(patientInfo == null)
                 throw  new ArgumentException("Invalid bed id");
