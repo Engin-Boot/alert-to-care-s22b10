@@ -1,5 +1,7 @@
 ﻿using AlertToCare.Models;
 using AlertToCare.Repository;
+using System;
+using System.Collections.Generic;
 
 namespace AlertToCare.BusinessLogic
 {
@@ -27,9 +29,13 @@ namespace AlertToCare.BusinessLogic
             _patientDataRepository.RemovePatientFromBed(patientId);
         }
 
-        public void AllotBedToPatient(BedAllotmentModel allotBed)
+        public Tuple<PatientDataModel, BedInformation> AllotBedToPatient(BedAllotmentModel allotBed)
         {
             _patientDataRepository.AllotBedToPatient(allotBed);
+            var objPatientInfo = _patientDataRepository.FetchPatientFromPatientId(allotBed.PatientId);
+            var objBedInfo = _patientDataRepository.FetchBedInfoFromPatientId(allotBed.PatientId);
+            return new Tuple<PatientDataModel, BedInformation>(objPatientInfo,objBedInfo); 
         }
+
     }
 }

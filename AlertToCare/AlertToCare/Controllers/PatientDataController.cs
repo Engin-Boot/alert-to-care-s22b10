@@ -49,19 +49,32 @@ namespace AlertToCare.Controllers
         [HttpPost("AllotBedToPatient")]
         public IActionResult AllotBedToPatient([FromBody] BedAllotmentModel bedAllotment)
         {
-            AllotedBedValidator bedValidator = new AllotedBedValidator();
+            Tuple<PatientDataModel, BedInformation> response;
+              AllotedBedValidator bedValidator = new AllotedBedValidator();
             bool isDataValid = bedValidator.ValidateBedAlloted(bedAllotment);
             if (!isDataValid)
                 return BadRequest("Please Enter Valid Input");
             try
             {
-                _patientBusinessLogic.AllotBedToPatient(bedAllotment);
+                response = _patientBusinessLogic.AllotBedToPatient(bedAllotment);
             }
             catch(Exception e)
             {
                 return StatusCode(500);
             }
-            return Ok();
+            string bedLayout = "R"+response.Item2.BedInRow.ToString() + "C" + response.Item2.BedInColumn.ToString();
+            var responseData = new Dictionary<string, dynamic>
+            {
+                {"patientId", response.Item1.PatientId},
+                {"patientName", response.Item1.PatientName},
+                {"email", response.Item1.Email},
+                {"address",response.Item1.Address},
+                {"mobile", response.Item1.Mobile},
+                {"bedId", response.Item2.BedId },
+                {"wardInfo", response.Item2.WardNumber },
+                {"bedLayout", bedLayout }
+            };
+            return Ok(responseData);
         }
         [HttpPost("DischargePatient/{patientId}")]
         public IActionResult DischargePatient(int patientId)

@@ -1,4 +1,5 @@
 ﻿using AlertToCare.Models;
+using System.Linq;
 
 namespace AlertToCare.Repository
 {

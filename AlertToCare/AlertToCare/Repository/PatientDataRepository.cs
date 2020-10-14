@@ -50,5 +50,16 @@ namespace AlertToCare.Repository
             _context.SaveChanges();
 
         }
+
+        public PatientDataModel FetchPatientFromPatientId(int patientId)
+        {
+            var device = _context.PatientInfo.FirstOrDefault(m => m.PatientId == patientId);
+            return device;
+        }
+        public BedInformation FetchBedInfoFromPatientId(int patientId)
+        {
+            var device = _context.BedInformation.FirstOrDefault(m => m.PatientId == patientId);
+            return device;
+        }
     }
 }

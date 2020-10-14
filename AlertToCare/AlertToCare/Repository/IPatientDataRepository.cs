@@ -8,5 +8,7 @@ namespace AlertToCare.Repository
         public PatientDataModel FetchPatientInfoFromBedId(string bedId);
         public void RemovePatientFromBed(int patientId);
         public void AllotBedToPatient(BedAllotmentModel allotBed);
+        public PatientDataModel FetchPatientFromPatientId(int patientId);
+        public BedInformation FetchBedInfoFromPatientId(int patientId);
     }
 }

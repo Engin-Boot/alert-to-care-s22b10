@@ -1,10 +1,13 @@
-﻿namespace AlertToCare.BusinessLogic
+﻿using AlertToCare.Models;
+using System;
+
+namespace AlertToCare.BusinessLogic
 {
     public interface IPatientBusinessLogic
     {
-        public Models.PatientDataModel InsertPatient(Models.PatientDataModel patient);
-        public void AllotBedToPatient(Models.BedAllotmentModel allotBed);
+        public PatientDataModel InsertPatient(Models.PatientDataModel patient);
+        public Tuple<PatientDataModel, BedInformation> AllotBedToPatient(Models.BedAllotmentModel allotBed);
         public void FreeTheBed(int patientId);
-        public Models.PatientDataModel FetchPatientInfoFromBedId(string statusBedId);
+        public PatientDataModel FetchPatientInfoFromBedId(string bedId);
     }
 }
