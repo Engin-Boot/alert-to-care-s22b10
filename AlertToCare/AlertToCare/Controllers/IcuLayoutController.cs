@@ -1,4 +1,5 @@
-﻿using AlertToCare.Models;
+﻿using AlertToCare.BusinessLogic;
+using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlertToCare.Controllers
@@ -7,9 +8,9 @@ namespace AlertToCare.Controllers
     [ApiController]
     public class IcuLayoutController : Controller
     {
-        private readonly Repository.IIcuLayoutManagement _icuLayoutManagement;
+        private readonly IIcuLayoutBusinessLogic _icuLayoutManagement;
 
-        public IcuLayoutController(Repository.IIcuLayoutManagement icuLayout)
+        public IcuLayoutController(IIcuLayoutBusinessLogic icuLayout)
         {
             _icuLayoutManagement = icuLayout;
         }
@@ -17,10 +18,15 @@ namespace AlertToCare.Controllers
         [HttpPost("IcuWardInfo")]
         public IActionResult InsertIcuWardInfo([FromBody] IcuWardLayoutModel objLayoutModel)
         {
-            bool isWardInfoStored = _icuLayoutManagement.GetLayoutInformation(objLayoutModel);
-            if (isWardInfoStored)
+            try
+            {
+                _icuLayoutManagement.AddLayoutInformation(objLayoutModel);
                 return Ok(200);
-            return StatusCode(500);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
         }
     }
 }

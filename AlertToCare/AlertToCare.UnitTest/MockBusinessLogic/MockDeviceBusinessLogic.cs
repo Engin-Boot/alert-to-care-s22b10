@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
-using AlertToCare.Repository;
 
-namespace AlertToCare.UnitTest.MockRepository
+namespace AlertToCare.UnitTest.MockBusinessLogic
 {
-    class MockDeviceDataRepository : IMedicalDeviceDataRepository
+    class MockDeviceBusinessLogic : IMedicalDeviceBusinessLogic
     {
-        public void InsertDevice(DeviceDataModel device)
+        public void InsertDevice(MedicalDevice device)
         {
             if (device.DeviceName == "Oxymeter")
                 throw new Exception("Exception");
@@ -20,8 +19,7 @@ namespace AlertToCare.UnitTest.MockRepository
                 throw new ArgumentException("");
             if(medicalStatus.BedId == "1C1")
                 throw new Exception("");
-            var alertingDevice = new List<string>();
-            alertingDevice.Add("Oxymeter");
+            var alertingDevice = new List<string> {"Oxymeter"};
             return alertingDevice;
         }
     }

@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using AlertToCare.Validator;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +12,10 @@ namespace AlertToCare.Controllers
 
     public class PatientDataController : ControllerBase
     {
-        readonly Repository.IPatientDataRepository _patientDataRepository;
-        public PatientDataController(Repository.IPatientDataRepository repo)
+        readonly IPatientBusinessLogic _patientBusinessLogic;
+        public PatientDataController(IPatientBusinessLogic operation)
         {
-            this._patientDataRepository = repo;
+            this._patientBusinessLogic = operation;
         }
 
 
@@ -27,9 +27,13 @@ namespace AlertToCare.Controllers
                 return BadRequest("Please enter valid input");
             try
             {
-                patientInfo = _patientDataRepository.InsertPatient(patient);
+                patientInfo = _patientBusinessLogic.InsertPatient(patient);
             }
+<<<<<<< HEAD
             catch (Exception)
+=======
+            catch
+>>>>>>> 8c6598d8c6d0b2e6d5350b08d82c35e7d43980dd
             {
                 return StatusCode(500, "unable to insert patient information");
             }
@@ -48,22 +52,37 @@ namespace AlertToCare.Controllers
         [HttpPost("AllotBedToPatient")]
         public IActionResult AllotBedToPatient([FromBody] BedAllotmentModel bedAllotment)
         {
+<<<<<<< HEAD
             AllotedBedValidator bedValidator = new AllotedBedValidator();
             bool isDataValid = bedValidator.ValidateBedAlloted(bedAllotment);
             if (!isDataValid)
                 return BadRequest("Please Enter Valid Input");
             bool isBedAlloted = _patientDataRepository.AllotBedToPatient(bedAllotment);
             if (isBedAlloted == false)
+=======
+            try
+            {
+                _patientBusinessLogic.AllotBedToPatient(bedAllotment);
+            }
+            catch
+            {
+>>>>>>> 8c6598d8c6d0b2e6d5350b08d82c35e7d43980dd
                 return StatusCode(500);
+            }
             return Ok();
         }
         [HttpPost("DischargePatient/{patientId}")]
         public IActionResult DischargePatient(int patientId)
         {
-            bool isBedAlloted = _patientDataRepository.FreeTheBed(patientId);
-            if (isBedAlloted == false)
+            try
+            {
+                _patientBusinessLogic.FreeTheBed(patientId);
+                return Ok();
+            }
+            catch
+            {
                 return StatusCode(500);
-            return Ok();
+            }
         }
     }
 }

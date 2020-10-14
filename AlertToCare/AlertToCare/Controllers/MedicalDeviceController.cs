@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using AlertToCare.Validator;
 using Microsoft.AspNetCore.Mvc;
@@ -12,10 +13,10 @@ namespace AlertToCare.Controllers
 
     public class MedicalDeviceController : ControllerBase
     {
-        readonly Repository.IMedicalDeviceDataRepository _deviceDataRepository;
-        readonly Repository.IPatientDataRepository _patientDataRepository;
-        public MedicalDeviceController(Repository.IMedicalDeviceDataRepository deviceRepo,
-            Repository.IPatientDataRepository patientRepo)
+        readonly IMedicalDeviceBusinessLogic _deviceDataRepository;
+        readonly IPatientBusinessLogic _patientDataRepository;
+        public MedicalDeviceController(IMedicalDeviceBusinessLogic deviceRepo,
+            IPatientBusinessLogic patientRepo)
         {
             this._deviceDataRepository = deviceRepo;
             this._patientDataRepository = patientRepo;
@@ -23,7 +24,7 @@ namespace AlertToCare.Controllers
 
 
         [HttpPost("MedicalDevice")]
-        public IActionResult InsertDevice([FromBody] DeviceDataModel device)
+        public IActionResult InsertDevice([FromBody] MedicalDevice device)
         {
             if (!DeviceValidator.ValidateDevice(device))
                 return BadRequest("Please enter valid input");
@@ -38,6 +39,7 @@ namespace AlertToCare.Controllers
 
             return Ok("Insertion successful");
         }
+
         [HttpPost("Alert")]
         public ActionResult<IEnumerable<dynamic>> IsAlert([FromBody] MedicalStatusDataModel status)
         {
@@ -46,17 +48,13 @@ namespace AlertToCare.Controllers
             try
             {
                 patientInfo = _patientDataRepository.FetchPatientInfoFromBedId(status.BedId);
-                if (patientInfo == null)
-                    return BadRequest("Invalid Bed Id");
+                checkPatientValid(patientInfo);
+
                 alertingDevice = _deviceDataRepository.Alert(status);
             }
             catch (ArgumentException)
             {
-                return BadRequest("Invalid Medical Device");
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "unable to check alert");
+                return BadRequest("Invalid Request Body");
             }
 
             var responseData = new Dictionary<string, dynamic>
@@ -69,6 +67,12 @@ namespace AlertToCare.Controllers
                 {"Alert Device", alertingDevice}
             };
             return !alertingDevice.Any() ? Ok("Patient Condition OK") : Ok(responseData);
+        }
+
+        private void checkPatientValid(PatientDataModel patientInfo)
+        {
+            if(patientInfo == null)
+                throw  new ArgumentException("Invalid bed id");
         }
     }
 }

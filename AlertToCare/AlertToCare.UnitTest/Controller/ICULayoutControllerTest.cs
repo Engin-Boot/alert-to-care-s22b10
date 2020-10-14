@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AlertToCare.Controllers;
+﻿using AlertToCare.Controllers;
 using AlertToCare.Models;
 using AlertToCare.UnitTest.MockRepository;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
-namespace AlertToCare.UnitTest
+namespace AlertToCare.UnitTest.Controller
 {
     public class IcuLayoutControllerTest
     {
-        MockIcuLayoutDataRepository repo = new MockIcuLayoutDataRepository();
+        private readonly MockIcuLayoutBusinessLogic _repo = new MockIcuLayoutBusinessLogic();
         [Fact]
         public void TestInsertIcuWardInfoSuccessfully()
         {
-            var controller = new IcuLayoutController(repo);
-            IcuWardLayoutModel model = new IcuWardLayoutModel();
-            model.Department = "cancer";
-            model.NumberOfBed = 2;
-            model.NumberOfColumn = 2;
-            model.NumberOfRow = 1;
-            model.WardNumber = "1A1";
+            var controller = new IcuLayoutController(_repo);
+            IcuWardLayoutModel model = new IcuWardLayoutModel
+            {
+                Department = "MR",
+                NumberOfBed = 2,
+                NumberOfColumn = 2,
+                NumberOfRow = 1,
+                WardNumber = "1A1"
+            };
             var actualResponse = controller.InsertIcuWardInfo(model);
             var actualResponseObject = actualResponse as OkObjectResult;
             Assert.NotNull(actualResponseObject);
@@ -30,13 +29,15 @@ namespace AlertToCare.UnitTest
         [Fact]
         public void TestInsertIcuWardInfoUnSuccessful()
         {
-            var controller = new IcuLayoutController(repo);
-            IcuWardLayoutModel model = new IcuWardLayoutModel();
-            model.Department = "MRI";
-            model.NumberOfBed = 2;
-            model.NumberOfColumn = 2;
-            model.NumberOfRow = 1;
-            model.WardNumber = "1A1";
+            var controller = new IcuLayoutController(_repo);
+            IcuWardLayoutModel model = new IcuWardLayoutModel
+            {
+                Department = "radonc",
+                NumberOfBed = 2,
+                NumberOfColumn = 2,
+                NumberOfRow = 1,
+                WardNumber = "1A1"
+            };
             var actualResponse = controller.InsertIcuWardInfo(model);
             var actualResponseObject = actualResponse as StatusCodeResult;
             Assert.NotNull(actualResponseObject);
