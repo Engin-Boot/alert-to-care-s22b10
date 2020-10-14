@@ -29,7 +29,7 @@ namespace AlertToCare.Controllers
             {
                 patientInfo = _patientDataRepository.InsertPatient(patient);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return StatusCode(500, "unable to insert patient information");
             }
@@ -48,6 +48,10 @@ namespace AlertToCare.Controllers
         [HttpPost("AllotBedToPatient")]
         public IActionResult AllotBedToPatient([FromBody] BedAllotmentModel bedAllotment)
         {
+            AllotedBedValidator bedValidator = new AllotedBedValidator();
+            bool isDataValid = bedValidator.ValidateBedAlloted(bedAllotment);
+            if (!isDataValid)
+                return BadRequest("Please Enter Valid Input");
             bool isBedAlloted = _patientDataRepository.AllotBedToPatient(bedAllotment);
             if (isBedAlloted == false)
                 return StatusCode(500);
