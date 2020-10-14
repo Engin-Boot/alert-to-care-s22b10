@@ -1,17 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AlertToCare.Models;
+﻿using AlertToCare.Models;
 
 namespace AlertToCare.Validator
 {
     public class AllotedBedValidator
     {
+        public bool IsDepartmentNull(string department)
+        {
+            return department != null;
+        }
+        public bool IsPatientIdIsNull(int? patientId)
+        {
+            return patientId.HasValue;
+        }
         public bool ValidateBedAlloted(BedAllotmentModel allotedBed)
         {
-            int? patientId = allotedBed.PatientId;
-            if (allotedBed.Department != null && patientId.HasValue)
+            bool isDepartmentNull = IsDepartmentNull(allotedBed.Department);
+            bool isPatientIdIsNull = IsPatientIdIsNull(allotedBed.PatientId);
+
+            if (isDepartmentNull == isPatientIdIsNull == true)
                 return true;
             return false;
         }
