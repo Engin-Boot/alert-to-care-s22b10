@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlertToCare", "AlertToCare\AlertToCare.csproj", "{C4367DFB-D664-433E-B407-009200E05D96}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlertToCare.UnitTest", "AlertToCare.UnitTest.csproj", "{F3D0683A-8D81-47D4-8D02-27E12581853D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlertToCare.UnitTest", "AlertToCare.UnitTest\AlertToCare.UnitTest.csproj", "{F3D0683A-8D81-47D4-8D02-27E12581853D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
