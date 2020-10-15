@@ -1,9 +1,8 @@
 ﻿using System;
 using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
-using AlertToCare.Repository;
 
-namespace AlertToCare.UnitTest.MockRepository
+namespace AlertToCare.UnitTest.MockBusinessLogic
 {
     class MockIcuLayoutBusinessLogic: IIcuLayoutBusinessLogic
     {

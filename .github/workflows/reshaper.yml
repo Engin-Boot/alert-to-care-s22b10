@@ -1,4 +1,4 @@
-name: Resharper Code Analysis
+name: Reshaper Code Analysis
 
 on:
   push:

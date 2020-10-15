@@ -6,9 +6,10 @@ using AlertToCare.Models;
 using AlertToCare.Validator;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace AlertToCare.Controllers
 {
-    [Microsoft.AspNetCore.Mvc.Route("[controller]")]
+    [Route("[controller]")]
     [ApiController]
 
     public class MedicalDeviceController : ControllerBase
@@ -23,7 +24,7 @@ namespace AlertToCare.Controllers
         }
 
 
-        [Microsoft.AspNetCore.Mvc.HttpPost("MedicalDevice")]
+        [HttpPost("MedicalDevice")]
         public IActionResult InsertDevice([Microsoft.AspNetCore.Mvc.FromBody] MedicalDevice device)
         {
             if (!DeviceValidator.ValidateDevice(device))
@@ -40,8 +41,8 @@ namespace AlertToCare.Controllers
             return Ok("Insertion successful");
         }
 
-        [Microsoft.AspNetCore.Mvc.HttpPost("Alert")]
-        public ActionResult<IEnumerable<dynamic>> IsAlert([Microsoft.AspNetCore.Mvc.FromBody] MedicalStatusDataModel status)
+        [HttpPost("Alert")]
+        public ActionResult<IEnumerable<dynamic>> IsAlert([FromBody] MedicalStatusDataModel status)
         {
             PatientDataModel patientInfo;
             IEnumerable<string> alertingDevice;
@@ -73,7 +74,7 @@ namespace AlertToCare.Controllers
             return !alertingDevice.Any() ? Ok("Patient Condition OK") : Ok(responseData);
         }
 
-        [Microsoft.AspNetCore.Mvc.HttpDelete("Alert/{bedId}")]
+        [HttpDelete("Alert/{bedId}")]
         public IActionResult AlertOff(string bedId)
         {
             if (bedId == null)

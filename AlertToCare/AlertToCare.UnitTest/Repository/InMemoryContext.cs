@@ -9,7 +9,7 @@ namespace AlertToCare.UnitTest.Repository
     {
         protected readonly DbContext Context;
 
-        public InMemoryContext()
+        protected InMemoryContext()
         {
             var option = new DbContextOptionsBuilder<DbContext>().UseInMemoryDatabase(
                 databaseName: Guid.NewGuid().ToString()).Options;
