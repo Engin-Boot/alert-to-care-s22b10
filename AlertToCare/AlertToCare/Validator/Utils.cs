@@ -1,4 +1,4 @@
-﻿namespace AlertToCare.Utility
+﻿namespace AlertToCare.Validator
 {
     public static class Utils
     {

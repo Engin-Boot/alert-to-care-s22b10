@@ -38,5 +38,13 @@ namespace AlertToCare.UnitTest.BussinessLogic
             var response = patientLogic.AllotBedToPatient(bed);
             Assert.NotNull(response);
         }
+
+        [Fact]
+        public void TestGetPatientInfo()
+        {
+            var patientLogic = new PatientBusinessLogic(_repo);
+            var patient = patientLogic.FetchPatientInfoFromBedId("1A1");
+            Assert.NotNull(patient);
+        }
     }
 }

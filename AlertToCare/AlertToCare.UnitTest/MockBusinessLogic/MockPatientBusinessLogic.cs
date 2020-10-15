@@ -42,6 +42,15 @@ namespace AlertToCare.UnitTest.MockRepository
             return patient;
         }
 
+        public PatientDataModel FetchPatientInfo(int patientId)
+        {
+            var patient = new PatientDataModel
+            {
+                PatientId = patientId, Address = "addr", Mobile = "9090909090", Email = "email@email.com"
+            };
+            return patient;
+        }
+
         Tuple<PatientDataModel, BedInformation> IPatientBusinessLogic.AllotBedToPatient(BedAllotmentModel allotBed)
         {
             if(allotBed.PatientId ==2)
