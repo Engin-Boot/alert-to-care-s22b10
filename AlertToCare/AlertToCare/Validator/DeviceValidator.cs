@@ -1,5 +1,5 @@
 ﻿using AlertToCare.Models;
-using AlertToCare.Utility;
+using static AlertToCare.Validator.Utils;
 
 namespace AlertToCare.Validator
 {
@@ -7,7 +7,7 @@ namespace AlertToCare.Validator
     {
         public static bool ValidateDevice(MedicalDevice device)
         {
-            if (Utils.IsValueNull(device.DeviceName) == false && device.MaxValue > device.MinValue)
+            if (IsValueNull(device.DeviceName) == false && device.MaxValue > device.MinValue)
             {
                 return true;
             }

@@ -1,5 +1,5 @@
 ﻿using AlertToCare.Models;
-using AlertToCare.Utility;
+using static AlertToCare.Validator.Utils;
 
 namespace AlertToCare.Validator
 {
@@ -7,8 +7,8 @@ namespace AlertToCare.Validator
     {   
         internal static bool ValidatePatient(PatientDataModel patient)
         {
-            if (Utils.IsValueNull(patient.PatientName) == Utils.IsValueNull(patient.Email) ==
-                Utils.IsValueNull(patient.Mobile) == Utils.IsLengthValid(patient.Mobile, 10) == false )
+            if (IsValueNull(patient.PatientName) == IsValueNull(patient.Email) ==
+                IsValueNull(patient.Mobile) == IsLengthValid(patient.Mobile, 10) == false )
             {
                 return true;
             }
