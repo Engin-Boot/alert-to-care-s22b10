@@ -89,5 +89,31 @@ namespace AlertToCare.Controllers
                 return StatusCode(500);
             }
         }
+        [HttpGet("GetPatientInfo/{patientId}")]
+        public IActionResult GetPatientInformation(int patientId)
+        {
+            PatientDataModel patientInfo;
+            try
+            {
+                patientInfo = _patientBusinessLogic.FetchPatientInfo(patientId);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+            if (patientInfo != null)
+            {
+                var responseData = new Dictionary<string, dynamic>
+                {
+                    {"patientId", patientInfo.PatientId},
+                    {"patientName", patientInfo.PatientName},
+                    {"email", patientInfo.Email},
+                    {"address", patientInfo.Address},
+                    {"mobile", patientInfo.Mobile},
+                };
+                return StatusCode(500);
+            }
+            return BadRequest("Invalid PatientId");
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using AlertToCare.Models;
 using AlertToCare.Repository;
 using System;
-using System.Collections.Generic;
 
 namespace AlertToCare.BusinessLogic
 {
@@ -35,6 +34,11 @@ namespace AlertToCare.BusinessLogic
             var objPatientInfo = _patientDataRepository.FetchPatientFromPatientId(allotBed.PatientId);
             var objBedInfo = _patientDataRepository.FetchBedInfoFromPatientId(allotBed.PatientId);
             return new Tuple<PatientDataModel, BedInformation>(objPatientInfo,objBedInfo); 
+        }
+        public PatientDataModel FetchPatientInfo(int patientId)
+        {
+            var patientInfo = _patientDataRepository.FetchPatientFromPatientId(patientId);
+            return patientInfo;
         }
 
     }

@@ -103,5 +103,31 @@ namespace AlertToCare.AutomationTesting
             IRestResponse restResponse = restClient.Post(restRequest);
             Assert.AreEqual(restResponse.StatusCode, HttpStatusCode.BadRequest);
         }
+        [TestMethod]
+        public void TestGetPatientInformationWithValidPatientId()
+        {
+            string patientInfoUrl = url + "/GetPatientInfo/";
+            int patientId = 13;
+            IRestClient restClient = new RestClient();
+            IRestRequest restRequest = new RestRequest()
+            {
+                Resource = patientInfoUrl + patientId
+            };
+            IRestResponse restResponse = restClient.Get(restRequest);
+            Assert.AreEqual(restResponse.StatusCode, HttpStatusCode.OK);
+        }
+        [TestMethod]
+        public void TestGetPatientInformationWithInvalidPatientId()
+        {
+            string patientInfoUrl = url + "/GetPatientInfo/";
+            int patientId = 1;
+            IRestClient restClient = new RestClient();
+            IRestRequest restRequest = new RestRequest()
+            {
+                Resource = patientInfoUrl + patientId
+            };
+            IRestResponse restResponse = restClient.Get(restRequest);
+            Assert.AreEqual(restResponse.StatusCode, HttpStatusCode.BadRequest);
+        }
     }
 }
