@@ -1,4 +1,5 @@
-﻿using AlertToCare.BusinessLogic;
+﻿using System.Collections.Generic;
+using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,5 +29,11 @@ namespace AlertToCare.Controllers
                 return StatusCode(500);
             }
         }
+
+        [HttpGet("getBedsInformation/{wardid}")]
+        public IEnumerable<BedInformation> getIcuWardInfo(string wardid){
+            return _icuLayoutManagement.getBedInformation(wardid);
+        }
+        
     }
 }

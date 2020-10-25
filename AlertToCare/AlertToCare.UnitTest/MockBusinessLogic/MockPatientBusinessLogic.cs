@@ -58,5 +58,10 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
             var objBedInfo = new BedInformation();
             return new Tuple<PatientDataModel, BedInformation>(objPatientInfo, objBedInfo);
         }
+
+        public void allotBed(PatientDataModel patient, string wardId, string bedId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

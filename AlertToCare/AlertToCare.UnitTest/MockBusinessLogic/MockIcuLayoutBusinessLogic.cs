@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 
@@ -10,6 +11,11 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
         {
             if(objLayout.Department == "radonc")
                 throw new Exception("");
+        }
+
+        public IEnumerable<BedInformation> getBedInformation(string WardNumber)
+        {
+            throw new NotImplementedException();
         }
     }
 }

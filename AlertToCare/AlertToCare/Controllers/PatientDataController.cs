@@ -30,7 +30,7 @@ namespace AlertToCare.Controllers
             {
                 patientInfo = _patientBusinessLogic.InsertPatient(patient);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return StatusCode(500, $"unable to insert patient information {e}");
             }
@@ -44,13 +44,13 @@ namespace AlertToCare.Controllers
                 {"mobile", patientInfo.Mobile},
             };
             return Ok(responseData);
-           }
+        }
 
         [HttpPost("BedAllocation")]
         public IActionResult AllotBedToPatient([FromBody] BedAllotmentModel bedAllotment)
         {
             Tuple<PatientDataModel, BedInformation> response;
-              AllotedBedValidator bedValidator = new AllotedBedValidator();
+            AllotedBedValidator bedValidator = new AllotedBedValidator();
             bool isDataValid = bedValidator.ValidateBedAlloted(bedAllotment);
             if (!isDataValid)
                 return BadRequest("Please Enter Valid Input");
@@ -62,7 +62,7 @@ namespace AlertToCare.Controllers
             {
                 return StatusCode(500);
             }
-            string bedLayout = "R"+response.Item2.BedInRow.ToString() + "C" + response.Item2.BedInColumn.ToString();
+            string bedLayout = "R" + response.Item2.BedInRow.ToString() + "C" + response.Item2.BedInColumn.ToString();
             var responseData = new Dictionary<string, dynamic>
             {
                 {"patientId", response.Item1.PatientId},
@@ -75,6 +75,12 @@ namespace AlertToCare.Controllers
                 {"bedLayout", bedLayout }
             };
             return Ok(responseData);
+        }
+        [HttpPost("allocatebed/{wardNumber}/{bedId}")]
+        public void AllocateBed([FromBody] PatientDataModel patient,string wardNumber,string bedId)
+        {
+            _patientBusinessLogic.InsertPatient(patient);
+            _patientBusinessLogic.allotBed(patient, wardNumber, bedId);
         }
         [HttpDelete("BedAllocation/{patientId}")]
         public IActionResult DischargePatient(int patientId)

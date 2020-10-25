@@ -40,6 +40,22 @@ namespace AlertToCare.Controllers
 
             return Ok("Insertion successful");
         }
+        [HttpGet("getAlertInfo/{wardId}")]
+        public IEnumerable<BedOnAlert> GetBedOnAlerts(string wardId)
+        {
+           var allAlerts =  _deviceDataRepository.getAllAlerts(wardId);
+            return allAlerts;
+        }
+        [HttpPost("raiseAlert/{bedId}/{device}/{value}")]
+        public IActionResult raiseAlert(string bedId, string device, int value)
+        {
+            var result = _deviceDataRepository.raiseAlert(bedId,device,value);
+            if(result)
+            {
+                return Ok();
+            }
+            return NotFound();
+        }
 
         [HttpPost("Alert")]
         public ActionResult<IEnumerable<dynamic>> IsAlert([FromBody] MedicalStatusDataModel status)

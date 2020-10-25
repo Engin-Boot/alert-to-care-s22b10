@@ -1,0 +1,36 @@
+<div id="AddPatientForm">
+    <form [formGroup]="PatientForm" (ngSubmit)="onAdmit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Bed ID</mat-label>
+        <input matInput [disabled]=true [value]="[selectedBedId]" >
+      </mat-form-field>
+      <br>
+        <mat-form-field appearance="fill" >
+          <mat-label>Patient ID</mat-label>
+          <input type="number" matInput formControlName = "PatientId">
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill" >
+            <mat-label>Patient Name</mat-label>
+            <input matInput formControlName = "PatientName">
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill" >
+            <mat-label>Patient Email</mat-label>
+            <input matInput formControlName = "Email">
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill" >
+            <mat-label>Patient Address</mat-label>
+            <input matInput formControlName = "Address">
+          </mat-form-field>
+          <br>
+          <mat-form-field appearance="fill" >
+            <mat-label>Patient Mobile</mat-label>
+            <input matInput formControlName = "Mobile">
+          </mat-form-field>
+          <br>
+        <button mat-button style="background-color: green;" type="submit">ADMIT</button>
+    </form>
+      
+</div>

@@ -1,5 +1,6 @@
 ﻿using AlertToCare.Models;
 using AlertToCare.Repository;
+using System.Collections.Generic;
 
 namespace AlertToCare.UnitTest.MockRepository
 {
@@ -39,6 +40,16 @@ namespace AlertToCare.UnitTest.MockRepository
         public void TurnOffAlert(string bedId)
         {
             
+        }
+
+        public IEnumerable<BedOnAlert> getAllAlerts(string wardNumber)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool raiseAlert(string bedId, string device, int value)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

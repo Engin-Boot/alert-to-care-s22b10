@@ -10,5 +10,6 @@ namespace AlertToCare.BusinessLogic
         public void FreeTheBed(int patientId);
         public PatientDataModel FetchPatientInfoFromBedId(string bedId);
         public PatientDataModel FetchPatientInfo(int patientId);
+        public void allotBed(PatientDataModel patient, string wardId, string bedId);
     }
 }

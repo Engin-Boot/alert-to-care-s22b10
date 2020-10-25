@@ -13,6 +13,7 @@ namespace AlertToCare
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,8 +29,18 @@ namespace AlertToCare
             services.AddDbContext<DbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-        
-        services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200",
+                                                          "http://localhost:64868")
+                                                            .AllowAnyHeader()
+                                                        .AllowAnyMethod();
+                                  });
+            });
+            services.AddControllers();
             //Once instance of type PatientMemoryDBRepository created - Any number of Resolve request
             services.AddTransient<IPatientBusinessLogic, PatientBusinessLogic>();
             services.AddTransient<IIcuLayoutBusinessLogic, IcuLayoutBusinessLogic>();
@@ -47,11 +58,9 @@ namespace AlertToCare
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseRouting();
 
-            
-
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
