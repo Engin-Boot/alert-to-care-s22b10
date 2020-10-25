@@ -32,6 +32,7 @@ namespace AlertToCare
                  {
                      builder.AllowAnyOrigin();
                      builder.AllowAnyHeader();
+                     builder.AllowAnyMethod();
                  });
             });
 
