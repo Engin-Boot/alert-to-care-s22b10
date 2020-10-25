@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using AlertToCare.Models;
 using AlertToCare.Repository;
 
@@ -13,7 +15,7 @@ namespace AlertToCare.BusinessLogic
             
             this._icuLayoutDataRepository = repo;
         }
-
+        
         private bool BedLayoutAllocation(IcuWardLayoutModel objLayout)
         {
             try
@@ -70,6 +72,11 @@ namespace AlertToCare.BusinessLogic
                 Console.WriteLine("Bed are not entered for ward " + objLayout.WardNumber);
             }
             _icuLayoutDataRepository.InsertLayout(icuLayout);
+        }
+
+        public IEnumerable<IcuWardInformation> getall()
+        {
+            return _icuLayoutDataRepository.Get();
         }
     }
 }

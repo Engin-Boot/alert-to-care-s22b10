@@ -14,6 +14,8 @@ namespace AlertToCare.Repository
         public DbSet<MedicalDevice> MedicalDevice { get; set; }
         public DbSet<BedOnAlert> BedOnAlert { get; set; }
         public DbSet<IcuWardInformation> IcuWardInformation { get; set; }
+
+        public DbSet<NurseDataModel> NurseInfo { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

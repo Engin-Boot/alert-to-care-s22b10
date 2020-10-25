@@ -13,6 +13,7 @@ namespace AlertToCare
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,6 +26,15 @@ namespace AlertToCare
         [System.Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins, builder =>
+                 {
+                     builder.AllowAnyOrigin();
+                     builder.AllowAnyHeader();
+                 });
+            });
+
             services.AddDbContext<DbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -37,6 +47,8 @@ namespace AlertToCare
             services.AddTransient<IPatientDataRepository, PatientDataRepository>();
             services.AddTransient<IMedicalDeviceDataRepository, MedicalDeviceDataRepository>();
             services.AddTransient<IIcuLayoutDataRepository, IcuLayoutDataRepository>();
+            services.AddTransient<INurseBusinessLogic, NurseBusinessLogic>();
+            services.AddTransient<INurseDataRepository, NurseDataRepository>();
 
         }
 
@@ -47,6 +59,8 @@ namespace AlertToCare
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseRouting();
 

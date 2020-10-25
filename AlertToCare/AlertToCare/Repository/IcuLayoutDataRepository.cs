@@ -1,4 +1,5 @@
 ﻿using AlertToCare.Models;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AlertToCare.Repository
@@ -11,6 +12,15 @@ namespace AlertToCare.Repository
         {
             _context = context;
         }
+
+        public IEnumerable<IcuWardInformation> Get()
+        {
+            var wardInfo = _context.IcuWardInformation;
+
+            return wardInfo.ToList();
+
+        }
+
         public void InsertBed(BedInformation bed)
         {
             _context.BedInformation.Add(bed);

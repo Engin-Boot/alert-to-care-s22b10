@@ -1,4 +1,5 @@
 ﻿using AlertToCare.Models;
+using System.Collections.Generic;
 
 namespace AlertToCare.Repository
 {
@@ -6,5 +7,7 @@ namespace AlertToCare.Repository
     {
         public void InsertBed(BedInformation bed);
         public void InsertLayout(IcuWardInformation layout);
+
+        public IEnumerable<IcuWardInformation> Get();
     }
 }
