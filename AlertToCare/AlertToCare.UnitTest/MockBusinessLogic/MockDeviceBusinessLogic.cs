@@ -34,5 +34,15 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
             if(bedId == "1F1")
                 throw new Exception("");
         }
+
+        public IEnumerable<BedOnAlert> getAllAlerts(string wardNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool raiseAlert(string bedId, string device, int value)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

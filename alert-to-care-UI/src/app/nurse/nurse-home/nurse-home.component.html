@@ -1,0 +1,28 @@
+    <div class="container">
+    <div class="roomLayout" style="background-color: grey;">
+        <div fxLayout="row" fxLayoutGap="16px grid" *ngFor="let row of BedCardMatrix">
+            <span *ngFor="let x of row">
+                <mat-card  class="{{x.allotmentStatus}}" >
+                    <mat-card-header>
+                      <mat-card-title>Bed ID : {{x.bedId}}</mat-card-title>
+                      <mat-card-subtitle>Patient ID:{{x.patientId}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                      <mat-card class="{{x.cardType}}">
+                      </mat-card>
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <button mat-button [disabled]=[(x.disableAlert)] (click)="onAlertOff($event,[x.bedId])">ALERT-OFF</button>
+                      <button mat-button [disabled]=[(!x.disableAlert)] (click)="this[x.functionName]($event,[x.bedId])">{{x.buttonName}}</button>
+                    </mat-card-actions>
+                </mat-card>
+            </span>
+          </div>
+          
+    </div>
+    
+  </div>
+    
+    
+    
+  

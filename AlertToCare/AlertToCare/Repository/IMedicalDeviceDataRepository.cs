@@ -1,4 +1,5 @@
 ﻿using AlertToCare.Models;
+using System.Collections.Generic;
 
 namespace AlertToCare.Repository
 {
@@ -9,5 +10,7 @@ namespace AlertToCare.Repository
         public void TurnOnAlert(BedOnAlert bed);
         BedInformation FetchBedLayoutInfo(string bedId);
         void TurnOffAlert(string bedId);
+        public IEnumerable<BedOnAlert> getAllAlerts(string wardNumber);
+        public bool raiseAlert(string bedId, string device, int value);
     }
 }

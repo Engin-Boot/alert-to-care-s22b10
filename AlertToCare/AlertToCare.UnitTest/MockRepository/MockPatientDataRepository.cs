@@ -35,5 +35,10 @@ namespace AlertToCare.UnitTest.MockRepository
         {
             return new BedInformation();
         }
+
+        public void AllotBed(PatientDataModel patient, string wardId, string bedId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -17,7 +17,10 @@ namespace AlertToCare.BusinessLogic
             _patientDataRepository.AddPatient(patient);
             return patient;
         }
-
+        public void allotBed(PatientDataModel patient,string wardId,string bedId)
+        {
+            _patientDataRepository.AllotBed(patient, wardId, bedId);
+        }
         public PatientDataModel FetchPatientInfoFromBedId(string bedId)
         {
             var patientResult = _patientDataRepository.FetchPatientInfoFromBedId(bedId);

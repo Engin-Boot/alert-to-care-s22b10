@@ -15,7 +15,7 @@ namespace AlertToCare.BusinessLogic
 
             this._icuLayoutDataRepository = repo;
         }
-
+    
         private bool BedLayoutAllocation(IcuWardLayoutModel objLayout)
         {
             try

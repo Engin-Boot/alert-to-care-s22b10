@@ -17,7 +17,13 @@ namespace AlertToCare.Repository
             _context.PatientInfo.Add(patient);
             _context.SaveChanges();
         }
-
+        public void AllotBed(PatientDataModel patient,string wardId,string bedId)
+        {
+            var query = _context.BedInformation.First
+                 (p => p.WardNumber == wardId && p.BedId == bedId);
+            query.PatientId = patient.PatientId;
+            _context.SaveChanges();
+        }
         public PatientDataModel FetchPatientInfoFromBedId(string bedId)
         {
             var query = (from patient in _context.PatientInfo
@@ -36,6 +42,12 @@ namespace AlertToCare.Repository
                 (p => p.PatientId == patientId);
             patient.PatientId = null;
             _context.SaveChanges();
+            var itemToRemove = _context.PatientInfo.SingleOrDefault(x => x.PatientId == patientId);
+            if (itemToRemove != null)
+            {
+                _context.PatientInfo.Remove(itemToRemove);
+                _context.SaveChanges();
+            }
         }
 
         public void AllotBedToPatient(BedAllotmentModel allotBed)
