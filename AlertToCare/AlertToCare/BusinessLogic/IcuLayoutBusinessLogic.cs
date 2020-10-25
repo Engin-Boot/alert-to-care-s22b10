@@ -12,10 +12,10 @@ namespace AlertToCare.BusinessLogic
 
         public IcuLayoutBusinessLogic(IIcuLayoutDataRepository repo)
         {
-            
+
             this._icuLayoutDataRepository = repo;
         }
-        
+
         private bool BedLayoutAllocation(IcuWardLayoutModel objLayout)
         {
             try
@@ -52,7 +52,7 @@ namespace AlertToCare.BusinessLogic
             int bedCounter = 1;
             for (int numberOfRow = 1; numberOfRow <= objLayout.NumberOfRow && objLayout.NumberOfBed >= bedCounter; numberOfRow++)
             {
-                bedCounter = AddBedInColumn(objLayout, bedCounter, numberOfRow) - 1 ;
+                bedCounter = AddBedInColumn(objLayout, bedCounter, numberOfRow) - 1;
                 bedCounter++;
             }
             return true;
@@ -62,8 +62,8 @@ namespace AlertToCare.BusinessLogic
         {
             var icuLayout = new IcuWardInformation
             {
-                Department = objLayout.Department, 
-                WardNumber = objLayout.WardNumber, 
+                Department = objLayout.Department,
+                WardNumber = objLayout.WardNumber,
                 TotalBed = objLayout.NumberOfBed
             };
             bool isBedLayoutIsEnterInDatabase = BedLayoutAllocation(objLayout);
@@ -78,5 +78,12 @@ namespace AlertToCare.BusinessLogic
         {
             return _icuLayoutDataRepository.Get();
         }
+
+        public IEnumerable<BedInformation> getBedInformation(string WardNumber)
+        {
+            return _icuLayoutDataRepository.getAllBedsInWard(WardNumber);
+        }
+
     }
 }
+
