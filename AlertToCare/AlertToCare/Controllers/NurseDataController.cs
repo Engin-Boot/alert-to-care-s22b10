@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AlertToCare.BusinessLogic;
@@ -33,27 +34,24 @@ namespace AlertToCare.Controllers
 
         public string validate([FromBody] NurseDataModel nurse)
         {
-            List<NurseDataModel> nurseList = (List<NurseDataModel>)_nurseBusinessLogic.getNurse();
+            
             var response = "Validation Failed";
-            Console.WriteLine(nurseList.Count);
-
-            for(int i =0; i < nurseList.Count;i++)
+            List<NurseDataModel> nurseList = (List<NurseDataModel>)_nurseBusinessLogic.getNurse();
+            for (int i = 0; i < nurseList.Count; i++)
             {
-                if (nurse.NurseName == nurseList[i].NurseName)
+                if (compareCredentials(nurse.NurseName,nurseList[i].NurseName, nurse.NurseId, nurseList[i].NurseId))
                 {
-                    Console.WriteLine(nurse.NurseName);
-                    if (nurse.NurseId == nurseList[i].NurseId)
-                    {
-                        response = "Validation Succesful";
-                        return response;
-                    }
-                        
+                    response = "Validation Succesful";
+                    return response;
                 }
-                
             }
-
             return response;
         }
+        private bool compareCredentials(string string1,string string2,string string3,string string4)
+        {
+            return (string1.Equals(string2) && string3.Equals(string4));
+        }
+     
       
         [HttpPost("AddNurse")]
         public void Post([FromBody] NurseDataModel nurse)
