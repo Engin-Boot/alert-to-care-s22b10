@@ -1,6 +1,8 @@
+
 ﻿using AlertToCare.Models;
 using System.Collections;
 using System.Collections.Generic;
+
 
 namespace AlertToCare.BusinessLogic
 {
@@ -8,7 +10,9 @@ namespace AlertToCare.BusinessLogic
     {
         public void AddLayoutInformation(IcuWardLayoutModel objLayout);
 
-        public IEnumerable<IcuWardInformation> getall(); 
+        public IEnumerable<IcuWardInformation> getall();
+
+        public IEnumerable<BedInformation> getBedInformation(string WardNumber);
 
     }
 
