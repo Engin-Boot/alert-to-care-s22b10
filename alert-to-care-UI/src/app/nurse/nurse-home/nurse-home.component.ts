@@ -125,6 +125,7 @@ export class NurseHomeComponent implements OnInit {
     }
   }
   handleSuccessfulAlertOffResponse(response){
+    console.log(response);
     this.router.navigate(['/nurse']);
   }
   onAddPatient(event:any,bedId:string):void{
