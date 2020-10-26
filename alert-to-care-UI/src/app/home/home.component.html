@@ -1,10 +1,14 @@
-<p>This is Home Component!</p>
 
-	<table>
-        <tr>
-            <td><a  routerLink='/nurse' class = "button fancy-button">Nurse Login</a></td>
-            <td><a  routerLink='/admin'>Admin Login</a></td>
-        </tr>
-    </table>
-
-    <router-outlet></router-outlet>
+<html>
+  <body>
+<div class="login-page">
+    <div class="form">
+      <form class="login-form" (ngSubmit)="onLogin()">
+        <input type="text" placeholder="username" name = "username" required [(ngModel)]="username"/>
+        <input type="password" placeholder="password" name = "password" required [(ngModel)]="password"/>
+        <button type="button" (click)="onLogin()">login</button>
+      </form>
+    </div>
+  </div>
+</body>
+  </html>

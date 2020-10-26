@@ -1,45 +1,39 @@
 
-
-<div class="main-content">
+  <div class="main-content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title" style="font-family: 'Courier New', Courier, monospace;font-size:larger;">WARD MANAGEMENT</h4>
+                        <h4 class="card-title">Nurse Profile</h4>
                     </div>
                     <div class="card-body">
                         <form>
                            
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                  
-                                    <input  placeholder="Ward Number" type="text" name = "wardNumber" required [(ngModel)]="wardNumber">
+                                    <input  placeholder="Nurse ID" type="text" name = "nurseId" required [(ngModel)]="NurseId">
                                  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                 
+                                    <input  placeholder="Name" type="text" name = "Name" [(ngModel)]="Name">
+                                 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input  placeholder="Ward ID" type="text" name = "wardID" [(ngModel)]="WardId">
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-4">
-                                 
-                                    <input  placeholder="Number of beds" type="text" name = "beds" [(ngModel)]="beds">
-                                 
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4">
-                                 
-                                    <input  placeholder="Department" type="text" name = "Department" [(ngModel)]="department">
-                                 
-                                </div>
-                            </div>
                             <br>
-                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="addWard()" >Add Ward</button>
+                            <button mat-raised-button type="submit" class="btn btn-danger pull-right" (click)="addProfile()" > Add Nurse</button>
                             <div class="clearfix"></div>
                         </form>
                     </div>
                 </div>
             </div>
-           
-                

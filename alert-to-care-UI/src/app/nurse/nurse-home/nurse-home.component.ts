@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {HttpClientServiceService,BedDetails} from '../../http-client-service.service';
+import {HttpClientServiceService,BedDetails} from "../../services/http-client-service.service"
+
 export class BedCard{
   bedId:string;
   row:number;
@@ -17,6 +18,7 @@ export class Alert{
   device:string;
   value:number;
 }
+
 @Component({
   selector: 'nurse-home-comp',
   templateUrl: './nurse-home.component.html',
