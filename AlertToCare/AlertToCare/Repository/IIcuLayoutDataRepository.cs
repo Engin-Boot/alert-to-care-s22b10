@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using AlertToCare.Models;
-using System.Collections.Generic;
+
 
 namespace AlertToCare.Repository
 {

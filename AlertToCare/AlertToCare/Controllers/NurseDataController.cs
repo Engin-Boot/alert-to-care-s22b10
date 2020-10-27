@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -33,28 +31,49 @@ namespace AlertToCare.Controllers
 
         public string validate([FromBody] NurseDataModel nurse)
         {
-            List<NurseDataModel> nurseList = (List<NurseDataModel>)_nurseBusinessLogic.getNurse();
+            
+            
             var response = "Validation Failed";
-            Console.WriteLine(nurseList.Count);
+            Console.WriteLine(nurse.NurseName);
+            Console.WriteLine(nurse.wardId);
 
-            for(int i =0; i < nurseList.Count;i++)
+            if (nurse.NurseName == "Admin")
+                return "Admin Login";
+            else
             {
-                if (nurse.NurseName == nurseList[i].NurseName)
-                {
-                    Console.WriteLine(nurse.NurseName);
-                    if (nurse.NurseId == nurseList[i].NurseId)
-                    {
-                        response = "Validation Succesful";
-                        return response;
-                    }
-                        
-                }
-                
+                response = matchName(nurse.NurseName,nurse.wardId);
             }
-
+                
             return response;
         }
-      
+        
+        private string matchName(string name,string id)
+        {
+            List<NurseDataModel> nurseList = (List<NurseDataModel>)_nurseBusinessLogic.getNurse();
+            var reply = "Validation Failed";
+
+            for(int i = 0; i< nurseList.Count; i++)
+            {
+                if(name == nurseList[i].NurseName)
+                {
+                    reply = matchId(nurseList[i].wardId,id);
+                }
+            }
+
+            return reply;
+
+        }
+
+        private string matchId(string id,string id2)
+        {
+            var reply = "Validation Failed";
+            if (id == id2)
+                reply = "Validation Succesfull";
+
+            return reply;
+        }
+       
+
         [HttpPost("AddNurse")]
         public void Post([FromBody] NurseDataModel nurse)
         {

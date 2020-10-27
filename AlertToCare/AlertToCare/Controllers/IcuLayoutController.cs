@@ -3,7 +3,6 @@ using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace AlertToCare.Controllers
 {
