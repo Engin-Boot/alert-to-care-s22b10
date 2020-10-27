@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {ActivatedRoute} from '@angular/router'
 @Component({
   selector: 'admin-home-comp',
   templateUrl: './admin-home.component.html',
@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminHomeComponent implements OnInit {
 
-  constructor() { }
+  userName:string="";
+  constructor(private acr:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.acr.params.subscribe(
+      (params)=>
+      {
+        this.userName=params.userName;
+      }
+    );
   }
 
 }

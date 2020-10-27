@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup ,NgForm,Validators} from '@angular/forms';
 import { ActivatedRoute,Router } from '@angular/router';
-import { HttpClientServiceService } from 'src/app/http-client-service.service';
+import { HttpClientServiceService } from 'src/app/services/http-client-service.service';
 
 @Component({
   selector: 'nurse-add-patient-comp',
@@ -9,6 +9,7 @@ import { HttpClientServiceService } from 'src/app/http-client-service.service';
   styleUrls: ['./nurse-add-patient.component.css']
 })
 export class NurseAddPatientComponent implements OnInit {
+
   selectedBedId:string;
   wardId:string;
   PatientForm: FormGroup;

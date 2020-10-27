@@ -1,0 +1,12 @@
+<table id="users">
+    <tr>
+      <th *ngFor="let col of columns">
+        {{col}}
+      </th>
+    </tr>
+    <tr *ngFor="let ward of wards">
+      <td *ngFor="let col of index">
+        {{ward[col]}}
+      </td>
+    </tr>
+  </table>

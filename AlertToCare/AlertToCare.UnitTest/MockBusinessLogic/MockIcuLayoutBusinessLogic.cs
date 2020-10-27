@@ -13,6 +13,11 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
                 throw new Exception("");
         }
 
+        public IEnumerable<IcuWardInformation> getall()
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<BedInformation> getBedInformation(string WardNumber)
         {
             throw new NotImplementedException();

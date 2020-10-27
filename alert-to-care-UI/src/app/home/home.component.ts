@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import {Router} from '@angular/router'
+import { AccountService } from '../services/account.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,57 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  loggerService:any;
+  accountServiceRef:AccountService;
+
+  constructor(@Inject("logger") loggerService:any,accountServiceRef:AccountService,private route:Router) {
+    
+    this.loggerService = loggerService;
+    this.accountServiceRef = accountServiceRef;
+
+   }
+  
+  username:string;
+  password:string;
 
   ngOnInit(): void {
+    
   }
 
+
+  onLogin()
+  {
+
+    let userName = this.username;
+    let user = {nurseName:this.username,nurseId:this.password};
+    this.accountServiceRef.login(user).subscribe
+    (
+      (data) =>
+      {
+        console.log(data);
+        if(data == "Validation Succesfull")
+          {
+            alert("LOGIN SUCCESSFUL");
+            this.route.navigate(['nurse',this.username]);
+            console.log("SUCCESS");          
+          }
+          else if(data == "Admin Login")
+            {
+              alert("LOGIN SUCCESFUL");
+              this.route.navigate(['admin',this.username]);
+              console.log("admin login");
+            }
+        else
+          {
+            alert("LOGIN FAIL");
+          }
+      },
+      (error)=>{
+
+        console.log(error);
+      }
+    )
+     
+  }
+  
 }

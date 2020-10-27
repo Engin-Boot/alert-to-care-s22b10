@@ -1,47 +1,47 @@
 .content { 
-  padding: 10px;
-  align-content: center;
-}
-.roomLayout{
-    float: left;
-}
-.PatientBedCardAlert{
-    width: 150px;
-    height: 200px;
-    margin: 20px;
-    padding: 20px;
+    padding: 10px;
     align-content: center;
-
-}
-.PatientBedCardOkay{
-    width: 150px;
-    height: 200px;
-    margin: 20px;
-    padding: 20px;
-    align-content: center;
-}
-.PatientBedCardEmpty{
-    width: 150px;
-    height: 200px;
-    margin: 20px;
-    padding: 20px;
-    align-content: center;
-}
-.ColorCodeCardAlert{
-    width: 100px;
-    height: 5px;
-    background-color: firebrick;
-}
-.ColorCodeCardEmpty{
-    width: 100px;
-    height: 5px;
-    background-color:yellow;
-}
-.ColorCodeCardOkay{
-    width: 100px;
-    height: 5px;
-    background-color:green;
-}
-.content > mat-card { 
-  width: 200px; 
-}
+  }
+  .roomLayout{
+      float: left;
+  }
+  .PatientBedCardAlert{
+      width: 150px;
+      height: 200px;
+      margin: 20px;
+      padding: 20px;
+      align-content: center;
+  
+  }
+  .PatientBedCardOkay{
+      width: 150px;
+      height: 200px;
+      margin: 20px;
+      padding: 20px;
+      align-content: center;
+  }
+  .PatientBedCardEmpty{
+      width: 150px;
+      height: 200px;
+      margin: 20px;
+      padding: 20px;
+      align-content: center;
+  }
+  .ColorCodeCardAlert{
+      width: 100px;
+      height: 5px;
+      background-color: firebrick;
+  }
+  .ColorCodeCardEmpty{
+      width: 100px;
+      height: 5px;
+      background-color:yellow;
+  }
+  .ColorCodeCardOkay{
+      width: 100px;
+      height: 5px;
+      background-color:green;
+  }
+  .content > mat-card { 
+    width: 200px; 
+  }
