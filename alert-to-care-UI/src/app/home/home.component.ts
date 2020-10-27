@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
       (data) =>
       {
         console.log(data);
-        if(data == "Validation Succesfull")
+        if(data == "Validation Succesful")
           {
             alert("LOGIN SUCCESSFUL");
             this.route.navigate(['nurse',this.username]);

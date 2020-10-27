@@ -35,7 +35,7 @@ export class NurseAddPatientComponent implements OnInit {
     this.httpClientService.allotBedToPatient(this.wardId,this.selectedBedId,this.PatientForm.value).subscribe(
       response =>this.handleSuccessfulResponse(response),
      );
-    this.router.navigate(['/nurse']);
+    this.router.navigate(['/nurse/Jane']);
   }
   handleSuccessfulResponse(response){
 

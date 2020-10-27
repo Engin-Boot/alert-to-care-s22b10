@@ -30,7 +30,13 @@ export class NurseHomeComponent implements OnInit {
   BedCardMatrix:Array<BedCard[]>=[];
   AlertDetails:Array<Alert>=[];
   wardId:string;
-  
+  interval:any;
+
+getalertFunc():void {
+  this.httpClientService.getAllAlerts(this.wardId).subscribe(
+    response =>this.handleSuccessfulGetAlertResponse(response),
+   );
+}
   constructor(
     private httpClientService:HttpClientServiceService,
     private route : ActivatedRoute,
@@ -39,6 +45,7 @@ export class NurseHomeComponent implements OnInit {
     this.httpClientService.getBedsInformation(this.wardId).subscribe(
       response =>this.handleSuccessfulGetBedResponse(response),
      );
+     this.interval =setInterval(() => { this.getalertFunc(); }, 1000);
   }
 
   ngOnInit(): void {
@@ -111,28 +118,51 @@ export class NurseHomeComponent implements OnInit {
       console.log("Patient Discharged");
       var patient = this.BedCardArray.find(x=>x.bedId == bedId);
       this.httpClientService.dischargePatient(patient.patientId).subscribe(
-        response =>this.handleSuccessfulDischargeResponse(response),
+        response =>this.handleSuccessfulDischargeResponse(response,bedId),
        ); 
     }
   }
-  handleSuccessfulDischargeResponse(response){
-    this.router.navigate(['/nurse']);
+  handleSuccessfulDischargeResponse(response,bedId){
+    for(let i = 0; i < this.BedCardMatrix.length; i++) {
+  
+      for(let j = 0; j < this.BedCardMatrix[i].length; j++) {
+         if(bedId == this.BedCardMatrix[i][j].bedId)
+         {
+           
+           this.BedCardMatrix[i][j].allotmentStatus="PatientBedCardEmpty";
+           this.BedCardMatrix[i][j].cardType="ColorCodeCardEmpty";
+           this.BedCardMatrix[i][j].buttonName="ADMIT";
+           this.BedCardMatrix[i][j].functionName='onAddPatient';
+           this.BedCardMatrix[i][j].patientId = null;
+         }
+      }
+   }
+    this.router.navigate(['/nurse/Jane']);
   }
   onAlertOff(event:any,bedId:string):void{
     if(confirm("Are you sure to turn off alert")) {
       console.log("Alert turned off");
       this.httpClientService.alertOff(bedId).subscribe(
-        response =>this.handleSuccessfulAlertOffResponse(response),
+        response =>this.handleSuccessfulAlertOffResponse(response,bedId),
        ); 
     }
   }
-  handleSuccessfulAlertOffResponse(response){
-    console.log(response);
-    this.router.navigate(['/nurse']);
+  handleSuccessfulAlertOffResponse(response,bedId){
+    for(let i = 0; i < this.BedCardMatrix.length; i++) {
+  
+      for(let j = 0; j < this.BedCardMatrix[i].length; j++) {
+         if(bedId == this.BedCardMatrix[i][j].bedId)
+         {
+          this.BedCardMatrix[i][j].disableAlert=true;
+          this.BedCardMatrix[i][j].cardType="ColorCodeCardOkay";
+           
+         }
+      }
+    }
+    this.router.navigate(['/nurse/Jane']);
   }
   onAddPatient(event:any,bedId:string):void{
     if(confirm("Are you sure")) {
-      console.log("Patient Admitted to Bed :"+bedId);
       this.router.navigate([ '/addpatient' ],{ queryParams: { bedId: bedId ,wardId:this.wardId} });
     }
 
