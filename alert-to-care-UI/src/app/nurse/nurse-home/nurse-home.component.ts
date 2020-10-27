@@ -29,6 +29,7 @@ export class NurseHomeComponent implements OnInit {
   BedCardArray:Array<BedCard>=[];
   BedCardMatrix:Array<BedCard[]>=[];
   AlertDetails:Array<Alert>=[];
+  NurseName:string;
   wardId:string;
   interval:any;
 

@@ -101,5 +101,13 @@ namespace AlertToCare.UnitTest.Controller
             Assert.NotNull(actualResponse);
             Assert.Equal(500, actualResponse.StatusCode);
         }
+        [Fact] 
+        public void TestGetBedOnAlert()
+        {
+            var controller = new MedicalDeviceController(_deviceRepo, _patientRepo);
+            var response = controller.GetBedOnAlerts("1B");
+            var actualResponse = response as IEnumerable<BedOnAlert>;
+            Assert.NotNull(actualResponse);
+        }
     }
 }

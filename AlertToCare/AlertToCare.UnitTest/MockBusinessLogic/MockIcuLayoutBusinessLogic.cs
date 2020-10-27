@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 
@@ -13,14 +14,27 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
                 throw new Exception("");
         }
 
+        public IEnumerable<BedInformation> getIcuWardInfo(string wardid)
+        {
+            IEnumerable<BedInformation> list = new List<BedInformation>();
+            var data = new BedInformation();
+            list.Append(data);
+
+            return list;
+
+        }
         public IEnumerable<IcuWardInformation> getall()
         {
-            throw new NotImplementedException();
+            IEnumerable<IcuWardInformation> list = new List<IcuWardInformation>();
+            var data = new IcuWardInformation();
+            list.Append(data);
+
+            return list;
         }
 
         public IEnumerable<BedInformation> getBedInformation(string WardNumber)
         {
-            throw new NotImplementedException();
+            return new List<BedInformation>();
         }
     }
 }
