@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -23,40 +25,40 @@ namespace AlertToCare.Controllers
         [HttpGet]
         public IEnumerable<NurseDataModel> Get()
         {
-            return _nurseBusinessLogic.GetNurse();
+            return _nurseBusinessLogic.getNurse();
         }
 
         
         [HttpPost("validate")]
 
-        public string Validate([FromBody] NurseDataModel nurse)
+        public string validate([FromBody] NurseDataModel nurse)
         {
 
 
             var response = "Validation Failed";
             Console.WriteLine(nurse.NurseName);
-            Console.WriteLine(nurse.WardId);
+            Console.WriteLine(nurse.wardId);
 
             if (nurse.NurseName == "Admin")
                 return "Admin Login";
             else
             {
-                response = MatchName(nurse.NurseName, nurse.WardId);
+                response = matchName(nurse.NurseName, nurse.wardId);
             }
 
             return response;
         }
 
-        private string MatchName(string name, string id)
+        public string matchName(string name, string id)
         {
-            List<NurseDataModel> nurseList = (List<NurseDataModel>)_nurseBusinessLogic.GetNurse();
+            List<NurseDataModel> nurseList = (List<NurseDataModel>)_nurseBusinessLogic.getNurse();
             var reply = "Validation Failed";
 
             for (int i = 0; i < nurseList.Count; i++)
             {
                 if (name == nurseList[i].NurseName)
                 {
-                    reply = MatchId(nurseList[i].WardId, id);
+                    reply = matchId(nurseList[i].wardId, id);
                 }
             }
 
@@ -64,7 +66,7 @@ namespace AlertToCare.Controllers
 
         }
 
-        private string MatchId(string id, string id2)
+        public string matchId(string id, string id2)
         {
             var reply = "Validation Failed";
             if (id == id2)
@@ -75,9 +77,10 @@ namespace AlertToCare.Controllers
 
 
         [HttpPost("AddNurse")]
-        public void Post([FromBody] NurseDataModel nurse)
+        public ActionResult <IEnumerable<dynamic>> Post([FromBody] NurseDataModel nurse)
         {
             _nurseBusinessLogic.InsertNurse(nurse);
+            return StatusCode(200);
         }
 
         

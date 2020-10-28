@@ -21,6 +21,15 @@ namespace AlertToCare.UnitTest.Repository
 
         private void InitializeDatabase(DbContext context)
         {
+            var nurse = new NurseDataModel
+            {
+                NurseId = "1",
+                NurseName = "Shweta",
+                wardId = "1"
+            };
+
+            context.Add(nurse);
+
             var patient = new PatientDataModel
             {
                 PatientName = "TestPatient", 
