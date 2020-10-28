@@ -4,11 +4,11 @@ namespace AlertToCare.Validator
 {
     public class AllotedBedValidator
     {
-        public bool IsDepartmentNull(string department)
+        private bool IsDepartmentNull(string department)
         {
             return department != null;
         }
-        public bool IsPatientIdIsNull(int? patientId)
+        private bool IsPatientIdIsNull(int? patientId)
         {
             return patientId.HasValue;
         }
@@ -17,7 +17,7 @@ namespace AlertToCare.Validator
             bool isDepartmentNull = IsDepartmentNull(allotedBed.Department);
             bool isPatientIdIsNull = IsPatientIdIsNull(allotedBed.PatientId);
 
-            if (isDepartmentNull == isPatientIdIsNull == true)
+            if (isDepartmentNull == isPatientIdIsNull)
                 return true;
             return false;
         }

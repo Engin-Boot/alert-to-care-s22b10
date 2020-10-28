@@ -4,7 +4,6 @@ using AlertToCare.Controllers;
 using AlertToCare.Models;
 using AlertToCare.UnitTest.MockBusinessLogic;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -13,8 +12,9 @@ namespace AlertToCare.UnitTest.Controller
     
     public class NurseDataControllerTest
     {
-        readonly INurseBusinessLogic nurseBusinessLogic;
-        readonly MockNurseBusinessLogic mock = new MockNurseBusinessLogic();
+         INurseBusinessLogic nurseBusinessLogic
+            ;
+        readonly MockNurseBusinessLogic _mock = new MockNurseBusinessLogic();
         [Fact]
         
         public void TestValidateForAdmin()
@@ -29,7 +29,7 @@ namespace AlertToCare.UnitTest.Controller
 
             NurseDataController nurseData = new NurseDataController(nurseBusinessLogic);
 
-            var response = nurseData.validate(nurse);
+            var response = nurseData.Validate(nurse);
 
             Assert.True(response == "Admin Login");
 
@@ -43,7 +43,7 @@ namespace AlertToCare.UnitTest.Controller
             string a = "a";
             string b = "a";
 
-            var response = nurseData.matchId(a, b);
+            var response = nurseData.MatchId(a, b);
 
             Assert.True(response == "Validation Succesfull");
         }
@@ -55,7 +55,7 @@ namespace AlertToCare.UnitTest.Controller
             string a = "a";
             string b = "b";
 
-            var response = nurseData.matchId(a, b);
+            var response = nurseData.MatchId(a, b);
 
             Assert.True(response == "Validation Failed");
         }
@@ -63,12 +63,12 @@ namespace AlertToCare.UnitTest.Controller
         [Fact]
         public void TestForMatchName()
         {
-            NurseDataController nurseData = new NurseDataController(mock);
+            NurseDataController nurseData = new NurseDataController(_mock);
 
             string a = "a";
             string id = "1";
 
-            var response = nurseData.matchName(a, id);
+            var response = nurseData.MatchName(a, id);
 
             Assert.True(response == "Validation Failed");
 
@@ -78,7 +78,7 @@ namespace AlertToCare.UnitTest.Controller
 
         public void TestForNurseAdd()
         {
-            var nurseData= new NurseDataController(mock);
+            var nurseData= new NurseDataController(_mock);
             var nurse = new NurseDataModel
             {
 
@@ -97,7 +97,7 @@ namespace AlertToCare.UnitTest.Controller
 
         public void TestForGetMethod()
         {
-            var controller = new NurseDataController(mock);
+            var controller = new NurseDataController(_mock);
 
             var response = controller.Get();
 

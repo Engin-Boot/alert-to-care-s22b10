@@ -5,7 +5,7 @@ using AlertToCare.Models;
 using AlertToCare.UnitTest.MockRepository;
 using Xunit;
 
-namespace AlertToCare.UnitTest.BussinessLogic
+namespace AlertToCare.UnitTest.BusinessLogic
 {
     
     public class MedicalDeviceBusinessLogicTest

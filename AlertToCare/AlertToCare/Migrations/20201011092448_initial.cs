@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace AlertToCare.Migrations
 {
     [ExcludeFromCodeCoverage]
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
