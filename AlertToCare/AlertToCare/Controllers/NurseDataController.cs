@@ -49,7 +49,7 @@ namespace AlertToCare.Controllers
             return response;
         }
 
-        private string matchName(string name, string id)
+        public string matchName(string name, string id)
         {
             List<NurseDataModel> nurseList = (List<NurseDataModel>)_nurseBusinessLogic.getNurse();
             var reply = "Validation Failed";
@@ -66,7 +66,7 @@ namespace AlertToCare.Controllers
 
         }
 
-        private string matchId(string id, string id2)
+        public string matchId(string id, string id2)
         {
             var reply = "Validation Failed";
             if (id == id2)
@@ -77,9 +77,10 @@ namespace AlertToCare.Controllers
 
 
         [HttpPost("AddNurse")]
-        public void Post([FromBody] NurseDataModel nurse)
+        public ActionResult <IEnumerable<dynamic>> Post([FromBody] NurseDataModel nurse)
         {
             _nurseBusinessLogic.InsertNurse(nurse);
+            return StatusCode(200);
         }
 
         
