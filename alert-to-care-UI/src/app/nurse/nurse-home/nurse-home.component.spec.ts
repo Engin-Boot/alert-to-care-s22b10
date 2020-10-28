@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import {HttpClientServiceService,BedDetails} from "../../services/http-client-service.service";
 import { NurseHomeComponent } from './nurse-home.component';
 
 describe('NurseHomeComponent', () => {
@@ -8,7 +9,19 @@ describe('NurseHomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NurseHomeComponent ]
+      declarations: [ NurseHomeComponent ],
+      imports:[
+        ActivatedRoute,
+        Router,
+        HttpClientServiceService,
+        BedDetails
+      ],
+      providers:[
+        ActivatedRoute,
+        Router,
+        HttpClientServiceService,
+        BedDetails
+      ]
     })
     .compileComponents();
   });
@@ -19,7 +32,5 @@ describe('NurseHomeComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  
 });

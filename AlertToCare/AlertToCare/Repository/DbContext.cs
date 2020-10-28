@@ -11,6 +11,7 @@ namespace AlertToCare.Repository
         }
         public DbSet<PatientDataModel> PatientInfo { get; set; }
         public DbSet<BedInformation> BedInformation { get; set; }
+        public DbSet<MedicalDevice> MedicalDevice { get; set; }
         public DbSet<BedOnAlert> BedOnAlert { get; set; }
         public DbSet<IcuWardInformation> IcuWardInformation { get; set; }
 
