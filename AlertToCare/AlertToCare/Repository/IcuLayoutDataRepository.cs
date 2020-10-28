@@ -38,7 +38,7 @@ namespace AlertToCare.Repository
         }
         public IEnumerable<BedInformation> getAllBedsInWard(string wardNumber){
             IcuWardInformation wardInformation = getLayout(wardNumber);
-            BedInformation[] bedInformationArray = new BedInformation[wardInformation.TotalBed];
+       
              var dataset = 
             (from bed in _context.BedInformation 
              orderby bed.BedInRow,bed.BedInColumn

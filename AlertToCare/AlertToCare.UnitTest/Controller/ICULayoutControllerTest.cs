@@ -3,6 +3,7 @@ using AlertToCare.Models;
 using AlertToCare.UnitTest.MockBusinessLogic;
 using AlertToCare.UnitTest.MockRepository;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using Xunit;
 
 namespace AlertToCare.UnitTest.Controller
@@ -43,6 +44,22 @@ namespace AlertToCare.UnitTest.Controller
             var actualResponseObject = actualResponse as StatusCodeResult;
             Assert.NotNull(actualResponseObject);
             Assert.Equal(500, actualResponseObject.StatusCode);
+        }
+        [Fact]
+        public void TestgetMethod()
+        {
+            var controller = new IcuLayoutController(_repo);
+            var response = controller.GET();
+            var actualresponse = response as List<IcuWardInformation>;
+            Assert.NotNull(actualresponse);
+        }
+        [Fact]
+        public void TestgetIcuWardInfo()
+        {
+            var controller = new IcuLayoutController(_repo);
+            var response = controller.getIcuWardInfo("1A1");
+            var actualresponse = response as List<BedInformation>;
+            Assert.NotNull(actualresponse);
         }
     }
 }

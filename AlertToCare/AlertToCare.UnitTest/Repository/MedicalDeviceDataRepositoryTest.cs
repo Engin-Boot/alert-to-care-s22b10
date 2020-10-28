@@ -51,6 +51,22 @@ namespace AlertToCare.UnitTest.Repository
             var result = deviceData.FetchBedLayoutInfo("1Z1");
             Assert.Null(result);
         }
+        [Fact]
+        public void TestIfAlertIsRaised()
+        {
+            var deviceData = new MedicalDeviceDataRepository(Context);
+            var bed = deviceData.FetchBedLayoutInfo("1A1");
+            var result = deviceData.raiseAlert(bed.BedId, "Oxymeter", 45);
+            Assert.True(result);
+        }
+        [Fact]
+        public void TestIfAlertIsNotRaised()
+        {
+            var deviceData = new MedicalDeviceDataRepository(Context);
+            var result = deviceData.raiseAlert("1B1", "Oxymeter", 45);
+            Assert.False(result);
+        }
+        
 
         [Fact]
         public void TestTurnOffAlertSuccessful()

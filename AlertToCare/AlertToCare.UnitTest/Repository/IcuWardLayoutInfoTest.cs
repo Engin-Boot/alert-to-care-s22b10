@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using AlertToCare.Models;
 using AlertToCare.Repository;
 using Xunit;
@@ -38,6 +40,22 @@ namespace AlertToCare.UnitTest.Repository
             var wardInDb = Context.IcuWardInformation.First
                 (p => p.WardNumber == "1Z1");
             Assert.NotNull(wardInDb);
+        }
+        [Fact]
+        public void TestGet()
+        {
+            var layoutData = new IcuLayoutDataRepository(Context);
+            var response = layoutData.Get();
+            var actualresponse = response as List<IcuWardInformation>;
+            Assert.NotNull(actualresponse);
+        }
+        [Fact]
+        public void TestgetAllBedsInWard()
+        {
+            var layoutData = new IcuLayoutDataRepository(Context);
+            var response = layoutData.getAllBedsInWard("1A1");
+            var actualresponse = response as List<BedInformation>;
+            Assert.NotNull(actualresponse);
         }
     }
 }

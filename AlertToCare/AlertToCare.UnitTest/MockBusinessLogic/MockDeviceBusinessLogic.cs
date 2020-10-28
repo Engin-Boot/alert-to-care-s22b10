@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 
@@ -37,7 +38,13 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
 
         public IEnumerable<BedOnAlert> getAllAlerts(string wardNumber)
         {
-            throw new NotImplementedException();
+            var bed1 = new BedOnAlert();
+            var bed2 = new BedOnAlert();
+            IEnumerable<BedOnAlert> list= new List<BedOnAlert>();
+            list.Append(bed1);
+            list.Append(bed2);
+            return list;
+            
         }
 
         public bool raiseAlert(string bedId, string device, int value)

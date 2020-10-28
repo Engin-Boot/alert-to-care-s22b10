@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Alert } from '../nurse/nurse-home/nurse-home.component';
+import { Observable } from 'rxjs';
 
 export class BedDetails{
   bedId:string;

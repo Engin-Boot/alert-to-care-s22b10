@@ -49,7 +49,9 @@ namespace AlertToCare.UnitTest.MockRepository
 
         public bool raiseAlert(string bedId, string device, int value)
         {
-            throw new System.NotImplementedException();
+            if (bedId == "1A1")
+                return true;
+            return false;
         }
     }
 }

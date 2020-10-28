@@ -8,12 +8,14 @@ namespace AlertToCare.UnitTest.MockRepository
     {
         public IEnumerable<IcuWardInformation> Get()
         {
-            throw new System.NotImplementedException();
+            IEnumerable<IcuWardInformation> test = new List<IcuWardInformation>();
+            return test;
         }
 
         public IEnumerable<BedInformation> getAllBedsInWard(string wardNumber)
         {
-            throw new System.NotImplementedException();
+            IEnumerable<BedInformation> test = new List<BedInformation>();
+            return test;
         }
 
         public void InsertBed(BedInformation bed)
