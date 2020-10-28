@@ -56,9 +56,9 @@ namespace AlertToCare.Repository
         public bool raiseAlert(string bedId, string device,int value)
         {
             BedInformation bedOnAlert = _context.BedInformation.Where(bed => bed.BedId == bedId).FirstOrDefault();
-           
+            BedOnAlert allBeds = _context.BedOnAlert.Where(bed => bed.BedId == bedId).FirstOrDefault();
 
-            if (bedOnAlert.PatientId != null)
+            if (bedOnAlert.PatientId != null && allBeds == null)
             {
                 BedOnAlert bed = new BedOnAlert();
                 bed.BedId = bedId;

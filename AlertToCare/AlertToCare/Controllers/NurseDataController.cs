@@ -25,7 +25,15 @@ namespace AlertToCare.Controllers
         [HttpGet]
         public IEnumerable<NurseDataModel> Get()
         {
-            return _nurseBusinessLogic.GetNurse();
+            try
+            {
+                return _nurseBusinessLogic.GetNurse();
+            }
+            catch
+            {
+                return null;
+            }
+           
         }
 
         

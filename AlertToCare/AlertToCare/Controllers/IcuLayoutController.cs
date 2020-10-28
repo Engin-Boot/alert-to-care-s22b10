@@ -32,7 +32,14 @@ namespace AlertToCare.Controllers
 
         [HttpGet("getBedsInformation/{wardid}")]
         public IEnumerable<BedInformation> GetIcuWardInfo(string wardid){
-            return _icuLayoutManagement.GetBedInformation(wardid);
+            try
+            {
+                return _icuLayoutManagement.GetBedInformation(wardid);
+            }
+            catch
+            {
+                return null;
+            }
         }
         
 
@@ -40,7 +47,15 @@ namespace AlertToCare.Controllers
 
         public IEnumerable<IcuWardInformation> Get()
         {
-            return _icuLayoutManagement.Getall();
+            try
+            {
+                return _icuLayoutManagement.Getall();
+            }
+            catch
+            {
+                return null;
+            }
+            
         }
 
         

@@ -43,8 +43,15 @@ namespace AlertToCare.Controllers
         [HttpGet("getAlertInfo/{wardId}")]
         public IEnumerable<BedOnAlert> GetBedOnAlerts(string wardId)
         {
-           var allAlerts =  _deviceDataRepository.GetAllAlerts(wardId);
-            return allAlerts;
+            try
+            {
+                var allAlerts = _deviceDataRepository.GetAllAlerts(wardId);
+                return allAlerts;
+            }
+            catch
+            {
+                return null;
+            }
         }
         [HttpPost("raiseAlert/{bedId}/{device}/{value}")]
         public IActionResult RaiseAlert(string bedId, string device, int value)

@@ -79,8 +79,15 @@ namespace AlertToCare.Controllers
         [HttpPost("allocatebed/{wardNumber}/{bedId}")]
         public void AllocateBed([FromBody] PatientDataModel patient,string wardNumber,string bedId)
         {
-            _patientBusinessLogic.InsertPatient(patient);
-            _patientBusinessLogic.AllotBed(patient, wardNumber, bedId);
+            try
+            {
+                _patientBusinessLogic.InsertPatient(patient);
+                _patientBusinessLogic.AllotBed(patient, wardNumber, bedId);
+            }
+            catch
+            {
+        
+            }
         }
         [HttpDelete("BedAllocation/{patientId}")]
         public IActionResult DischargePatient(int patientId)
