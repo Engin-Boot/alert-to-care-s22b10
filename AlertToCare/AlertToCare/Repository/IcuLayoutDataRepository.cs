@@ -36,7 +36,7 @@ namespace AlertToCare.Repository
             IcuWardInformation wardInformation=_context.IcuWardInformation.Find(wardNumber);
             return wardInformation;
         }
-        public IEnumerable<BedInformation> getAllBedsInWard(string wardNumber){
+        public IEnumerable<BedInformation> GetAllBedsInWard(string wardNumber){
             IcuWardInformation wardInformation = GetLayout(wardNumber);
        
              var dataset = 

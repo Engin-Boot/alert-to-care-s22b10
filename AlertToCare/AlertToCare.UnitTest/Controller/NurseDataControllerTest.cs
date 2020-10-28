@@ -12,8 +12,7 @@ namespace AlertToCare.UnitTest.Controller
     
     public class NurseDataControllerTest
     {
-         INurseBusinessLogic nurseBusinessLogic
-            ;
+        
         readonly MockNurseBusinessLogic _mock = new MockNurseBusinessLogic();
         [Fact]
         
@@ -27,7 +26,7 @@ namespace AlertToCare.UnitTest.Controller
                 WardId = "233"
             };
 
-            NurseDataController nurseData = new NurseDataController(nurseBusinessLogic);
+            NurseDataController nurseData = new NurseDataController(_mock);
 
             var response = nurseData.Validate(nurse);
 
@@ -39,7 +38,7 @@ namespace AlertToCare.UnitTest.Controller
 
         public void TestForMatchIdWhenIdSame()
         {
-            NurseDataController nurseData = new NurseDataController(nurseBusinessLogic);
+            NurseDataController nurseData = new NurseDataController(_mock);
             string a = "a";
             string b = "a";
 
@@ -51,7 +50,7 @@ namespace AlertToCare.UnitTest.Controller
         [Fact]
         public void TestForMatchIdWhenIdDiff()
         {
-            NurseDataController nurseData = new NurseDataController(nurseBusinessLogic);
+            NurseDataController nurseData = new NurseDataController(_mock);
             string a = "a";
             string b = "b";
 
@@ -76,9 +75,9 @@ namespace AlertToCare.UnitTest.Controller
 
         [Fact]
 
-        public void TestForNurseAdd()
+        public void TestForNurseAddSuccessfull()
         {
-            var nurseData= new NurseDataController(_mock);
+            NurseDataController nurseData= new NurseDataController(_mock);
             var nurse = new NurseDataModel
             {
 
@@ -90,9 +89,11 @@ namespace AlertToCare.UnitTest.Controller
             var actualResponse = nurseData.Post(nurse);
             var actualResponseObject = actualResponse.Result as OkObjectResult;
 
-            Assert.NotNull(actualResponse);
+            Assert.NotNull(actualResponseObject);
+            Assert.Equal(200, actualResponseObject.StatusCode);
 
         }
+
         [Fact]
 
         public void TestForGetMethod()
@@ -105,5 +106,7 @@ namespace AlertToCare.UnitTest.Controller
 
             Assert.NotNull(actualResponse);
         }
+
+       
     }
 }

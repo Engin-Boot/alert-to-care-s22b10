@@ -85,8 +85,24 @@ namespace AlertToCare.Controllers
         [HttpPost("AddNurse")]
         public ActionResult <IEnumerable<dynamic>> Post([FromBody] NurseDataModel nurse)
         {
-            _nurseBusinessLogic.InsertNurse(nurse);
-            return StatusCode(200);
+            NurseDataModel nurseInfo;
+            try
+            {
+               nurseInfo = _nurseBusinessLogic.InsertNurse(nurse);
+            }
+            catch(Exception e)
+            {
+                return StatusCode(500, $"Unable to insert nurse {e}");
+            }
+            var responseData = new Dictionary<string, dynamic>
+            {
+                {"NurseId",nurseInfo.NurseId},
+                {"NurseName",nurseInfo.NurseName },
+                {"WardId",nurseInfo.WardId }
+            };
+
+            return Ok(responseData);
+            
         }
 
         

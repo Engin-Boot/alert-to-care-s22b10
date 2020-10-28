@@ -53,7 +53,7 @@ namespace AlertToCare.UnitTest.Repository
         public void TestgetAllBedsInWard()
         {
             var layoutData = new IcuLayoutDataRepository(Context);
-            var response = layoutData.getAllBedsInWard("1A1");
+            var response = layoutData.GetAllBedsInWard("1A1");
             var actualresponse = response as List<BedInformation>;
             Assert.NotNull(actualresponse);
         }

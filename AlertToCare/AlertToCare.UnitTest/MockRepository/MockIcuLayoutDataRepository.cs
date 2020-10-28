@@ -12,7 +12,7 @@ namespace AlertToCare.UnitTest.MockRepository
             return test;
         }
 
-        public IEnumerable<BedInformation> getAllBedsInWard(string wardNumber)
+        public IEnumerable<BedInformation> GetAllBedsInWard(string wardNumber)
         {
             IEnumerable<BedInformation> test = new List<BedInformation>();
             return test;

@@ -115,10 +115,11 @@ namespace AlertToCare.Controllers
 
 
         }
+
         private static void CheckPatientValid(PatientDataModel patientInfo)
         {
             if(patientInfo == null)
-                throw  new ArgumentException("Invalid bed id");
+                throw new ArgumentException("Invalid bed id");
         }
     }
 }
