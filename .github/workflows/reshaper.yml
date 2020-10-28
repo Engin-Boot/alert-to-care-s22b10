@@ -18,7 +18,7 @@ jobs:
         run: dotnet tool install -g JetBrains.ReSharper.GlobalTools
       
       - name: Adding Main Project Packages
-        run: dotnet add AlertToCare/AlertToCare/AlertToCare.csproj package Npgsql.Entity.FrameworkCore.PostgreSQL --version 3.1.4
+        run: dotnet add AlertToCare/AlertToCare/AlertToCare.csproj package Npgsql.EntityFrameworkCore.PostgreSQL --version 3.1.4
           
       - name: Adding Test Project Packages
         run: dotnet add AlertToCare/AlertToCare.UnitTest/AlertToCare.UnitTest.csproj package xunit --version 2.4.0
