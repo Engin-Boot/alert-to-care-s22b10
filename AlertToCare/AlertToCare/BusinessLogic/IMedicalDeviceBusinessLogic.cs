@@ -10,7 +10,7 @@ namespace AlertToCare.BusinessLogic
 
         public int[] FetchBedLayoutInfo(string statusBedId);
         public void AlertOff(string bedId);
-        public IEnumerable<BedOnAlert> getAllAlerts(string wardNumber);
-        public bool raiseAlert(string bedId, string device, int value);
+        public IEnumerable<BedOnAlert> GetAllAlerts(string wardNumber);
+        public bool RaiseAlert(string bedId, string device, int value);
     }
 }

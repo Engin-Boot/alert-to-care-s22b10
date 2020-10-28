@@ -31,13 +31,13 @@ export class HomeComponent implements OnInit {
   {
 
     let userName = this.username;
-    let user = {nurseName:this.username,nurseId:this.password};
+    let user = {NurseName:this.username,WardId:this.password};
     this.accountServiceRef.login(user).subscribe
     (
       (data) =>
       {
         console.log(data);
-        if(data == "Validation Succesful")
+        if(data == "Validation Succesfull")
           {
             alert("LOGIN SUCCESSFUL");
             this.route.navigate(['nurse',this.username]);

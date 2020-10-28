@@ -1,28 +1,25 @@
 ﻿using AlertToCare.Models;
 using AlertToCare.Repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AlertToCare.BusinessLogic
 {
     public class NurseBusinessLogic : INurseBusinessLogic
     {
-        readonly INurseDataRepository nurseDataRepository;
+        readonly INurseDataRepository _nurseDataRepository;
 
         public NurseBusinessLogic(INurseDataRepository repo)
         {
-            this.nurseDataRepository = repo;
+            this._nurseDataRepository = repo;
         }
-        public IEnumerable<NurseDataModel> getNurse()
+        public IEnumerable<NurseDataModel> GetNurse()
         {
-            return nurseDataRepository.GetAll();
+            return _nurseDataRepository.GetAll();
         }
 
         public NurseDataModel InsertNurse(NurseDataModel nurse)
         {
-            nurseDataRepository.AddNurse(nurse);
+            _nurseDataRepository.AddNurse(nurse);
             return nurse;
         }
     }

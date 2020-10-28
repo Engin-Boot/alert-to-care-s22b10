@@ -49,7 +49,7 @@ namespace AlertToCare.UnitTest.Controller
         public void TestgetMethod()
         {
             var controller = new IcuLayoutController(_repo);
-            var response = controller.GET();
+            var response = controller.Get();
             var actualresponse = response as List<IcuWardInformation>;
             Assert.NotNull(actualresponse);
         }
@@ -57,7 +57,7 @@ namespace AlertToCare.UnitTest.Controller
         public void TestgetIcuWardInfo()
         {
             var controller = new IcuLayoutController(_repo);
-            var response = controller.getIcuWardInfo("1A1");
+            var response = controller.GetIcuWardInfo("1A1");
             var actualresponse = response as List<BedInformation>;
             Assert.NotNull(actualresponse);
         }

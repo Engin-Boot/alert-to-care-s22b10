@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -25,40 +23,40 @@ namespace AlertToCare.Controllers
         [HttpGet]
         public IEnumerable<NurseDataModel> Get()
         {
-            return _nurseBusinessLogic.getNurse();
+            return _nurseBusinessLogic.GetNurse();
         }
 
         
         [HttpPost("validate")]
 
-        public string validate([FromBody] NurseDataModel nurse)
+        public string Validate([FromBody] NurseDataModel nurse)
         {
 
 
             var response = "Validation Failed";
             Console.WriteLine(nurse.NurseName);
-            Console.WriteLine(nurse.wardId);
+            Console.WriteLine(nurse.WardId);
 
             if (nurse.NurseName == "Admin")
                 return "Admin Login";
             else
             {
-                response = matchName(nurse.NurseName, nurse.wardId);
+                response = MatchName(nurse.NurseName, nurse.WardId);
             }
 
             return response;
         }
 
-        private string matchName(string name, string id)
+        private string MatchName(string name, string id)
         {
-            List<NurseDataModel> nurseList = (List<NurseDataModel>)_nurseBusinessLogic.getNurse();
+            List<NurseDataModel> nurseList = (List<NurseDataModel>)_nurseBusinessLogic.GetNurse();
             var reply = "Validation Failed";
 
             for (int i = 0; i < nurseList.Count; i++)
             {
                 if (name == nurseList[i].NurseName)
                 {
-                    reply = matchId(nurseList[i].wardId, id);
+                    reply = MatchId(nurseList[i].WardId, id);
                 }
             }
 
@@ -66,7 +64,7 @@ namespace AlertToCare.Controllers
 
         }
 
-        private string matchId(string id, string id2)
+        private string MatchId(string id, string id2)
         {
             var reply = "Validation Failed";
             if (id == id2)

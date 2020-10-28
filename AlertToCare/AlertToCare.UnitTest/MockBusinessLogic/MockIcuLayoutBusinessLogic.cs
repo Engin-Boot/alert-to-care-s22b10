@@ -23,7 +23,7 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
             return list;
 
         }
-        public IEnumerable<IcuWardInformation> getall()
+        public IEnumerable<IcuWardInformation> Getall()
         {
             IEnumerable<IcuWardInformation> list = new List<IcuWardInformation>();
             var data = new IcuWardInformation();
@@ -32,7 +32,7 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
             return list;
         }
 
-        public IEnumerable<BedInformation> getBedInformation(string WardNumber)
+        public IEnumerable<BedInformation> GetBedInformation(string WardNumber)
         {
             return new List<BedInformation>();
         }

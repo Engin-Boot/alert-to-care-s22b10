@@ -80,7 +80,7 @@ namespace AlertToCare.Controllers
         public void AllocateBed([FromBody] PatientDataModel patient,string wardNumber,string bedId)
         {
             _patientBusinessLogic.InsertPatient(patient);
-            _patientBusinessLogic.allotBed(patient, wardNumber, bedId);
+            _patientBusinessLogic.AllotBed(patient, wardNumber, bedId);
         }
         [HttpDelete("BedAllocation/{patientId}")]
         public IActionResult DischargePatient(int patientId)
@@ -117,7 +117,7 @@ namespace AlertToCare.Controllers
                     {"address", patientInfo.Address},
                     {"mobile", patientInfo.Mobile},
                 };
-                return StatusCode(500);
+                return StatusCode(200,responseData);
             }
             return BadRequest("Invalid PatientId");
         }

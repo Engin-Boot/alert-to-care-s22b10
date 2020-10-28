@@ -59,7 +59,7 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
             return new Tuple<PatientDataModel, BedInformation>(objPatientInfo, objBedInfo);
         }
 
-        public void allotBed(PatientDataModel patient, string wardId, string bedId)
+        public void AllotBed(PatientDataModel patient, string wardId, string bedId)
         {
             throw new NotImplementedException();
         }

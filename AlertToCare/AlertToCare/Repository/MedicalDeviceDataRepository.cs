@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Cryptography.X509Certificates;
 using AlertToCare.Models;
 
 namespace AlertToCare.Repository
@@ -59,10 +56,11 @@ namespace AlertToCare.Repository
         public bool raiseAlert(string bedId, string device,int value)
         {
             BedInformation bedOnAlert = _context.BedInformation.Where(bed => bed.BedId == bedId).FirstOrDefault();
-            BedOnAlert bed = new BedOnAlert();
+           
 
             if (bedOnAlert.PatientId != null)
             {
+                BedOnAlert bed = new BedOnAlert();
                 bed.BedId = bedId;
                 bed.DeviceName = device;
                 bed.Value = value;

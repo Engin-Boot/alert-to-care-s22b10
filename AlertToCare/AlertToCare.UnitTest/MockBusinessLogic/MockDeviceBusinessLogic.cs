@@ -36,7 +36,7 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
                 throw new Exception("");
         }
 
-        public IEnumerable<BedOnAlert> getAllAlerts(string wardNumber)
+        public IEnumerable<BedOnAlert> GetAllAlerts(string wardNumber)
         {
             var bed1 = new BedOnAlert();
             var bed2 = new BedOnAlert();
@@ -47,7 +47,7 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
             
         }
 
-        public bool raiseAlert(string bedId, string device, int value)
+        public bool RaiseAlert(string bedId, string device, int value)
         {
             throw new NotImplementedException();
         }

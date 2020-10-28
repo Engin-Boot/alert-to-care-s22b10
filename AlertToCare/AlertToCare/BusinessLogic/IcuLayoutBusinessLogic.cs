@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using AlertToCare.Models;
 using AlertToCare.Repository;
@@ -74,14 +73,14 @@ namespace AlertToCare.BusinessLogic
             _icuLayoutDataRepository.InsertLayout(icuLayout);
         }
 
-        public IEnumerable<IcuWardInformation> getall()
+        public IEnumerable<IcuWardInformation> Getall()
         {
             return _icuLayoutDataRepository.Get();
         }
 
-        public IEnumerable<BedInformation> getBedInformation(string WardNumber)
+        public IEnumerable<BedInformation> GetBedInformation(string wardNumber)
         {
-            return _icuLayoutDataRepository.getAllBedsInWard(WardNumber);
+            return _icuLayoutDataRepository.getAllBedsInWard(wardNumber);
         }
 
     }

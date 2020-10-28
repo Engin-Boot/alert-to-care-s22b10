@@ -2,7 +2,6 @@
 using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 
 namespace AlertToCare.Controllers
 {
@@ -32,16 +31,16 @@ namespace AlertToCare.Controllers
         }
 
         [HttpGet("getBedsInformation/{wardid}")]
-        public IEnumerable<BedInformation> getIcuWardInfo(string wardid){
-            return _icuLayoutManagement.getBedInformation(wardid);
+        public IEnumerable<BedInformation> GetIcuWardInfo(string wardid){
+            return _icuLayoutManagement.GetBedInformation(wardid);
         }
         
 
         [HttpGet("wardDetail")]
 
-        public IEnumerable<IcuWardInformation> GET()
+        public IEnumerable<IcuWardInformation> Get()
         {
-            return _icuLayoutManagement.getall();
+            return _icuLayoutManagement.Getall();
         }
 
         

@@ -25,7 +25,7 @@ namespace AlertToCare.Controllers
 
 
         [HttpPost("MedicalDevice")]
-        public IActionResult InsertDevice([Microsoft.AspNetCore.Mvc.FromBody] MedicalDevice device)
+        public IActionResult InsertDevice([FromBody] MedicalDevice device)
         {
             if (!DeviceValidator.ValidateDevice(device))
                 return BadRequest("Please enter valid input");
@@ -43,13 +43,13 @@ namespace AlertToCare.Controllers
         [HttpGet("getAlertInfo/{wardId}")]
         public IEnumerable<BedOnAlert> GetBedOnAlerts(string wardId)
         {
-           var allAlerts =  _deviceDataRepository.getAllAlerts(wardId);
+           var allAlerts =  _deviceDataRepository.GetAllAlerts(wardId);
             return allAlerts;
         }
         [HttpPost("raiseAlert/{bedId}/{device}/{value}")]
-        public IActionResult raiseAlert(string bedId, string device, int value)
+        public IActionResult RaiseAlert(string bedId, string device, int value)
         {
-            var result = _deviceDataRepository.raiseAlert(bedId,device,value);
+            var result = _deviceDataRepository.RaiseAlert(bedId,device,value);
             if(result)
             {
                 return Ok();
