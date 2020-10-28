@@ -24,9 +24,9 @@ namespace AlertToCare.Controllers
                 _icuLayoutManagement.AddLayoutInformation(objLayoutModel);
                 return Ok(200);
             }
-            catch
+            catch(System.Exception e)
             {
-                return StatusCode(500);
+                return StatusCode(500,e);
             }
         }
 
