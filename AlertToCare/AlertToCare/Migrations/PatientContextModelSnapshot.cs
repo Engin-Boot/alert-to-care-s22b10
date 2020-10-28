@@ -3,10 +3,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using System.Diagnostics.CodeAnalysis;
 using DbContext = AlertToCare.Repository.DbContext;
 
 namespace AlertToCare.Migrations
 {
+    [ExcludeFromCodeCoverage]
     [DbContext(typeof(DbContext))]
     partial class PatientContextModelSnapshot : ModelSnapshot
     {

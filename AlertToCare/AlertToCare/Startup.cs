@@ -8,9 +8,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using DbContext = AlertToCare.Repository.DbContext;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AlertToCare
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";

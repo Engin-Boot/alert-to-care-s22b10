@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AlertToCare.Migrations
 {
+    [ExcludeFromCodeCoverage]
     public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
