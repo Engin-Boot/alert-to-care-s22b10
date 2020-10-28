@@ -25,7 +25,7 @@ namespace AlertToCare.Controllers
         [HttpGet]
         public IEnumerable<NurseDataModel> Get()
         {
-            return _nurseBusinessLogic.getNurse();
+            return _nurseBusinessLogic.GetNurse();
         }
 
         
@@ -37,13 +37,13 @@ namespace AlertToCare.Controllers
 
             var response = "Validation Failed";
             Console.WriteLine(nurse.NurseName);
-            Console.WriteLine(nurse.wardId);
+            Console.WriteLine(nurse.WardId);
 
             if (nurse.NurseName == "Admin")
                 return "Admin Login";
             else
             {
-                response = matchName(nurse.NurseName, nurse.wardId);
+                response = matchName(nurse.NurseName, nurse.WardId);
             }
 
             return response;
@@ -51,14 +51,14 @@ namespace AlertToCare.Controllers
 
         public string matchName(string name, string id)
         {
-            List<NurseDataModel> nurseList = (List<NurseDataModel>)_nurseBusinessLogic.getNurse();
+            List<NurseDataModel> nurseList = (List<NurseDataModel>)_nurseBusinessLogic.GetNurse();
             var reply = "Validation Failed";
 
             for (int i = 0; i < nurseList.Count; i++)
             {
                 if (name == nurseList[i].NurseName)
                 {
-                    reply = matchId(nurseList[i].wardId, id);
+                    reply = matchId(nurseList[i].WardId, id);
                 }
             }
 
