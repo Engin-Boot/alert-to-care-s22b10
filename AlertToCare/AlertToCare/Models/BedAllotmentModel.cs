@@ -1,5 +1,7 @@
-﻿namespace AlertToCare.Models
+﻿using System.Diagnostics.CodeAnalysis;
+namespace AlertToCare.Models
 {
+    [ExcludeFromCodeCoverage]
     public class BedAllotmentModel
     {
         public int PatientId { get; set; }

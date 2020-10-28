@@ -1,5 +1,8 @@
-﻿namespace AlertToCare.Models
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace AlertToCare.Models
 {
+    [ExcludeFromCodeCoverage]
     public class IcuWardLayoutModel
     {
         public string WardNumber { get; set; }
