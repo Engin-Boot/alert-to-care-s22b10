@@ -18,7 +18,7 @@ namespace AlertToCare.UnitTest.Repository
             {
                 NurseId = "123",
                 NurseName = "Nurse1",
-                wardId = "123"
+                WardId = "123"
             };
 
             var nurseData = new NurseDataRepository(Context);

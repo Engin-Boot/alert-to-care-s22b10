@@ -25,7 +25,7 @@ namespace AlertToCare.UnitTest.Repository
             {
                 NurseId = "1",
                 NurseName = "Shweta",
-                wardId = "1"
+                WardId = "1"
             };
 
             context.Add(nurse);

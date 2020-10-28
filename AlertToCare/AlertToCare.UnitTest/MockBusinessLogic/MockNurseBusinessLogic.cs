@@ -9,7 +9,7 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
 {
     class MockNurseBusinessLogic : INurseBusinessLogic
     {
-        public IEnumerable<NurseDataModel> getNurse()
+        public IEnumerable<NurseDataModel> GetNurse()
         {
             IEnumerable<NurseDataModel> list = new List<NurseDataModel>();
 
@@ -19,6 +19,8 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
 
             return list;
         }
+
+       
 
         public NurseDataModel InsertNurse(NurseDataModel nurse)
         {

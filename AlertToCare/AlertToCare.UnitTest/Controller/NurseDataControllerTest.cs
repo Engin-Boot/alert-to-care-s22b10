@@ -24,7 +24,7 @@ namespace AlertToCare.UnitTest.Controller
 
                 NurseId = "333",
                 NurseName = "Admin",
-                wardId = "233"
+                WardId = "233"
             };
 
             NurseDataController nurseData = new NurseDataController(nurseBusinessLogic);
@@ -84,7 +84,7 @@ namespace AlertToCare.UnitTest.Controller
 
                 NurseId = "456",
                 NurseName = "Hero",
-                wardId = "213"
+                WardId = "213"
            };
 
             var actualResponse = nurseData.Post(nurse);
