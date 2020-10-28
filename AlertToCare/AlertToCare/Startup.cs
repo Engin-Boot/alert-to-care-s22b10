@@ -46,9 +46,7 @@ namespace AlertToCare
             //Once instance of type PatientMemoryDBRepository created - Any number of Resolve request
             services.AddTransient<IPatientBusinessLogic, PatientBusinessLogic>();
             services.AddTransient<IIcuLayoutBusinessLogic, IcuLayoutBusinessLogic>();
-            services.AddTransient<IMedicalDeviceBusinessLogic, MedicalDeviceBusinessLogic>();
             services.AddTransient<IPatientDataRepository, PatientDataRepository>();
-            services.AddTransient<IMedicalDeviceDataRepository, MedicalDeviceDataRepository>();
             services.AddTransient<IIcuLayoutDataRepository, IcuLayoutDataRepository>();
             services.AddTransient<INurseBusinessLogic, NurseBusinessLogic>();
             services.AddTransient<INurseDataRepository, NurseDataRepository>();

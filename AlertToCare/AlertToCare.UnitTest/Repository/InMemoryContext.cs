@@ -49,14 +49,6 @@ namespace AlertToCare.UnitTest.Repository
             };
             context.Add(bed);
 
-            var medicalDevice = new MedicalDevice 
-                {
-                    DeviceName = "TestDevice", 
-                    MaxValue = 160, 
-                    MinValue = 80
-                };
-            context.Add(medicalDevice);
-
             var wardInfo = new IcuWardInformation()
             {
                 WardNumber = "1B",
