@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Wards } from 'src/app/ward';
 import { WardListComponent } from './ward-list.component';
 
 describe('WardListComponent', () => {
@@ -8,7 +8,9 @@ describe('WardListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WardListComponent ]
+      declarations: [ WardListComponent ],
+      imports:[Wards],
+      providers:[Wards]
     })
     .compileComponents();
   });

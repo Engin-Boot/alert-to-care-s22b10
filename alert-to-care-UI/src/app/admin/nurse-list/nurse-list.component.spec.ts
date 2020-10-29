@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { getService } from 'src/app/services/getUsers.service';
+import { Users } from 'src/app/users';
 import { NurseListComponent } from './nurse-list.component';
 
 describe('NurseListComponent', () => {
@@ -8,7 +9,9 @@ describe('NurseListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NurseListComponent ]
+      declarations: [ NurseListComponent ],
+      imports:[getService, Users ],
+      providers:[getService, Users ]
     })
     .compileComponents();
   });
@@ -19,7 +22,5 @@ describe('NurseListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  
 });
