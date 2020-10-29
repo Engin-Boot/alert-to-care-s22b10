@@ -14,7 +14,7 @@ const routes: Routes = [
   {path:"",redirectTo:'home',pathMatch:'full'},
 
   {path:'home',component:HomeComponent},
-  {path:'nurse/:userName',component:NurseHomeComponent},
+  {path:'nurse',component:NurseHomeComponent},
     {path:'admin/:userName', canActivate:[AuthGuardService],component:AdminHomeComponent,children:[
       {path:'ward',component:WardComponent},{path:'profile',component:ProfileComponent},{path:'nurselist',component:NurseListComponent},{path:'wardlist',component:WardListComponent}
     ]},

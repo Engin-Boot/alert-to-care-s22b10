@@ -1,6 +1,4 @@
-﻿
-using AlertToCare.BusinessLogic;
-using AlertToCare.Controllers;
+﻿using AlertToCare.Controllers;
 using AlertToCare.Models;
 using AlertToCare.UnitTest.MockBusinessLogic;
 using Microsoft.AspNetCore.Mvc;
