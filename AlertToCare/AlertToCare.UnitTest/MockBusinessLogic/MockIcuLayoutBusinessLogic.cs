@@ -11,10 +11,10 @@ namespace AlertToCare.UnitTest.MockBusinessLogic
         public void AddLayoutInformation(IcuWardLayoutModel objLayout)
         {
             if(objLayout.Department == "radonc")
-                throw new Exception("");
+                throw new Exception("Wrong Department");
         }
 
-        public IEnumerable<BedInformation> GetIcuWardInfo(string wardid)
+        public IEnumerable<BedInformation> GetIcuWardInfo()
         {
             IEnumerable<BedInformation> list = new List<BedInformation>();
             var data = new BedInformation();

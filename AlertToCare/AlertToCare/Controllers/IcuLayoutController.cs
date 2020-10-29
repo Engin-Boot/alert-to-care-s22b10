@@ -2,7 +2,7 @@
 using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using Microsoft.AspNetCore.Mvc;
-
+using System;
 namespace AlertToCare.Controllers
 {
     [Route("[controller]")]
@@ -17,16 +17,16 @@ namespace AlertToCare.Controllers
         }
 
         [HttpPost("IcuWardInfo")]
-        public IActionResult InsertIcuWardInfo([FromBody] IcuWardLayoutModel objLayoutModel)
+        public ActionResult InsertIcuWardInfo([FromBody] IcuWardLayoutModel objLayoutModel)
         {
             try
             {
                 _icuLayoutManagement.AddLayoutInformation(objLayoutModel);
                 return Ok(200);
             }
-            catch(System.Exception e)
+            catch(Exception e)
             {
-                return StatusCode(500,e);
+                return StatusCode(500);
             }
         }
 
