@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormBuilder, FormGroup ,NgForm,Validators} from '@angular/forms';
+import { ActivatedRoute,Router } from '@angular/router';
+import { HttpClientServiceService } from 'src/app/services/http-client-service.service';
 import { NurseAddPatientComponent } from './nurse-add-patient.component';
 
 describe('NurseAddPatientComponent', () => {
@@ -8,7 +10,9 @@ describe('NurseAddPatientComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NurseAddPatientComponent ]
+      declarations: [ NurseAddPatientComponent ],
+      imports:[ FormBuilder, FormGroup ,NgForm,Validators,ActivatedRoute,Router,HttpClientServiceService],
+      providers:[FormBuilder, FormGroup ,NgForm,Validators,ActivatedRoute,Router,HttpClientServiceService]
     })
     .compileComponents();
   });

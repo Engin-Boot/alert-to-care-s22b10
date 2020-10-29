@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { addNurseService } from 'src/app/services/addNurse.service';
 import { ProfileComponent } from './profile.component';
 
 describe('ProfileComponent', () => {
@@ -8,7 +8,9 @@ describe('ProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfileComponent ]
+      declarations: [ ProfileComponent ],
+      imports:[addNurseService],
+      providers:[addNurseService]
     })
     .compileComponents();
   });

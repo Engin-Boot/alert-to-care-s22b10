@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
         if(data == "Validation Succesfull")
           {
             alert("LOGIN SUCCESSFUL");
-            this.route.navigate(['nurse',this.username]);
+            this.route.navigate(['/nurse',this.username],{ queryParams: { Name: this.username ,wardId:this.password} });
             console.log("SUCCESS");          
           }
           else if(data == "Admin Login")

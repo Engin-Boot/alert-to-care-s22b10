@@ -42,7 +42,6 @@ getalertFunc():void {
     private httpClientService:HttpClientServiceService,
     private route : ActivatedRoute,
     private router: Router) { 
-    this.wardId="5";
     this.httpClientService.getBedsInformation(this.wardId).subscribe(
       response =>this.handleSuccessfulGetBedResponse(response),
      );
@@ -54,6 +53,10 @@ getalertFunc():void {
     this.httpClientService.getAllAlerts(this.wardId).subscribe(
       response =>this.handleSuccessfulGetAlertResponse(response),
      );
+     this.route.queryParams.subscribe(params => {
+      this.NurseName = params['Name'];
+      this.wardId = params['wardId']
+    });
 
   }
   handleSuccessfulGetBedResponse(response)

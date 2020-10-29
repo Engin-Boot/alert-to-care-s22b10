@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { addWardService } from 'src/app/services/addWard.service';
 import { WardComponent } from './ward.component';
 
 describe('WardComponent', () => {
@@ -8,7 +8,9 @@ describe('WardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WardComponent ]
+      declarations: [ WardComponent ],
+      imports:[addWardService],
+      providers:[addWardService]
     })
     .compileComponents();
   });
