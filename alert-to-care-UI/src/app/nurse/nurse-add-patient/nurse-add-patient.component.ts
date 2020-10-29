@@ -13,6 +13,7 @@ export class NurseAddPatientComponent implements OnInit {
   selectedBedId:string;
   wardId:string;
   PatientForm: FormGroup;
+  nursename:string;
   constructor(private router: Router,private route:ActivatedRoute,private fb: FormBuilder,private httpClientService:HttpClientServiceService,) {
     this.PatientForm = this.fb.group({  
       'PatientId' : [null, Validators.required],  
@@ -27,7 +28,8 @@ export class NurseAddPatientComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.selectedBedId = params['bedId'];
-      this.wardId = params['wardId']
+      this.wardId = params['wardId'];
+      this.nursename = params['name'];
     });
   }
   onAdmit():void{
@@ -35,7 +37,7 @@ export class NurseAddPatientComponent implements OnInit {
     this.httpClientService.allotBedToPatient(this.wardId,this.selectedBedId,this.PatientForm.value).subscribe(
       response =>this.handleSuccessfulResponse(response),
      );
-    this.router.navigate(['/nurse/Jane']);
+    this.router.navigate(['/nurse'],{ queryParams: { Name: this.nursename ,wardId:this.wardId} });
   }
   handleSuccessfulResponse(response){
 

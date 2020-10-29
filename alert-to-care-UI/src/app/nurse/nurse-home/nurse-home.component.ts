@@ -42,21 +42,31 @@ getalertFunc():void {
     private httpClientService:HttpClientServiceService,
     private route : ActivatedRoute,
     private router: Router) { 
-    this.httpClientService.getBedsInformation(this.wardId).subscribe(
-      response =>this.handleSuccessfulGetBedResponse(response),
-     );
-     this.interval =setInterval(() => { this.getalertFunc(); }, 1000);
-  }
-
-  ngOnInit(): void {
+      this.route.queryParams.subscribe(params => {
+        this.NurseName = params['Name'];
+        this.wardId = params['wardId']
+      });
+     this.interval =setInterval(() => { this.getalertFunc(); }, 5000);
+     var token1 = this.wardId;
+     var token2 = this.NurseName;
+    localStorage.setItem("wardId", token1);
+    localStorage.setItem("Name", token2);
     
+  }
+  ngOnDestroy():void{
+    localStorage.removeItem("wardId");
+    localStorage.removeItem("Name");
+  }
+  ngOnInit(): void {
+    this.wardId=localStorage.getItem("wardId");
+    this.NurseName= localStorage.getItem("Name")
+  this.httpClientService.getBedsInformation(this.wardId).subscribe(
+    response =>this.handleSuccessfulGetBedResponse(response),
+   );
     this.httpClientService.getAllAlerts(this.wardId).subscribe(
       response =>this.handleSuccessfulGetAlertResponse(response),
      );
-     this.route.queryParams.subscribe(params => {
-      this.NurseName = params['Name'];
-      this.wardId = params['wardId']
-    });
+     
 
   }
   handleSuccessfulGetBedResponse(response)
@@ -141,7 +151,7 @@ getalertFunc():void {
          }
       }
    }
-    this.router.navigate(['/nurse/Jane']);
+    this.router.navigate(['/nurse']);
   }
   onAlertOff(event:any,bedId:string):void{
     if(confirm("Are you sure to turn off alert")) {
@@ -163,11 +173,11 @@ getalertFunc():void {
          }
       }
     }
-    this.router.navigate(['/nurse/Jane']);
+    this.router.navigate(['/nurse']);
   }
   onAddPatient(event:any,bedId:string):void{
     if(confirm("Are you sure")) {
-      this.router.navigate([ '/addpatient' ],{ queryParams: { bedId: bedId ,wardId:this.wardId} });
+      this.router.navigate([ '/addpatient' ],{ queryParams: { bedId: bedId ,wardId:this.wardId, name: this.NurseName} });
     }
 
   }
