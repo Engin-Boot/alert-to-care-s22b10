@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.Diagnostics.CodeAnalysis;
 
 namespace AlertToCare.Models
 {
+    [ExcludeFromCodeCoverage]
     public class NurseDataModel
     {
         [Key]

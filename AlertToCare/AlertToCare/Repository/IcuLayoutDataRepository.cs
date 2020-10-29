@@ -32,12 +32,12 @@ namespace AlertToCare.Repository
             _context.IcuWardInformation.Add(layout);
             _context.SaveChanges();
         }
-        public IcuWardInformation getLayout(string WardNumber){
-            IcuWardInformation wardInformation=_context.IcuWardInformation.Find(WardNumber);
+        private IcuWardInformation GetLayout(string wardNumber){
+            IcuWardInformation wardInformation=_context.IcuWardInformation.Find(wardNumber);
             return wardInformation;
         }
-        public IEnumerable<BedInformation> getAllBedsInWard(string wardNumber){
-            IcuWardInformation wardInformation = getLayout(wardNumber);
+        public IEnumerable<BedInformation> GetAllBedsInWard(string wardNumber){
+            IcuWardInformation wardInformation = GetLayout(wardNumber);
        
              var dataset = 
             (from bed in _context.BedInformation 

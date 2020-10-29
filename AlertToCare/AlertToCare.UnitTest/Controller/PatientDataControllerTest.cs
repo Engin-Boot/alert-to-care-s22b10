@@ -1,8 +1,6 @@
 using AlertToCare.Controllers;
 using AlertToCare.Models;
-using AlertToCare.Repository;
 using AlertToCare.UnitTest.MockBusinessLogic;
-using AlertToCare.UnitTest.MockRepository;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
@@ -10,12 +8,12 @@ namespace AlertToCare.UnitTest.Controller
 {
     public class PatientDataControllerTest
     {
-        readonly MockPatientBusinessLogic operations = new MockPatientBusinessLogic();
+        readonly MockPatientBusinessLogic _operations = new MockPatientBusinessLogic();
 
         [Fact]
         public void TestInsertPatientSuccessfully()
         {
-            PatientDataController controller = new PatientDataController(operations);
+            PatientDataController controller = new PatientDataController(_operations);
             var patient = new PatientDataModel
             {
                 PatientName = "p1", Address = "address", Mobile = "9898989898", Email = "p1@email.com"
@@ -28,7 +26,7 @@ namespace AlertToCare.UnitTest.Controller
         [Fact]
         public void TestInsertPatientValidationFalure()
         {
-            PatientDataController controller = new PatientDataController(operations);
+            PatientDataController controller = new PatientDataController(_operations);
             var patient = new PatientDataModel
             {
                 PatientName = "p1", Address = "address", Mobile = "98989898", Email = "p1@email.com"
@@ -42,7 +40,7 @@ namespace AlertToCare.UnitTest.Controller
         [Fact]
         public void TestInsertPatientThrowsException()
         {
-            PatientDataController controller = new PatientDataController(operations);
+            PatientDataController controller = new PatientDataController(_operations);
             var patient = new PatientDataModel
             {
                 PatientName = "Hari", Address = "address", Mobile = "9898933898", Email = "p1@email.com"
@@ -56,7 +54,7 @@ namespace AlertToCare.UnitTest.Controller
         [Fact]
         public void TestAllotPatientSuccessfully()
         {
-            PatientDataController controller = new PatientDataController(operations);
+            PatientDataController controller = new PatientDataController(_operations);
             BedAllotmentModel bedAllotment = new BedAllotmentModel {PatientId = 1, Department = "Cancer"};
             var actualResponse = controller.AllotBedToPatient(bedAllotment);
             var actualResponseObject = actualResponse as OkObjectResult;
@@ -66,7 +64,7 @@ namespace AlertToCare.UnitTest.Controller
         [Fact]
         public void TestAllotPatientUnSuccessful()
         {
-            PatientDataController controller = new PatientDataController(operations);
+            PatientDataController controller = new PatientDataController(_operations);
             BedAllotmentModel bedAllotment = new BedAllotmentModel {PatientId = 2, Department = "Cancer"};
             var actualResponse = controller.AllotBedToPatient(bedAllotment);
             var actualResponseObject = actualResponse as StatusCodeResult;
@@ -76,7 +74,7 @@ namespace AlertToCare.UnitTest.Controller
         [Fact]
         public void TestDischargePatientSuccessfully()
         {
-            PatientDataController controller = new PatientDataController(operations);
+            PatientDataController controller = new PatientDataController(_operations);
             var actualResponse =  controller.DischargePatient(1);
             var okResult = actualResponse as OkResult;
             // Assert
@@ -87,13 +85,13 @@ namespace AlertToCare.UnitTest.Controller
         [Fact]
         public void TestDischargePatientUnSuccessful()
         {
-            PatientDataController controller = new PatientDataController(operations);
-            var actualResponse = controller.DischargePatient(2);
-            var respone = actualResponse as StatusCodeResult;
+            PatientDataController controller = new PatientDataController(_operations);
+            var response = controller.DischargePatient(2) as StatusCodeResult;
+            
             // Assert
 
-            Assert.NotNull(respone);
-            Assert.Equal(500, respone.StatusCode);
+            Assert.NotNull(response);
+            Assert.Equal(500, response.StatusCode);
         }
         /*[Fact]
         public void TestAllotBedToPatientSuccessful()

@@ -37,25 +37,25 @@ namespace AlertToCare.Controllers
         
         [HttpPost("validate")]
 
-        public string validate([FromBody] NurseDataModel nurse)
+        public string Validate([FromBody] NurseDataModel nurse)
         {
-
-
-            var response = "Validation Failed";
             Console.WriteLine(nurse.NurseName);
             Console.WriteLine(nurse.WardId);
 
+
+
+            string response;
             if (nurse.NurseName == "Admin")
                 return "Admin Login";
             else
             {
-                response = matchName(nurse.NurseName, nurse.WardId);
+                response = MatchName(nurse.NurseName, nurse.WardId);
             }
 
             return response;
         }
 
-        public string matchName(string name, string id)
+        public string MatchName(string name, string id)
         {
             List<NurseDataModel> nurseList = (List<NurseDataModel>)_nurseBusinessLogic.GetNurse();
             var reply = "Validation Failed";
@@ -64,7 +64,7 @@ namespace AlertToCare.Controllers
             {
                 if (name == nurseList[i].NurseName)
                 {
-                    reply = matchId(nurseList[i].WardId, id);
+                    reply = MatchId(nurseList[i].WardId, id);
                 }
             }
 
@@ -72,7 +72,7 @@ namespace AlertToCare.Controllers
 
         }
 
-        public string matchId(string id, string id2)
+        public string MatchId(string id, string id2)
         {
             var reply = "Validation Failed";
             if (id == id2)
@@ -85,8 +85,24 @@ namespace AlertToCare.Controllers
         [HttpPost("AddNurse")]
         public ActionResult <IEnumerable<dynamic>> Post([FromBody] NurseDataModel nurse)
         {
-            _nurseBusinessLogic.InsertNurse(nurse);
-            return StatusCode(200);
+            NurseDataModel nurseInfo;
+            try
+            {
+               nurseInfo = _nurseBusinessLogic.InsertNurse(nurse);
+            }
+            catch(Exception e)
+            {
+                return StatusCode(500, $"Unable to insert nurse {e}");
+            }
+            var responseData = new Dictionary<string, dynamic>
+            {
+                {"NurseId",nurseInfo.NurseId},
+                {"NurseName",nurseInfo.NurseName },
+                {"WardId",nurseInfo.WardId }
+            };
+
+            return Ok(responseData);
+            
         }
 
         

@@ -80,7 +80,7 @@ namespace AlertToCare.BusinessLogic
 
         public IEnumerable<BedInformation> GetBedInformation(string wardNumber)
         {
-            return _icuLayoutDataRepository.getAllBedsInWard(wardNumber);
+            return _icuLayoutDataRepository.GetAllBedsInWard(wardNumber);
         }
 
     }

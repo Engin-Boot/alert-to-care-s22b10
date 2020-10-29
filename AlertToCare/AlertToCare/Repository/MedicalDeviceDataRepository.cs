@@ -41,7 +41,7 @@ namespace AlertToCare.Repository
             _context.BedOnAlert.RemoveRange(_context.BedOnAlert.Where(bed => bed.BedId == bedId));
             _context.SaveChanges();
         }
-        public IEnumerable<BedOnAlert> getAllAlerts(string wardNumber)
+        public IEnumerable<BedOnAlert> GetAllAlerts(string wardNumber)
         {
             var allAlerts = (from alert in _context.BedOnAlert
                             join
@@ -53,17 +53,19 @@ namespace AlertToCare.Repository
             return allAlerts;
 
         }
-        public bool raiseAlert(string bedId, string device,int value)
+        public bool RaiseAlert(string bedId, string device,int value)
         {
             BedInformation bedOnAlert = _context.BedInformation.Where(bed => bed.BedId == bedId).FirstOrDefault();
             BedOnAlert allBeds = _context.BedOnAlert.Where(bed => bed.BedId == bedId).FirstOrDefault();
 
             if (bedOnAlert.PatientId != null && allBeds == null)
             {
-                BedOnAlert bed = new BedOnAlert();
-                bed.BedId = bedId;
-                bed.DeviceName = device;
-                bed.Value = value;
+                BedOnAlert bed = new BedOnAlert
+                {
+                    BedId = bedId,
+                    DeviceName = device,
+                    Value = value
+                };
                 _context.BedOnAlert.Add(bed);
                 _context.SaveChanges();
                 return true;

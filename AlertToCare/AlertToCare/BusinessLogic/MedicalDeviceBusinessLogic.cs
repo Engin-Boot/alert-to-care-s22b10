@@ -41,10 +41,10 @@ namespace AlertToCare.BusinessLogic
         }
         public bool RaiseAlert(string bedId, string device, int value)
         {
-          return _medicalDeviceDataRepository.raiseAlert(bedId,device,value);
+          return _medicalDeviceDataRepository.RaiseAlert(bedId,device,value);
         }
         public IEnumerable<BedOnAlert> GetAllAlerts(string wardNumber){
-            return _medicalDeviceDataRepository.getAllAlerts(wardNumber);
+            return _medicalDeviceDataRepository.GetAllAlerts(wardNumber);
         }
         public int[] FetchBedLayoutInfo(string statusBedId)
         {

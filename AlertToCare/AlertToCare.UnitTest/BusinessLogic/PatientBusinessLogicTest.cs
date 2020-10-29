@@ -3,7 +3,7 @@ using AlertToCare.BusinessLogic;
 using AlertToCare.Models;
 using Xunit;
 
-namespace AlertToCare.UnitTest.BussinessLogic
+namespace AlertToCare.UnitTest.BusinessLogic
 {
     
     public class PatientBusinessLogicTest

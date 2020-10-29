@@ -2,7 +2,6 @@
 using AlertToCare.Controllers;
 using AlertToCare.Models;
 using AlertToCare.UnitTest.MockBusinessLogic;
-using AlertToCare.UnitTest.MockRepository;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
@@ -106,8 +105,7 @@ namespace AlertToCare.UnitTest.Controller
         {
             var controller = new MedicalDeviceController(_deviceRepo, _patientRepo);
             var response = controller.GetBedOnAlerts("1B");
-            var actualResponse = response as IEnumerable<BedOnAlert>;
-            Assert.NotNull(actualResponse);
+            Assert.NotNull(response);
         }
     }
 }

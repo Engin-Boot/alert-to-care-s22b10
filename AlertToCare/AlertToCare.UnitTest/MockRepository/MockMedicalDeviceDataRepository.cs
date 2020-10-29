@@ -42,12 +42,12 @@ namespace AlertToCare.UnitTest.MockRepository
             
         }
 
-        public IEnumerable<BedOnAlert> getAllAlerts(string wardNumber)
+        public IEnumerable<BedOnAlert> GetAllAlerts(string wardNumber)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool raiseAlert(string bedId, string device, int value)
+        public bool RaiseAlert(string bedId, string device, int value)
         {
             if (bedId == "1A1")
                 return true;

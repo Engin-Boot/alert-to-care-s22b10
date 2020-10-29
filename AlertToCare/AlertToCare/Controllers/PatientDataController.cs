@@ -84,9 +84,9 @@ namespace AlertToCare.Controllers
                 _patientBusinessLogic.InsertPatient(patient);
                 _patientBusinessLogic.AllotBed(patient, wardNumber, bedId);
             }
-            catch
+            catch(Exception e)
             {
-        
+                Console.WriteLine(e);
             }
         }
         [HttpDelete("BedAllocation/{patientId}")]
