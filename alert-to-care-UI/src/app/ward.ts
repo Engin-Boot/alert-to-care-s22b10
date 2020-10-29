@@ -1,13 +1,19 @@
 export class Wards {
 
     WardNumber:string;
-    TotalBed:string;
+    NumberOfBed:number;
     Department:string;
+    NumberOfRow:number;
+    NumberOfColumn:number;
 
-    constructor(WardNumber,TotalBed,Department)
+
+
+    constructor(WardNumber,NumberOfBed,Department,NumberOfRow,NumberOfColumn)
     {
         this.WardNumber = WardNumber;
-        this.TotalBed = TotalBed;
+        this.NumberOfBed = NumberOfBed;
         this.Department = Department;
+        this.NumberOfColumn = NumberOfColumn;
+        this.NumberOfRow = NumberOfRow;
     }
 }

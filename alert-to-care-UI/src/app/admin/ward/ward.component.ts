@@ -11,9 +11,9 @@ export class WardComponent implements OnInit {
   constructor(private wardAdd:addWardService) { }
 
   wardNumber:string;
-  beds:string;
   department:string;
-  
+  columns:number;
+  rows:number = 2; 
   
 
   ngOnInit(): void {
@@ -21,7 +21,8 @@ export class WardComponent implements OnInit {
 
   addWard()
   {
-    let ward = {WardNumber:this.wardNumber,TotalBed:this.beds,Department:this.department}
+    let ward = {WardNumber:this.wardNumber,NumberOfBed:(this.columns)*2,Department:this.department,NumberOfRow:this.rows,NumberOfColumns:this.columns}
+    console.log(ward);
     this.wardAdd.addWard(ward).subscribe(
       (response)=>
       {
@@ -34,3 +35,4 @@ export class WardComponent implements OnInit {
     alert("Ward Added");
   }
 }
+
