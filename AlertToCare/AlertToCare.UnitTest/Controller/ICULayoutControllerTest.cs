@@ -41,8 +41,8 @@ namespace AlertToCare.UnitTest.Controller
             };
             var actualResponse = controller.InsertIcuWardInfo(model);
             var actualResponseObject = actualResponse as StatusCodeResult;
-            Assert.Null(actualResponseObject);
-            //Assert.Equal(500, actualResponseObject.StatusCode);
+            Assert.NotNull(actualResponseObject);
+            Assert.Equal(500, actualResponseObject.StatusCode);
         }
         [Fact]
         public void TestgetMethod()
